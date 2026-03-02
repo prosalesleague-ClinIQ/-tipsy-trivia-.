@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATABASE_URL=/app/data/tipsy-trivia.db
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-changeme}
+      - SESSION_SECRET=${SESSION_SECRET:-change-me}
+      - AD_PROVIDER=dev
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:80
+    volumes:
+      - db_data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+      args:
+        - VITE_SERVER_URL=http://localhost:3001
+        - VITE_WS_URL=ws://localhost:3001
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    restart: unless-stopped
+
+volumes:
+  db_data:

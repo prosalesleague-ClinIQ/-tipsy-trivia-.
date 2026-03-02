@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: tipsy-trivia-server
+    env: docker
+    dockerfilePath: ./Dockerfile.server
+    plan: free
+    envVars:
+      - key: PORT
+        value: "3001"
+      - key: DATABASE_URL
+        value: "/app/data/tipsy-trivia.db"
+      - key: NODE_ENV
+        value: "production"
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"
+
+  - type: web
+    name: tipsy-trivia-client
+    env: static
+    plan: free
+    buildCommand: npm install -g pnpm && pnpm install --frozen-lockfile && pnpm --filter shared build && pnpm --filter client build
+    staticPublishPath: ./client/dist
+    envVars:
+      - key: VITE_SERVER_URL
+        fromService:
+          type: web
+          name: tipsy-trivia-server
+          envVarKey: RENDER_EXTERNAL_URL

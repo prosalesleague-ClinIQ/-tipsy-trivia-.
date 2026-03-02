@@ -1,0 +1,190 @@
+{
+    "id": "food-history-plot-twists",
+    "name": "Food History Plot Twists Pack",
+    "description": "Questions about the food you eat and the weird paths it took to get on your plate.",
+    "author": "Tipsy Trivia",
+    "version": "1.0",
+    "created_at": "2024-01-01",
+    "questions": [
+        {
+            "id": "fhpt-001",
+            "pack_id": "food-history-plot-twists",
+            "category": "Food",
+            "difficulty": "Easy",
+            "prompt": "Chocolate was a drink for most of history. When was the first solid chocolate bar made?",
+            "options": [
+                "1250 CE",
+                "1650 CE",
+                "1847 CE",
+                "1920 CE"
+            ],
+            "correct_index": 2,
+            "explanation": "The first solid chocolate bar was created by British company J.S. Fry & Sons in 1847. People had been drinking chocolate since at least 1500 BCE without thinking 'what if it was a rectangle?'",
+            "tags": [
+                "food",
+                "history",
+                "chocolate"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "For most of human history the chocolate bar didn't exist, and this fact should cause more outrage than it does.",
+            "why_weird": "3,500 years of everyone drinking chocolate and nobody made it solid until the 1840s. We were one idea away the whole time.",
+            "source_title": "Smithsonian: History of Chocolate",
+            "source_url": "https://www.smithsonianmag.com/arts-culture/a-brief-history-of-chocolate-21860917/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "firstchocolatebar1847jsfryandsons",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "fhpt-002",
+            "pack_id": "food-history-plot-twists",
+            "category": "Food",
+            "difficulty": "Easy",
+            "prompt": "Lobsters were once so plentiful they were considered what in colonial America?",
+            "options": [
+                "Sacred food",
+                "Pest food for the poor",
+                "Bait only",
+                "Royal-only food"
+            ],
+            "correct_index": 1,
+            "explanation": "In colonial America, lobsters washed up on beaches in piles two feet deep. They were fed to prisoners and servants. Massachusetts servants demanded contracts limiting how often they were served lobster.",
+            "tags": [
+                "food",
+                "history",
+                "lobster"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The most expensive restaurant seafood was once considered too embarrassing to serve to guests.",
+            "why_weird": "Lobster went from prison food to a $60 entrée in about 150 years. The lobster didn't change. Our scarcity did.",
+            "source_title": "Smithsonian: When Lobster Was Poverty Food",
+            "source_url": "https://www.smithsonianmag.com/arts-culture/when-lobster-was-considered-the-poor-mans-meal-180974742/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "lobsterpoverty foodprisonercolonialamerica",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "fhpt-003",
+            "pack_id": "food-history-plot-twists",
+            "category": "Food",
+            "difficulty": "Medium",
+            "prompt": "Caesar salad was invented in which country?",
+            "options": [
+                "Italy",
+                "United States",
+                "France",
+                "Mexico"
+            ],
+            "correct_index": 3,
+            "explanation": "Caesar salad was invented in 1924 by Caesar Cardini at his restaurant in Tijuana, Mexico. It was improvised from available ingredients on July 4th to feed a large hungry crowd.",
+            "tags": [
+                "food",
+                "history",
+                "salad"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Every fancy restaurant Caesar salad traces its heritage to a Tijuana improvisation on July 4th.",
+            "why_weird": "The salad named after a Roman emperor was invented by an Italian in Mexico on American Independence Day. None of those facts belong together.",
+            "source_title": "LA Magazine: True Origin of Caesar Salad",
+            "source_url": "https://lamag.com/food/caesar-salad-origin-tijuana/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "caesarsaladtijuana1924caesarcardini",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "fhpt-004",
+            "pack_id": "food-history-plot-twists",
+            "category": "Food",
+            "difficulty": "Medium",
+            "prompt": "Bananas are technically what type of plant?",
+            "options": [
+                "Tree",
+                "Large grass",
+                "Vine",
+                "Shrub"
+            ],
+            "correct_index": 1,
+            "explanation": "Banana plants are the world's largest herbaceous plants — giant grasses. What looks like a trunk is a 'pseudostem' made of tightly packed leaf bases. The plant has no woody tissue at all.",
+            "tags": [
+                "food",
+                "plants",
+                "biology"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The banana does not grow on a tree. Nothing about the banana is what you think it is.",
+            "why_weird": "You are eating a grass fruit. Everything is different now.",
+            "source_title": "FAO: Banana Fact Sheet",
+            "source_url": "https://www.fao.org/banana/en/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "bananaplantlargestgrassherbpseudostem",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "fhpt-005",
+            "pack_id": "food-history-plot-twists",
+            "category": "Food",
+            "difficulty": "Hard",
+            "prompt": "Pineapples were so rare in 18th-century England that wealthy people did what with them?",
+            "options": [
+                "Used them as currency",
+                "Rented them to display at parties",
+                "Wore them as hats",
+                "Gave them as dowries"
+            ],
+            "correct_index": 1,
+            "explanation": "A single pineapple could cost £5,000 equivalent today. Aristocrats rented pineapples by the night to carry them to dinner parties as status symbols — not to eat, just to display. The same pineapple rotated through multiple parties before being sold.",
+            "tags": [
+                "food",
+                "history",
+                "england"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Pineapples were once so expensive you could rent one for the evening. Just to carry it.",
+            "why_weird": "Rich Englishmen rented a fruit, showed it off, and returned it uneaten. It was a pure status flex for tropical produce.",
+            "source_title": "Historic England: Pineapple as Status Symbol",
+            "source_url": "https://historicengland.org.uk/research/results/reports/7-2010/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "pineapplerentdenglsand18thcenturyparties",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "fhpt-006",
+            "pack_id": "food-history-plot-twists",
+            "category": "Food",
+            "difficulty": "Hard",
+            "prompt": "John Harvey Kellogg invented cornflakes in the 1890s for what original purpose?",
+            "options": [
+                "Quick soldier rations",
+                "Suppressing physical urges",
+                "Curing iron deficiency",
+                "Church fundraising"
+            ],
+            "correct_index": 1,
+            "explanation": "Kellogg developed cornflakes as a bland food intended to suppress desire as part of his anti-vice health regimen at his sanitarium. He believed plain food would reduce urges. He was wrong, but cornflakes survived.",
+            "tags": [
+                "food",
+                "history",
+                "medicine"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Your breakfast cereal exists because a Victorian doctor was very concerned about impulse control.",
+            "why_weird": "Cornflakes were invented as a medical intervention and are now international breakfast. The reason is on cereal boxes nowhere.",
+            "source_title": "Smithsonian: Surprising Origins of Corn Flakes",
+            "source_url": "https://www.smithsonianmag.com/smart-news/corn-flakes-kellogg-history/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "cornflakeskelloggvictorian1890ssanitarium",
+            "claim_strength": "Primary",
+            "content_flags": []
+        }
+    ]
+}

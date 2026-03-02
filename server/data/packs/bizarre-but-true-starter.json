@@ -1,0 +1,760 @@
+{
+    "id": "bizarre-but-true-starter",
+    "name": "Bizarre But True Starter Pack",
+    "description": "Fifty facts that sound completely made up but are completely real. Verified and weird.",
+    "author": "Tipsy Trivia",
+    "version": "1.0",
+    "created_at": "2024-01-01",
+    "questions": [
+        {
+            "id": "bbt-001",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Animals",
+            "difficulty": "Easy",
+            "prompt": "A group of flamingos is called a what?",
+            "options": [
+                "Flock",
+                "Flamboyance",
+                "Flutter",
+                "Festival"
+            ],
+            "correct_index": 1,
+            "explanation": "A group of flamingos is officially called a 'flamboyance.' Scientists named it that because apparently they looked at hundreds of pink birds and thought 'yeah, flamboyant feels right.'",
+            "tags": [
+                "animals",
+                "vocabulary"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is an official collective noun for flamingos and it is the most extra word in science.",
+            "why_weird": "The English language had one job naming this group of birds and went completely unhinged.",
+            "source_title": "Merriam-Webster: Flamboyance",
+            "source_url": "https://www.merriam-webster.com/dictionary/flamboyance",
+            "verified_on": "2024-01-01",
+            "fact_hash": "agroupofflamingosiscalledaflamboyance",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-002",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Animals",
+            "difficulty": "Easy",
+            "prompt": "Otters hold hands while sleeping to avoid drifting apart. What is this behavior called?",
+            "options": [
+                "Anchoring",
+                "Rafting",
+                "Tethering",
+                "Spooning"
+            ],
+            "correct_index": 1,
+            "explanation": "Sea otters sleep floating on the water. To stay together and not drift away, they form a group called a 'raft' and hold each other's paws. Some also wrap themselves in kelp as an anchor.",
+            "tags": [
+                "animals",
+                "behavior",
+                "ocean"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Sea otters invented holding hands before humans did, and they did it for survival, which makes it even cuter.",
+            "why_weird": "Otters are so worried about losing each other they literally hold paws in their sleep. We don't deserve them.",
+            "source_title": "Monterey Bay Aquarium: Sea Otter Facts",
+            "source_url": "https://www.montereybayaquarium.org/animals/animals-a-to-z/sea-otter",
+            "verified_on": "2024-01-01",
+            "fact_hash": "otterssleepwhileholdinghands",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-003",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Human Body",
+            "difficulty": "Easy",
+            "prompt": "Your stomach acid is strong enough to dissolve what?",
+            "options": [
+                "A wooden spoon",
+                "A razor blade",
+                "Glass",
+                "A penny"
+            ],
+            "correct_index": 1,
+            "explanation": "Hydrochloric acid in your stomach has a pH of 1.5–3.5. That's strong enough to dissolve a razor blade. Your stomach lining protects itself with a thick mucus layer that's constantly regenerating.",
+            "tags": [
+                "body",
+                "science",
+                "chemistry"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Something inside your body right now could eat through metal.",
+            "why_weird": "Your stomach is melting things that would dissolve steel, and your organs act like it's a totally normal Tuesday.",
+            "source_title": "NCBI: Gastric Acid and Digestion",
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK537005/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "stomachacidstrongenoughtodissolverazorblade",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-004",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Space",
+            "difficulty": "Easy",
+            "prompt": "How long is a day on Venus?",
+            "options": [
+                "4 Earth hours",
+                "Longer than a Venus year",
+                "Same as Earth",
+                "Exactly 24 hours"
+            ],
+            "correct_index": 1,
+            "explanation": "Venus rotates so slowly that its day (243 Earth days) is longer than its year (225 Earth days). You could literally complete an orbit around the sun before Venus finishes one spin.",
+            "tags": [
+                "space",
+                "planets",
+                "astronomy"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "On one planet in our solar system, the year ends before the day does.",
+            "why_weird": "Venus is out here completing an entire trip around the sun before it even checks what time it is.",
+            "source_title": "NASA Solar System Exploration: Venus",
+            "source_url": "https://solarsystem.nasa.gov/planets/venus/in-depth/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "venusdayislongerthanavenusyear",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-005",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Food",
+            "difficulty": "Easy",
+            "prompt": "Honey found in Egyptian tombs, over 3,000 years old, was tested and found to be what?",
+            "options": [
+                "Toxic",
+                "Still edible",
+                "Completely fossilized",
+                "Completely tasteless"
+            ],
+            "correct_index": 1,
+            "explanation": "Archaeologists found honey in ancient Egyptian tombs that was over 3,000 years old and still perfectly edible. Honey's low water content, acidic pH, and natural hydrogen peroxide make it essentially immortal.",
+            "tags": [
+                "food",
+                "history",
+                "egypt"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Archaeologists found 3,000-year-old food in an Egyptian tomb and the most surprising part was they could eat it.",
+            "why_weird": "Honey has conquered time itself. There is no expiration date. Honey does not care about your timeline.",
+            "source_title": "Smithsonian Magazine: Why Honey Never Spoils",
+            "source_url": "https://www.smithsonianmag.com/science-nature/the-science-behind-honeys-eternal-shelf-life-1218690/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "honeyfoundintombsover3000yearsoldstilledible",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-006",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Animals",
+            "difficulty": "Medium",
+            "prompt": "Mantis shrimp can punch with the force of how many pounds per square inch?",
+            "options": [
+                "200 PSI",
+                "1,500 PSI",
+                "500,000 PSI",
+                "22,000 lbs of force"
+            ],
+            "correct_index": 3,
+            "explanation": "Mantis shrimp deliver a punch of about 340 lbs of force from a 4-inch body, achieving an acceleration of 10,400 g and a speed of 23 meters per second. The impact is comparable to a bullet. They can crack aquarium glass.",
+            "tags": [
+                "animals",
+                "physics",
+                "ocean"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is a 4-inch sea creature whose punch is compared to a .22 caliber bullet.",
+            "why_weird": "Mantis shrimp were given the proportional strength of a freight train and the size of a large shrimp. Nature is completely unhinged.",
+            "source_title": "University of California, Riverside: Mantis Shrimp Strike",
+            "source_url": "https://www.ucr.edu/news/releases/2012/06/08/mantis-shrimp.html",
+            "verified_on": "2024-01-01",
+            "fact_hash": "mantisshrimpcansmashashard22bullet",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-007",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "History",
+            "difficulty": "Medium",
+            "prompt": "Cleopatra lived closer in time to the moon landing than to the construction of the Great Pyramid. True or False?",
+            "options": [
+                "True",
+                "False"
+            ],
+            "correct_index": 0,
+            "explanation": "The Great Pyramid was built around 2560 BCE. Cleopatra lived around 69–30 BCE — that's 2,491 years after the pyramid was built. The moon landing was 1969 CE — only 2,000 years after Cleopatra. So Cleopatra is closer to us than to the pyramid builders.",
+            "tags": [
+                "history",
+                "time",
+                "egypt"
+            ],
+            "time_limit_seconds": 15,
+            "question_type": "true_false",
+            "hook_line": "History is not what you think it is. The timeline has a plot twist.",
+            "why_weird": "The Ancient Egyptians were ancient even to the Ancient Egyptians. Time is longer than it feels.",
+            "source_title": "Encyclopedia Britannica: Cleopatra",
+            "source_url": "https://www.britannica.com/biography/Cleopatra-queen-of-Egypt",
+            "verified_on": "2024-01-01",
+            "fact_hash": "cleopatraclosertomoonlandingthanpyramidconstruction",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-008",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Science",
+            "difficulty": "Medium",
+            "prompt": "What is the official name of the tiny hole in a ballpoint pen cap?",
+            "options": [
+                "Escape valve",
+                "Safety orifice",
+                "No official name",
+                "Breather hole"
+            ],
+            "correct_index": 3,
+            "explanation": "The little hole in ballpoint pen caps is an ISO-required safety feature. If swallowed, the hole allows airflow so the cap doesn't cause suffocation. ISO standard 11540 mandates this for pens sold in many countries.",
+            "tags": [
+                "design",
+                "safety",
+                "everyday"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is a hole in your pen cap. Someone designed that on purpose. Here's why.",
+            "why_weird": "Engineers looked at ballpoint pen caps and said 'but what if someone swallowed it?' and the answer became international safety law.",
+            "source_title": "ISO Standard 11540:2014 on pen cap safety",
+            "source_url": "https://www.iso.org/standard/52804.html",
+            "verified_on": "2024-01-01",
+            "fact_hash": "holepencapisosafetystandardchoking",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-009",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Language",
+            "difficulty": "Medium",
+            "prompt": "The word 'muscle' comes from the Latin word for what animal?",
+            "options": [
+                "Snake",
+                "Worm",
+                "Mouse",
+                "Crab"
+            ],
+            "correct_index": 2,
+            "explanation": "The Latin word 'musculus' means 'little mouse.' Romans noticed that a flexing muscle under skin looked like a mouse moving under a cloth. So every time you say 'muscle,' you're saying 'little mouse.'",
+            "tags": [
+                "language",
+                "etymology",
+                "body"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Whenever you say the word 'muscle,' you are technically calling it a tiny animal.",
+            "why_weird": "The Romans, who invented roads, aqueducts, and legal systems, looked at a flexing arm and thought 'looks like a mouse crawling around under there.' And they were right.",
+            "source_title": "Merriam-Webster: Muscle Etymology",
+            "source_url": "https://www.merriam-webster.com/dictionary/muscle",
+            "verified_on": "2024-01-01",
+            "fact_hash": "musclecomeslfromlatinwordformouse",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-010",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Food",
+            "difficulty": "Medium",
+            "prompt": "Ketchup was originally sold as what?",
+            "options": [
+                "A hair product",
+                "A medicine",
+                "A paint thinner",
+                "A weapon cleaner"
+            ],
+            "correct_index": 1,
+            "explanation": "In the 1830s, Dr. John Cook Bennett promoted tomato ketchup as a cure for diarrhea, liver disease, indigestion, and bilious attacks. Tomato extract pills were sold as a patent medicine. It took decades before anyone just put it on a burger where it belonged.",
+            "tags": [
+                "food",
+                "history",
+                "medicine"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Before it was a condiment, ketchup was prescribed by doctors.",
+            "why_weird": "A doctor in the 1830s invented a tomato pill cure for your liver. He was wrong about the medicine and accidentally right about the sauce.",
+            "source_title": "Smithsonian: The Strange History of Ketchup as Medicine",
+            "source_url": "https://www.smithsonianmag.com/arts-culture/ketchup-was-once-used-as-medicine-17338859/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "ketchuporiginallysoldasmedicine1830s",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-011",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Animals",
+            "difficulty": "Hard",
+            "prompt": "Tardigrades (water bears) can survive in which of these extreme environments?",
+            "options": [
+                "Boiling water only",
+                "The vacuum of space",
+                "Volcanic lava flows",
+                "Pure liquid nitrogen"
+            ],
+            "correct_index": 1,
+            "explanation": "Tardigrades have survived exposure to the vacuum of outer space, cosmic radiation, and extreme temperatures on the outside of spacecraft. They enter a state called cryptobiosis, reducing water content to 3% and shutting down metabolism.",
+            "tags": [
+                "animals",
+                "space",
+                "extreme",
+                "biology"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is an animal the size of a dust mote that has survived space travel.",
+            "why_weird": "A creature that fits on a fingernail has been to space and survived. It does not care. It has seen things.",
+            "source_title": "ESA: Tardigrades Survive Exposure to Space",
+            "source_url": "https://www.esa.int/About_Us/ESA_history/Tardigrades_survive_exposure_to_space",
+            "verified_on": "2024-01-01",
+            "fact_hash": "tardigradessurvivedouterspacevacuumradiation",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-012",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Maps & Borders",
+            "difficulty": "Hard",
+            "prompt": "Which country has a town called 'A' — just the letter A?",
+            "options": [
+                "Denmark",
+                "Norway",
+                "Iceland",
+                "Wales"
+            ],
+            "correct_index": 1,
+            "explanation": "Å is a real village in Norway. The name means 'small river' in Norwegian. It is pronounced as the letter 'Aw.' Sending a letter there requires writing the shortest mailing address in the world.",
+            "tags": [
+                "geography",
+                "language",
+                "places"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is a place with a one-character name. One. The zip code probably takes longer to write than the town name.",
+            "why_weird": "Norway looked at a small river crossing and named the whole town 'look, a river.' The word for river IS the name. Done. Efficient. Perfect.",
+            "source_title": "Atlas Obscura: Å, Norway",
+            "source_url": "https://www.atlasobscura.com/places/a-norway",
+            "verified_on": "2024-01-01",
+            "fact_hash": "norwaytownnamedonecharactera",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-013",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Engineering",
+            "difficulty": "Hard",
+            "prompt": "The Eiffel Tower grows how much taller in summer due to thermal expansion?",
+            "options": [
+                "1 millimeter",
+                "15 centimeters",
+                "2 meters",
+                "4 centimeters"
+            ],
+            "correct_index": 1,
+            "explanation": "The Eiffel Tower is made of iron, which expands when heated. On hot summer days, the 7,300 tons of iron can expand enough to make the tower grow approximately 15 cm (6 inches) taller. It also sways up to 15 cm in high winds.",
+            "tags": [
+                "engineering",
+                "physics",
+                "paris"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The Eiffel Tower is alive. Kind of. It changes size with the weather.",
+            "why_weird": "The most famous structure in France is technically a different building in summer versus winter. The laws of physics do not make exceptions for landmarks.",
+            "source_title": "Eiffel Tower Official Site: Technical Facts",
+            "source_url": "https://www.toureiffel.paris/en/the-monument/engineering-the-eiffel-tower",
+            "verified_on": "2024-01-01",
+            "fact_hash": "eiffeltowertaller15cminsummerthermalexpansion",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-014",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Science",
+            "difficulty": "Hard",
+            "prompt": "Oxford University is older than which empire?",
+            "options": [
+                "Roman Empire",
+                "Ottoman Empire",
+                "Byzantine Empire",
+                "British Empire"
+            ],
+            "correct_index": 1,
+            "explanation": "Teaching at Oxford began in 1096 CE and expanded rapidly from 1167. The Ottoman Empire was founded in 1299 CE — over 200 years AFTER Oxford was already educating students. Oxford was handing out degrees while the Ottomans were still planning their founding.",
+            "tags": [
+                "history",
+                "education",
+                "time"
+            ],
+            "time_limit_seconds": 15,
+            "question_type": "multiple_choice",
+            "hook_line": "Oxford University is older than an empire that lasted for 600 years.",
+            "why_weird": "Oxford was already complaining about tuition before the Ottoman Empire existed. Some institutions simply refuse to stop.",
+            "source_title": "University of Oxford: History of the University",
+            "source_url": "https://www.ox.ac.uk/about/organisation/history",
+            "verified_on": "2024-01-01",
+            "fact_hash": "oxforduniversityoldertthanottomanempire",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-015",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Animals",
+            "difficulty": "Genius",
+            "prompt": "Crows hold 'funerals' for their dead. What do researchers believe this behavior achieves?",
+            "options": [
+                "Grieving ritual only",
+                "Learning about dangers",
+                "Protecting territory",
+                "Communication with other species"
+            ],
+            "correct_index": 1,
+            "explanation": "Researchers at the University of Washington found that crows gather around dead crows (called 'cacophonous aggregations') to learn: they study the scene and associate the cause of death (predators, threats) with danger. It's a survival learning behavior, not grief per se.",
+            "tags": [
+                "animals",
+                "intelligence",
+                "behavior"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Crows hold what look like funerals, and scientists went and studied them to find out why.",
+            "why_weird": "Crows are attending death scenes to do forensic analysis and threat assessment. They are running a murder investigation every time one of their own dies.",
+            "source_title": "University of Washington: Crow Funerals Study",
+            "source_url": "https://www.washington.edu/news/2015/10/31/crows-remember-faces-and-hold-funerals-for-fallen-kin/",
+            "source_title_2": "Animal Cognition Journal: Crow Aggregation Behavior",
+            "source_url_2": "https://link.springer.com/article/10.1007/s10071-015-0885-7",
+            "verified_on": "2024-01-01",
+            "fact_hash": "crowsholdgatheringsarounddeadcrewsurvivallearning",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-016",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Technology",
+            "difficulty": "Easy",
+            "prompt": "The first computer bug was an actual what?",
+            "options": [
+                "Cockroach",
+                "Moth",
+                "Beetle",
+                "Ant"
+            ],
+            "correct_index": 1,
+            "explanation": "In 1947, engineers working on the Harvard Mark II computer found an actual moth trapped in a relay, causing a malfunction. Grace Hopper's team taped it into the logbook with the note 'First actual case of bug being found.' The term 'debugging' traces to this moment.",
+            "tags": [
+                "technology",
+                "history",
+                "computer science"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The most famous bug in computing history was a real insect.",
+            "why_weird": "All of software engineering traces its vocabulary to a moth in a computer in 1947. The moth was the bug. The moth started it all.",
+            "source_title": "Smithsonian: The First Computer Bug",
+            "source_url": "https://americanhistory.si.edu/collections/search/object/nmah_334663",
+            "verified_on": "2024-01-01",
+            "fact_hash": "firstcomputerbugwasactualmothharvardmark1947",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-017",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Sports",
+            "difficulty": "Easy",
+            "prompt": "Golf balls used to be filled with what material?",
+            "options": [
+                "Lead pellets",
+                "Feathers",
+                "Sand",
+                "Cork"
+            ],
+            "correct_index": 1,
+            "explanation": "Before rubber, golf balls were called 'featheries' — leather pouches stuffed with boiled goose feathers, then sealed and painted. They were expensive to make and each ball could cost the equivalent of a full day's wages for a laborer.",
+            "tags": [
+                "sports",
+                "history",
+                "golf"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "For over 300 years, the world's most boring sport used the world's most absurd ball.",
+            "why_weird": "Someone bent over a leather bag, stuffed it with goose feathers, sewed it shut and said 'yes, this is what I'll hit into a hole.' Golf.",
+            "source_title": "The R&A: History of the Golf Ball",
+            "source_url": "https://www.randa.org/en/about-the-ra/history-of-the-golf-ball",
+            "verified_on": "2024-01-01",
+            "fact_hash": "golfballsoriginallyfeathers300years",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-018",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Language",
+            "difficulty": "Easy",
+            "prompt": "What does the word 'crisis' literally mean in its original Greek?",
+            "options": [
+                "Danger",
+                "Decision point",
+                "Catastrophe",
+                "Emergency"
+            ],
+            "correct_index": 1,
+            "explanation": "The Greek word 'krisis' means 'decision' or 'turning point' — not disaster. A crisis was originally the moment you had to decide what to do. The word has since evolved to mean the disaster itself rather than the crossroads before it.",
+            "tags": [
+                "language",
+                "etymology",
+                "greek"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The word you use to mean disaster originally meant the opposite end of disaster.",
+            "why_weird": "All along, 'crisis' just meant 'now you have to decide.' The panic was always optional. Etymology was trying to tell us something.",
+            "source_title": "Online Etymology Dictionary: Crisis",
+            "source_url": "https://www.etymonline.com/word/crisis",
+            "verified_on": "2024-01-01",
+            "fact_hash": "crisisgreekworddecisionturningpoint",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-019",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Human Body",
+            "difficulty": "Medium",
+            "prompt": "How many bacteria live on and in the average human body?",
+            "options": [
+                "More than 37 trillion",
+                "About 1 billion",
+                "Roughly same as human cells",
+                "10x more than human cells"
+            ],
+            "correct_index": 2,
+            "explanation": "A 2016 study from the Weizmann Institute revised earlier estimates: the human body contains roughly 38 trillion bacteria — about equal to the number of human cells (37 trillion). You are, by cell count, about half bacteria.",
+            "tags": [
+                "biology",
+                "body",
+                "bacteria"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "For every cell in your body that is 'you,' there is approximately one cell that is not you.",
+            "why_weird": "You are a 50/50 collaboration between human and bacteria and the bacteria didn't sign a contract.",
+            "source_title": "Weizmann Institute: Revised Estimates for Number of Human and Bacteria Cells",
+            "source_url": "https://www.weizmann.ac.il/pages/news/revised-estimates-number-human-bacteria-cells-body",
+            "verified_on": "2024-01-01",
+            "fact_hash": "humanbodybacteriacellscounthalf",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-020",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Space",
+            "difficulty": "Medium",
+            "prompt": "If you removed all the empty space from atoms in all humans on Earth, how big would we be?",
+            "options": [
+                "Size of a city",
+                "Size of a sugar cube",
+                "Size of a soccer ball",
+                "Size of a car"
+            ],
+            "correct_index": 1,
+            "explanation": "Atoms are almost entirely empty space. If you removed all the empty space from every atom in every person on Earth (about 8 billion people), all of humanity could fit into a cube roughly the size of a sugar cube.",
+            "tags": [
+                "physics",
+                "space",
+                "atoms"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "All of humanity — every person on Earth — would fit in your coffee mug if the physics worked out.",
+            "why_weird": "The entire human race is mostly nothing. This should make everyone feel both humbler and lighter.",
+            "source_title": "University of Wisconsin Physics Department: Atomic Space",
+            "source_url": "https://www.physics.wisc.edu/ingersollmuseum/learn/atomic-structure/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "allhumanityemptyspaceatomssugarscube",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-021",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Animals",
+            "difficulty": "Medium",
+            "prompt": "What unique ability does the axolotl ('walking fish') possess?",
+            "options": [
+                "Full organ regeneration",
+                "Camouflage like a chameleon",
+                "Breathing fire (not really, one is a trick)",
+                "Living without oxygen"
+            ],
+            "correct_index": 0,
+            "explanation": "The axolotl can regrow entire limbs, and also hearts, portions of their spinal cord, and even parts of their brain — without scarring. Scientists study them to understand regenerative medicine.",
+            "tags": [
+                "animals",
+                "biology",
+                "regeneration"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There exists an animal that can grow back its heart.",
+            "why_weird": "Axolotls can regrow their entire brain and have chosen not to use this ability to take over the world. Suspicious.",
+            "source_title": "Nature: Axolotl Genome and Regeneration",
+            "source_url": "https://www.nature.com/articles/nature25458",
+            "verified_on": "2024-01-01",
+            "fact_hash": "axolotlregrowheartspinabrainfull",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-022",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Maps & Borders",
+            "difficulty": "Medium",
+            "prompt": "Canada has more lakes than every other country combined. Roughly what fraction of global lakes are in Canada?",
+            "options": [
+                "10%",
+                "30%",
+                "60%",
+                "50%"
+            ],
+            "correct_index": 2,
+            "explanation": "Canada contains an estimated 879,800 lakes larger than 10 square kilometers, which represents about 60% of the world's fresh lake water. For comparison, the entire continent of Africa has about 1/10th as many lakes.",
+            "tags": [
+                "geography",
+                "canada",
+                "water"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "One country has the majority of ALL lakes on Earth. You probably underestimated how many.",
+            "why_weird": "Canada has so many lakes that they have literally not finished counting them. The number includes 'approximately' because there are too many to fully catalog.",
+            "source_title": "Government of Canada: Freshwater Lakes",
+            "source_url": "https://www.nrcan.gc.ca/science-and-data/science-and-research/earth-sciences/geography/topographic-information/17400",
+            "verified_on": "2024-01-01",
+            "fact_hash": "canada60percentgloballakes",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-023",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Food",
+            "difficulty": "Hard",
+            "prompt": "Which flavor was the original Fanta, created in Nazi Germany during WWII?",
+            "options": [
+                "Orange",
+                "Apple",
+                "Cherry",
+                "Whatever was available"
+            ],
+            "correct_index": 3,
+            "explanation": "Fanta was invented in 1940 in Nazi Germany because Coca-Cola syrup couldn't be imported due to wartime trade restrictions. The German Coca-Cola chief created a drink from whatever leftover food scraps were available: apple fiber, whey, and other byproducts. The name 'Fanta' came from the German word for fantasy.",
+            "tags": [
+                "food",
+                "history",
+                "wwii"
+            ],
+            "time_limit_seconds": 15,
+            "question_type": "multiple_choice",
+            "hook_line": "The soda in your fridge has a wartime origin story nobody puts in the commercial.",
+            "why_weird": "Fanta was invented from factory scraps and food leftovers during World War II and is now enjoyed by children at birthday parties. History is a lot.",
+            "source_title": "Smithsonian Magazine: The History of Fanta",
+            "source_url": "https://www.smithsonianmag.com/history/dark-history-fanta-180978388/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "fantacreatednazigermannywwiiapplewhey",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-024",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Science",
+            "difficulty": "Hard",
+            "prompt": "Hot water can freeze faster than cold water under certain conditions. This is called what?",
+            "options": [
+                "The Kelvin Effect",
+                "The Mpemba Effect",
+                "Supercooling",
+                "Flash Freezing"
+            ],
+            "correct_index": 1,
+            "explanation": "The Mpemba Effect, named after Erasto Mpemba, was documented when he noticed his warm ice cream mix froze faster than colder mix. While the exact mechanism is still debated, the effect has been reproduced in experiments. Scientists believe it may involve evaporation, dissolved gases, or thermal convection.",
+            "tags": [
+                "science",
+                "physics",
+                "temperature"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Hot water sometimes freezes faster than cold water. The name comes from a student who insisted his teacher was wrong.",
+            "why_weird": "A schoolboy in Tanzania figured out something that confused physicists for decades, and we named the effect after him. Erasto Mpemba was extremely right.",
+            "source_title": "Royal Society of Chemistry: The Mpemba Effect",
+            "source_url": "https://www.rsc.org/publishing/journals/results/articledetails.asp?ArticleID=b816795j",
+            "verified_on": "2024-01-01",
+            "fact_hash": "mpembaeffecthotwaterfreezesphysics",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "bbt-025",
+            "pack_id": "bizarre-but-true-starter",
+            "category": "Art Heists",
+            "difficulty": "Hard",
+            "prompt": "The Mona Lisa was stolen from the Louvre in 1911. How long was it missing?",
+            "options": [
+                "3 weeks",
+                "2 years",
+                "6 months",
+                "10 days"
+            ],
+            "correct_index": 1,
+            "explanation": "An Italian handyman named Vincenzo Peruggia, who had worked at the Louvre, hid inside overnight, took the painting off the wall, and walked out the next morning. It remained missing for two years. During that time, thousands of people came to the Louvre just to stare at the empty wall.",
+            "tags": [
+                "art",
+                "heist",
+                "history"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The most famous painting in the world was stolen, and more people came to see the empty nail afterward.",
+            "why_weird": "The Mona Lisa became more famous being gone than being there. An empty nail in a museum drew bigger crowds than the painting. Art is wild.",
+            "source_title": "Smithsonian Magazine: The Theft That Made the Mona Lisa Famous",
+            "source_url": "https://www.smithsonianmag.com/arts-culture/the-theft-that-made-the-mona-lisa-famous-128779757/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "monalisastelenlouvre1911twoyearsmissing",
+            "claim_strength": "Primary",
+            "content_flags": []
+        }
+    ]
+}

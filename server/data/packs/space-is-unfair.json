@@ -1,0 +1,374 @@
+{
+    "id": "space-is-unfair",
+    "name": "Space Is Unfair Pack",
+    "description": "40 questions about the cosmos where the facts are real and the scale is incomprehensible.",
+    "author": "Tipsy Trivia",
+    "version": "1.0",
+    "created_at": "2024-01-01",
+    "questions": [
+        {
+            "id": "siu-001",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Easy",
+            "prompt": "If the Sun were the size of a front door (about 2m tall), how big would Earth be?",
+            "options": [
+                "A basketball",
+                "A tennis ball",
+                "A coin",
+                "A marble"
+            ],
+            "correct_index": 3,
+            "explanation": "The Sun is about 109 times the diameter of Earth. If the Sun were 2 meters (a typical door height), Earth would be roughly 1.8 cm across — about the size of a small marble.",
+            "tags": [
+                "space",
+                "scale",
+                "sun",
+                "earth"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Someone made a scale model of the solar system that required a desert to fit in.",
+            "why_weird": "The Sun is so much larger than Earth that the comparison breaks human intuition every single time.",
+            "source_title": "NASA: Size and Scale of the Solar System",
+            "source_url": "https://solarsystem.nasa.gov/resources/310/solar-system-sizes/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "sunearth109timesdiametersizescale",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-002",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Easy",
+            "prompt": "How long does it take light to travel from the Sun to Earth?",
+            "options": [
+                "3 seconds",
+                "8 minutes",
+                "1 hour",
+                "23 minutes"
+            ],
+            "correct_index": 1,
+            "explanation": "Light travels at 299,792 km/s. The distance from Sun to Earth is about 149.6 million km. Dividing gives approximately 499 seconds — about 8 minutes and 20 seconds. So the sunlight you see right now left the Sun before your last snack.",
+            "tags": [
+                "space",
+                "light",
+                "physics"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The sunlight hitting your face right now is 8 minutes old. You are technically watching the past.",
+            "why_weird": "Everything you see in space is a time machine. The further away it is, the older the light you're seeing.",
+            "source_title": "NASA: How Far Away Is the Sun?",
+            "source_url": "https://spaceplace.nasa.gov/sun-distance/en/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "lightsunearthtraveleight minutes",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-003",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Easy",
+            "prompt": "What color is a sunset on Mars?",
+            "options": [
+                "Red and orange",
+                "Purple",
+                "Blue",
+                "Yellow"
+            ],
+            "correct_index": 2,
+            "explanation": "On Mars, sunsets appear blue because fine dust in the Martian atmosphere scatters light differently than Earth's atmosphere. During the day, Mars looks pinkish-red; at dusk, the sky near the sun turns distinctly blue. NASA's Curiosity rover has photographed this.",
+            "tags": [
+                "space",
+                "mars",
+                "atmosphere"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The planet known as the Red Planet has blue sunsets. Make that make sense.",
+            "why_weird": "Mars contradicts itself. It is red but has blue sunsets. The universe doesn't owe you consistency.",
+            "source_title": "NASA JPL: Curiosity Documents Blue Martian Sunset",
+            "source_url": "https://www.jpl.nasa.gov/news/nasa-curiosity-rover-sees-a-blue-sunset-on-mars",
+            "verified_on": "2024-01-01",
+            "fact_hash": "marssunsetbluedustcuriosity",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-004",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Medium",
+            "prompt": "There is a gas cloud in space that smells like what?",
+            "options": [
+                "Burning metal",
+                "Rum and raspberries",
+                "Rotten eggs",
+                "Fresh rain"
+            ],
+            "correct_index": 1,
+            "explanation": "The Sagittarius B2 molecular cloud, near the center of our galaxy, contains ethyl formate — the chemical compound responsible for the smell of raspberries and the taste of rum. Scientists found this in 2009 using radio-wave spectroscopy.",
+            "tags": [
+                "space",
+                "chemistry",
+                "milky way"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is a cloud in space large enough to dwarf our solar system, and it smells like a cocktail.",
+            "why_weird": "The center of the Milky Way smells like a bar. The universe apparently has a theme going.",
+            "source_title": "Royal Astronomical Society: Raspberry Rum Space Cloud",
+            "source_url": "https://ras.ac.uk/news-and-press/news/raspberry-rum-space-cloud",
+            "verified_on": "2024-01-01",
+            "fact_hash": "sagittariusb2rumraspberriesethylfomate",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-005",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Medium",
+            "prompt": "Neutron stars spin so fast they complete revolutions in how long?",
+            "options": [
+                "30 seconds",
+                "Less than 1 second",
+                "10 milliseconds",
+                "All of the above sizes exist"
+            ],
+            "correct_index": 3,
+            "explanation": "Pulsars (rotating neutron stars) can complete between 1 and 700 rotations per second. Some 'millisecond pulsars' complete full rotations in under 2 milliseconds. The fastest known, PSR J1748-2446ad, rotates 716 times per second.",
+            "tags": [
+                "space",
+                "neutron stars",
+                "pulsars"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "A dead star the size of a city can rotate 716 times per second and continues to accelerate.",
+            "why_weird": "A neutron star is so dense that a teaspoon would weigh a billion tons, and it is also spinning faster than a helicopter blade. Nature appears to be showing off.",
+            "source_title": "NRAO: Fastest Spinning Pulsar",
+            "source_url": "https://public.nrao.edu/news/pulsarmost/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "fastestpulsarrotates716timespersecond",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-006",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Medium",
+            "prompt": "How many Earths could fit inside the Sun?",
+            "options": [
+                "About 100",
+                "About 10,000",
+                "About 1 million",
+                "About 100 million"
+            ],
+            "correct_index": 2,
+            "explanation": "The Sun's volume is about 1.41 × 10^18 km³, while Earth's is about 1.08 × 10^12 km³. Dividing gives approximately 1.3 million Earths fitting inside the Sun — accounting for packing inefficiency, about 960,000 if packed perfectly.",
+            "tags": [
+                "space",
+                "sun",
+                "scale"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The Sun could swallow everything we have ever known, plus about a million more of it.",
+            "why_weird": "One million Earths could disappear inside the Sun and it wouldn't notice. The Sun does not care.",
+            "source_title": "NASA Solar System Exploration: Sun Facts",
+            "source_url": "https://solarsystem.nasa.gov/solar-system/sun/by-the-numbers/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "1millionearthsfitinsidethesun",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-007",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Hard",
+            "prompt": "The Voyager 1 probe was launched in 1977. As of the 2020s, it is the farthest human-made object from Earth. How far away is it?",
+            "options": [
+                "Past the Moon",
+                "Past Mars",
+                "Past the edge of our solar system",
+                "About halfway to the nearest star"
+            ],
+            "correct_index": 2,
+            "explanation": "As of the 2020s, Voyager 1 is more than 23 billion km from Earth — beyond the heliopause, the boundary of our solar system where the Sun's solar wind diminishes. Scientists still communicate with it using radio signals that take over 22 hours to arrive each way.",
+            "tags": [
+                "space",
+                "voyager",
+                "spacecraft"
+            ],
+            "time_limit_seconds": 15,
+            "question_type": "multiple_choice",
+            "hook_line": "A spacecraft launched before home video was invented is still on its way out of the solar system.",
+            "why_weird": "Voyager 1 runs on the power equivalent of a nightlight and is the only human object in interstellar space. We're corresponding with it via 22-hour text delays.",
+            "source_title": "NASA Jet Propulsion Laboratory: Voyager Mission Status",
+            "source_url": "https://voyager.jpl.nasa.gov/mission/status/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "voyager1interstellarspaceheliopause23billion",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-008",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Hard",
+            "prompt": "Saturn's rings are impressively wide but how thick are they?",
+            "options": [
+                "Thousands of miles",
+                "About as thick as a 10-story building",
+                "Similar to a piece of paper by comparison",
+                "About 100 miles"
+            ],
+            "correct_index": 2,
+            "explanation": "Saturn's rings span up to 282,000 km in diameter, but their thickness is typically only 10-100 meters. The ratio of diameter to thickness is akin to a piece of paper about 1 km across. They are essentially a flat disk of ice and rock with absurd proportions.",
+            "tags": [
+                "space",
+                "saturn",
+                "rings",
+                "physics"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Saturn's rings are so thin compared to their width that they'd barely register if you scaled them down.",
+            "why_weird": "Saturn's rings are wider than the distance between Earth and the Moon, but as thick as a 10-story building. Space has no sense of proportion.",
+            "source_title": "NASA Saturn Fact Sheet",
+            "source_url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturnfact.html",
+            "verified_on": "2024-01-01",
+            "fact_hash": "saturnringsthickpaper100meters282000wide",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-009",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Genius",
+            "prompt": "What is the Great Attractor, and why can't we see it directly?",
+            "options": [
+                "A black hole hidden behind the Moon",
+                "A gravity anomaly hidden by our own galaxy",
+                "A rogue planet crossing our path",
+                "Dark matter concentrated at a star"
+            ],
+            "correct_index": 1,
+            "explanation": "The Great Attractor is a gravitational anomaly pulling our galaxy and surrounding galaxies toward a point in the Centaurus constellation. It's hidden behind the 'Zone of Avoidance' — the galactic plane of the Milky Way, which blocks light. Only X-ray and radio telescopes can peer through it.",
+            "tags": [
+                "space",
+                "cosmology",
+                "gravity"
+            ],
+            "time_limit_seconds": 15,
+            "question_type": "multiple_choice",
+            "hook_line": "Our entire galaxy is being pulled toward something we cannot see, and the Milky Way itself is blocking our view.",
+            "why_weird": "The universe has something enormous pulling millions of galaxies toward it, and our own galaxy is physically in the way of seeing what it is. This is just where we live.",
+            "source_title": "ESA: The Great Attractor",
+            "source_url": "https://www.esa.int/Science_Exploration/Space_Science/The_Great_Attractor",
+            "source_title_2": "Royal Astronomical Society: Mapping the Great Attractor",
+            "source_url_2": "https://ras.ac.uk/news-and-press/research-highlights/mapping-great-attractor",
+            "verified_on": "2024-01-01",
+            "fact_hash": "greatattractorgravityanomaly zonaavoidancegalacticplane",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-010",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Easy",
+            "prompt": "How many moons does Mars have?",
+            "options": [
+                "0",
+                "1",
+                "2",
+                "4"
+            ],
+            "correct_index": 2,
+            "explanation": "Mars has two moons: Phobos and Deimos. They are small, irregularly shaped, and believed to be captured asteroids. Phobos orbits so close to Mars that it completes a full orbit faster than Mars rotates — so Phobos rises in the west and sets in the east.",
+            "tags": [
+                "space",
+                "mars",
+                "moons"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "One of the moons of Mars orbits so fast that it rises in the wrong direction.",
+            "why_weird": "Phobos completes an orbit around Mars 3 times a day, so it rises in the west. Mars has a moon that defies what you think a moon is supposed to do.",
+            "source_title": "NASA Solar System Exploration: Mars Moons",
+            "source_url": "https://solarsystem.nasa.gov/moons/mars-moons/overview/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "marsmoonsphobosdeimosorbitdirection",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-011",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Medium",
+            "prompt": "What happens to your blood in space without a spacesuit?",
+            "options": [
+                "It freezes instantly",
+                "It boils",
+                "Nothing, blood is protected",
+                "It turns blue"
+            ],
+            "correct_index": 1,
+            "explanation": "In the vacuum of space, without a pressurized suit, the low pressure would cause water in your blood, saliva, and tissues to vaporize (boil) at body temperature. This is called ebullism. You would not freeze instantly — space is a vacuum and heat transfer takes time without a medium.",
+            "tags": [
+                "space",
+                "physics",
+                "human body"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Your body in space without protection faces a surprisingly specific and unpleasant physics problem.",
+            "why_weird": "Space doesn't freeze you to death. Space boils you from the inside. The universe has opinions about this.",
+            "source_title": "NASA: What Would Happen to an Unprotected Human in Space?",
+            "source_url": "https://www.nasa.gov/humans-in-space/what-happens-to-your-body-in-space/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "bloodboilsvacuumspaceebullism",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "siu-012",
+            "pack_id": "space-is-unfair",
+            "category": "Space",
+            "difficulty": "Hard",
+            "prompt": "How many stars are in the observable universe — approximately?",
+            "options": [
+                "200 billion",
+                "1 trillion",
+                "2 sextillion",
+                "Uncountable, never estimated"
+            ],
+            "correct_index": 2,
+            "explanation": "Astronomers estimate there are approximately 2 × 10^23 stars in the observable universe — that's 2 sextillion. For comparison, there are about 7.5 × 10^18 grains of sand on all of Earth's beaches. There are far more stars than grains of sand.",
+            "tags": [
+                "space",
+                "scale",
+                "astronomy"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There are more stars in the universe than grains of sand on every beach on Earth. Every single beach.",
+            "why_weird": "The universe is making Earth's beaches look embarrassingly small and they were already very big.",
+            "source_title": "European Space Agency: How Many Stars in the Universe?",
+            "source_url": "https://www.esa.int/Science_Exploration/Space_Science/Herschel/How_many_stars_are_there_in_the_Universe",
+            "verified_on": "2024-01-01",
+            "fact_hash": "2sextillionstarsuniversemorebeachsand",
+            "claim_strength": "Primary",
+            "content_flags": []
+        }
+    ]
+}

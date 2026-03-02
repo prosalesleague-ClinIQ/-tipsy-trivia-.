@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-purple: #7C3AED;
+  --color-teal: #0D9488;
+  --color-gold: #F59E0B;
+  --color-pink: #EC4899;
+  --color-dark: #0A0A1A;
+  --color-navy: #0F172A;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-dark);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Glassmorphism card */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #7C3AED, #EC4899, #F59E0B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated bg */
+.animated-bg {
+  background: radial-gradient(ellipse at 20% 20%, rgba(124, 58, 237, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(13, 148, 136, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 70%),
+    var(--color-dark);
+  min-height: 100vh;
+}
+
+/* Button base */
+.btn {
+  @apply font-display font-bold rounded-xl px-6 py-3 transition-all duration-200 active:scale-95 cursor-pointer;
+}
+
+.btn-primary {
+  @apply btn bg-brand-purple hover:bg-purple-700 text-white shadow-lg shadow-purple-900/50;
+}
+
+.btn-secondary {
+  @apply btn bg-white/10 hover:bg-white/20 text-white border border-white/20;
+}
+
+.btn-gold {
+  @apply btn bg-brand-gold hover:bg-yellow-400 text-black shadow-lg shadow-yellow-900/30;
+}
+
+.btn-teal {
+  @apply btn bg-brand-teal hover:bg-teal-600 text-white;
+}
+
+.btn-danger {
+  @apply btn bg-red-600 hover:bg-red-700 text-white;
+}
+
+.btn-buzz {
+  @apply font-display font-black rounded-2xl transition-all duration-100 active:scale-90 cursor-pointer bg-brand-gold text-black text-2xl shadow-2xl shadow-yellow-500/50 border-4 border-yellow-300;
+}
+
+/* Input */
+.input {
+  @apply bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-brand-purple focus:bg-white/15 transition-all w-full;
+}
+
+/* Answer option */
+.answer-btn {
+  @apply w-full text-left p-4 rounded-xl border-2 border-white/20 transition-all duration-150 hover:border-brand-purple hover:bg-brand-purple/20 active:scale-95 cursor-pointer font-body font-semibold;
+}
+
+.answer-btn.selected {
+  @apply border-brand-purple bg-brand-purple/30;
+}
+
+.answer-btn.correct {
+  @apply border-green-400 bg-green-500/20 text-green-300;
+}
+
+.answer-btn.wrong {
+  @apply border-red-400 bg-red-500/20 text-red-300;
+}
+
+/* Timer ring */
+.timer-ring-track {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.timer-ring-fill {
+  stroke: #7C3AED;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+}
+
+.timer-ring-fill.warning {
+  stroke: #F59E0B;
+}
+
+.timer-ring-fill.danger {
+  stroke: #EF4444;
+}
+
+/* Scoreboard */
+.score-bar {
+  @apply h-2 rounded-full bg-brand-purple transition-all duration-700 ease-out;
+}
+
+/* Mode card */
+.mode-card {
+  @apply glass p-6 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-brand-purple/50;
+}
+
+/* Large text mode */
+body.large-text {
+  font-size: 120%;
+}
+
+body.large-text .answer-btn {
+  font-size: 1.2em;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Colorblind-safe: use shape+label not just color */
+.answer-indicator {
+  @apply inline-flex items-center gap-1;
+}
+
+/* Confetti */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    top: 110vh;
+    opacity: 0;
+  }
+}
+
+/* Jeopardy board cell */
+.jeopardy-cell {
+  @apply glass flex items-center justify-center cursor-pointer transition-all hover:border-brand-gold/60 hover:bg-brand-gold/10 font-display font-bold text-brand-gold;
+}
+
+.jeopardy-cell.used {
+  @apply opacity-30 cursor-not-allowed hover:border-white/10 hover:bg-transparent;
+}
+
+/* Ladder step */
+.ladder-step {
+  @apply h-10 rounded-lg flex items-center justify-between px-4 transition-all duration-500 font-body;
+}
+
+.ladder-step.active {
+  @apply border-2 border-brand-gold bg-brand-gold/20 scale-105;
+}
+
+.ladder-step.completed {
+  @apply bg-green-500/20 border border-green-500/40;
+}
+
+.ladder-step.danger {
+  @apply bg-red-500/20 border border-red-500/40;
+}

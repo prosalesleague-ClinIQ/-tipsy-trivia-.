@@ -1,0 +1,194 @@
+{
+    "id": "language-weirdness",
+    "name": "Language Weirdness Pack",
+    "description": "30 questions about words, etymology, and languages that will make you question everything you say.",
+    "author": "Tipsy Trivia",
+    "version": "1.0",
+    "created_at": "2024-01-01",
+    "questions": [
+        {
+            "id": "lw-001",
+            "pack_id": "language-weirdness",
+            "category": "Language",
+            "difficulty": "Easy",
+            "prompt": "The word 'salary' comes from the Latin word for what?",
+            "options": [
+                "Gold",
+                "Work",
+                "Salt",
+                "Silver"
+            ],
+            "correct_index": 2,
+            "explanation": "The word 'salary' derives from the Latin 'salarium,' related to 'sal' (salt). Roman soldiers were sometimes paid in salt or given an allowance to buy it, since salt was essential for food preservation and worth its weight as a commodity.",
+            "tags": [
+                "language",
+                "etymology",
+                "history",
+                "roman"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Every time you ask for a raise, you're asking for more salt. That's what the word means.",
+            "why_weird": "We've been using a salt-payment word for 2,000 years without telling anyone. Every paycheck discussion is secretly a condiment negotiation.",
+            "source_title": "Online Etymology Dictionary: Salary",
+            "source_url": "https://www.etymonline.com/word/salary",
+            "verified_on": "2024-01-01",
+            "fact_hash": "salarylatinsaltsalarium",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "lw-002",
+            "pack_id": "language-weirdness",
+            "category": "Language",
+            "difficulty": "Easy",
+            "prompt": "The word 'Nightmare' contains the word 'mare.' What is a mare in this context?",
+            "options": [
+                "A female horse",
+                "A dark spirit",
+                "A sea creature",
+                "A type of dream"
+            ],
+            "correct_index": 1,
+            "explanation": "The 'mare' in nightmare is not a horse. It comes from Old English 'mære' — a demon or goblin believed to sit on sleeping people's chests and cause suffocation and bad dreams. The 'night mare' was literally a night demon.",
+            "tags": [
+                "language",
+                "etymology",
+                "mythology"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The 'mare' in nightmare is not a horse. It is much worse.",
+            "why_weird": "The English language has been calling a chest-sitting goblin a horse for centuries. The horse has nothing to do with it. The demon was here first.",
+            "source_title": "Merriam-Webster: Nightmare Etymology",
+            "source_url": "https://www.merriam-webster.com/dictionary/nightmare",
+            "verified_on": "2024-01-01",
+            "fact_hash": "nightmareoldenglishmaredemonchest",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "lw-003",
+            "pack_id": "language-weirdness",
+            "category": "Language",
+            "difficulty": "Medium",
+            "prompt": "Which language has a word for the smell of rain on dry earth?",
+            "options": [
+                "Japanese only",
+                "Many languages including English",
+                "Only indigenous Australian languages",
+                "Sanskrit only"
+            ],
+            "correct_index": 1,
+            "explanation": "'Petrichor' is the English word for the smell of rain on dry earth, coined in 1964 by Australian scientists Isabel Bear and Richard Thomas. It comes from Greek 'petra' (stone) + 'ichor' (the ethereal fluid of the gods). Many cultures have intuited this smell but English formalized it.",
+            "tags": [
+                "language",
+                "science",
+                "words"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is an English word for the smell of rain on dry ground and most English speakers don't know it.",
+            "why_weird": "Scientists named a smell after what god's blood smells like if it hit a rock. Petrichor. The universe had a naming committee and they were poetic.",
+            "source_title": "Nature: The Nature of Argillaceous Odour",
+            "source_url": "https://www.nature.com/articles/201993a0",
+            "verified_on": "2024-01-01",
+            "fact_hash": "petrichorsmellraindrystonesgreekichor",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "lw-004",
+            "pack_id": "language-weirdness",
+            "category": "Language",
+            "difficulty": "Medium",
+            "prompt": "The Hawaiian language is famous for being extremely short. How many letters does it have?",
+            "options": [
+                "26",
+                "19",
+                "13",
+                "12"
+            ],
+            "correct_index": 3,
+            "explanation": "The Hawaiian alphabet has just 13 letters: 5 vowels (a, e, i, o, u) and 8 consonants (h, k, l, m, n, p, w, and the okina ʻ). One result: Hawaiian words contain enormous runs of vowels. Example: the Hawaiian state fish, humuhumunukunukuāpuaʻa.",
+            "tags": [
+                "language",
+                "hawaii",
+                "alphabet"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The Hawaiian language gets by with 13 letters, and somehow the words end up longer than most English words.",
+            "why_weird": "Fewer letters, longer words. Hawaiian is defying basic math expectations and not apologizing.",
+            "source_title": "Hawaiian Language Commission: Hawaiian Alphabet",
+            "source_url": "https://www.olelo.hawaii.edu/olelo/puana.php",
+            "verified_on": "2024-01-01",
+            "fact_hash": "hawaiianalphabet13letters5vowels8consonants",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "lw-005",
+            "pack_id": "language-weirdness",
+            "category": "Language",
+            "difficulty": "Hard",
+            "prompt": "The word 'clue' originally referred to what?",
+            "options": [
+                "A piece of evidence",
+                "A ball of yarn or thread",
+                "A secret message",
+                "A type of lock"
+            ],
+            "correct_index": 1,
+            "explanation": "The original word was 'clew' — a ball of yarn or thread. It referenced the Greek myth of Theseus using a thread (clew) to navigate the labyrinth and find his way back out. Over time, 'clew' became 'clue' and came to mean any guiding evidence to follow.",
+            "tags": [
+                "language",
+                "mythology",
+                "etymology"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Detectives have been hunting for yarn for centuries. The word 'clue' literally meant a ball of thread.",
+            "why_weird": "Every mystery story and detective game is secretly about yarn. The metaphor is 2,500 years old and we forgot.",
+            "source_title": "Online Etymology Dictionary: Clue",
+            "source_url": "https://www.etymonline.com/word/clue",
+            "verified_on": "2024-01-01",
+            "fact_hash": "cluewordoriginallyballyarnclew theseus",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "lw-006",
+            "pack_id": "language-weirdness",
+            "category": "Language",
+            "difficulty": "Genius",
+            "prompt": "The word 'quarantine' comes from the Italian word for what number?",
+            "options": [
+                "Fourteen",
+                "Thirty",
+                "Forty",
+                "Sixty"
+            ],
+            "correct_index": 2,
+            "explanation": "Quarantine comes from the Italian 'quarantina giorni' meaning '40 days.' During the Black Death in the 14th century, Venice required ships from infected ports to anchor offshore for 40 days (a quarantina) before anyone could disembark. The number 40 appears throughout medieval medicine as a period of safety.",
+            "tags": [
+                "language",
+                "history",
+                "medicine",
+                "etymology"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "The specific number of days in medieval plague isolation is still embedded in the modern word for isolation.",
+            "why_weird": "Every time someone says 'quarantine' they are saying '40 days' in Italian. The Black Death named a word we're still using.",
+            "source_title": "USA Today: Why Is It Called Quarantine?",
+            "source_url": "https://www.usatoday.com/story/news/health/2020/03/20/quarantine-word-origin-black-death/2878285001/",
+            "source_title_2": "Florence Nightingale Museum: History of Quarantine",
+            "source_url_2": "https://www.florence-nightingale.co.uk/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "quarantine40daysitalianvenicev blackdeath",
+            "claim_strength": "Primary",
+            "content_flags": []
+        }
+    ]
+}

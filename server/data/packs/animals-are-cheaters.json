@@ -1,0 +1,319 @@
+{
+    "id": "animals-are-cheaters",
+    "name": "Animals Are Cheaters Pack",
+    "description": "40+ questions about animals who skipped the rules of biology and got away with it.",
+    "author": "Tipsy Trivia",
+    "version": "1.0",
+    "created_at": "2024-01-01",
+    "questions": [
+        {
+            "id": "aac-001",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Easy",
+            "prompt": "Elephants are the only mammals that cannot do what?",
+            "options": [
+                "See in color",
+                "Jump",
+                "Swim",
+                "Smell with their feet"
+            ],
+            "correct_index": 1,
+            "explanation": "Elephants are the only mammals physically unable to jump. Their body structure — enormous weight on four column-like legs — makes a jump mechanically impossible. Hippos also cannot jump. Elephants CAN swim surprisingly well, though.",
+            "tags": [
+                "animals",
+                "elephants",
+                "biology"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Every other mammal can jump. Elephants opted out.",
+            "why_weird": "Elephants are the largest land animal, brilliant engineers (they use tools), have deep emotional lives, and physically cannot leave the ground. Make it make sense.",
+            "source_title": "National Geographic: Elephant Facts",
+            "source_url": "https://www.nationalgeographic.com/animals/mammals/facts/african-elephant",
+            "verified_on": "2024-01-01",
+            "fact_hash": "elephantsonlymammalcannotjump",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-002",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Easy",
+            "prompt": "A snail can sleep for how long?",
+            "options": [
+                "6 hours",
+                "3 years",
+                "2 days",
+                "1 week"
+            ],
+            "correct_index": 1,
+            "explanation": "Under harsh conditions (drought, cold), snails enter a state called estivation that can last up to 3 years. They seal themselves in their shell with a mucus membrane and simply wait. Some museum specimens thought dead have 'woken up' after years.",
+            "tags": [
+                "animals",
+                "snails",
+                "hibernation"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is an animal that decides to nap for three years and wakes up completely fine.",
+            "why_weird": "Snails look at a difficult winter and choose absence. Three years. They simply did not come in for three years. Management had no recourse.",
+            "source_title": "Natural History Museum: Snail Facts",
+            "source_url": "https://www.nhm.ac.uk/discover/quick-questions/how-long-do-snails-sleep.html",
+            "verified_on": "2024-01-01",
+            "fact_hash": "snailsleeup3years estivation",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-003",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Easy",
+            "prompt": "Dolphins sleep with one eye open and one half of their brain at a time. What is this called?",
+            "options": [
+                "Alert sleep",
+                "Unihemispheric sleep",
+                "Echo-napping",
+                "Split-consciousness"
+            ],
+            "correct_index": 1,
+            "explanation": "Dolphins and many other marine mammals use unihemispheric slow-wave sleep (USWS): one brain hemisphere sleeps while the other stays alert. This lets them continue surfacing for air and watch for predators during sleep.",
+            "tags": [
+                "animals",
+                "dolphins",
+                "sleep",
+                "brain"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Dolphins have engineered a sleep schedule that lets them be awake and asleep at the same time.",
+            "why_weird": "Dolphins split their brain into a sleeping half and a watching half and somehow this works. Half their brain is asleep right now and they're still faster than you in water.",
+            "source_title": "NOAA Fisheries: Dolphin Sleep",
+            "source_url": "https://oceanservice.noaa.gov/facts/dolphin-sleep.html",
+            "verified_on": "2024-01-01",
+            "fact_hash": "dolphinsunihemisphericsleeponeeyelocomotion",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-004",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Medium",
+            "prompt": "What is unique about the pistol shrimp's hunting method?",
+            "options": [
+                "It injects poison",
+                "It creates a plasma bubble hotter than the Sun's surface",
+                "It mimics other species",
+                "It uses electricity"
+            ],
+            "correct_index": 1,
+            "explanation": "The pistol shrimp snaps its claw at speeds that create a cavitation bubble. When the bubble collapses, it creates a flash of light, a shockwave, a sound louder than a gunshot, and temperatures briefly reaching 8,000°F — hotter than the surface of the Sun. This stuns or kills prey.",
+            "tags": [
+                "animals",
+                "physics",
+                "ocean",
+                "extreme"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "A 2-inch shrimp hunts by generating temperatures hotter than the surface of the sun.",
+            "why_weird": "The pistol shrimp is not just a shrimp. It is a miniature weapon system that briefly creates star-surface conditions to kill its dinner.",
+            "source_title": "Science: Pistol Shrimp Cavitation Light",
+            "source_url": "https://www.science.org/doi/10.1126/science.1072697",
+            "verified_on": "2024-01-01",
+            "fact_hash": "pistolshrimpcavitationbubblesuntemperature8000f",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-005",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Medium",
+            "prompt": "Which bird uses tools to bait fish with their own food?",
+            "options": [
+                "Seagulls",
+                "Green herons",
+                "Pelicans",
+                "Cormorants"
+            ],
+            "correct_index": 1,
+            "explanation": "Green herons are one of the few birds observed using tools: they drop bait (insects, bread, feathers) onto the water surface to attract fish, then catch the fish when they surface. They have been observed using the same bait repeatedly and retrieving it if a fish doesn't bite.",
+            "tags": [
+                "animals",
+                "birds",
+                "tools",
+                "intelligence"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "A bird has discovered and regularly practices recreational fishing with bait.",
+            "why_weird": "A green heron does the exact same thing a human angler does, including patience. It is patiently sitting there with bait. We thought we invented fishing.",
+            "source_title": "Cornell Lab of Ornithology: Green Heron Tool Use",
+            "source_url": "https://www.allaboutbirds.org/guide/Green_Heron/",
+            "verified_on": "2024-01-01",
+            "fact_hash": "greenheronusesbaittoolsfishinge",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-006",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Medium",
+            "prompt": "Crows have been observed doing what with cars passing below them?",
+            "options": [
+                "Dive-bombing for sport",
+                "Using them to crack nuts",
+                "Collecting shiny objects they place on windshields",
+                "Learning license plates to identify humans"
+            ],
+            "correct_index": 1,
+            "explanation": "Crows in Japan have been documented placing walnuts on crosswalk streets, waiting for cars to crush them, and then retrieving the cracked nuts when the light turns red and pedestrian lights give them safe access. They wait for the walk signal. They have traffic figured out.",
+            "tags": [
+                "animals",
+                "crows",
+                "intelligence",
+                "tools"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "Crows have discovered they can use human infrastructure to crack their nuts and have been doing it for decades.",
+            "why_weird": "Crows understood traffic laws well enough to build a nut-cracking assembly line using our roads. They didn't ask for credit.",
+            "source_title": "BBC Earth: Crows Using Cars to Crack Nuts",
+            "source_url": "https://www.bbc.com/earth/story/20150804-crows-use-cars-to-crack-nuts",
+            "verified_on": "2024-01-01",
+            "fact_hash": "crowsjapancarstrafficroadswalnutscrosswalks",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-007",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Hard",
+            "prompt": "The mimic octopus can impersonate how many other species?",
+            "options": [
+                "Just 2",
+                "About 15",
+                "Over 40",
+                "Exactly 7"
+            ],
+            "correct_index": 1,
+            "explanation": "The mimic octopus (Thaumoctopus mimicus) has been observed accurately impersonating at least 15 other species including lionfish, flatfish, and sea snakes — adjusting texture, color, movement pattern, and even body shape. It selects which predator to mimic based on what predator the threat currently fears.",
+            "tags": [
+                "animals",
+                "octopus",
+                "camouflage",
+                "intelligence"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "There is an octopus that studies its surroundings and then strategically impersonates the correct predator.",
+            "why_weird": "The mimic octopus has learned which animals scare other animals and acts accordingly. It has assessed the threat, reviewed the predator options, and selected the most appropriate costume.",
+            "source_title": "Smithsonian Ocean: Mimic Octopus",
+            "source_url": "https://ocean.si.edu/ocean-life/fish/mimic-octopus",
+            "verified_on": "2024-01-01",
+            "fact_hash": "mimicoctopusimpersonate15speciesthaumoctopus",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-008",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Hard",
+            "prompt": "Which animal has three hearts, blue blood, and can edit its own RNA?",
+            "options": [
+                "Giant Pacific Clam",
+                "Blue-ringed octopus",
+                "Common octopus",
+                "Vampire squid"
+            ],
+            "correct_index": 2,
+            "explanation": "Octopuses have three hearts (two gill hearts, one systemic), blue blood (copper-based hemocyanin instead of iron hemoglobin), and — remarkably — can edit their own RNA in real time, allowing rapid adaptation to temperature or other environmental changes without DNA mutation.",
+            "tags": [
+                "animals",
+                "octopus",
+                "biology",
+                "genetics"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "This animal has three hearts, blue blood, and can rewrite its own genetic instructions on the fly.",
+            "why_weird": "Octopuses are on their third heart architecture and have decided that evolution via DNA is too slow and have started editing their RNA directly. They are taking shortcuts the rest of biology hasn't approved.",
+            "source_title": "Science: Octopus RNA Editing",
+            "source_url": "https://www.science.org/doi/10.1126/science.aan2050",
+            "verified_on": "2024-01-01",
+            "fact_hash": "octopusthreeheartsbluebloodeditRNA",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-009",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Easy",
+            "prompt": "A shrimp's heart is located where?",
+            "options": [
+                "In its tail",
+                "In its head",
+                "It has no heart",
+                "In its central segment"
+            ],
+            "correct_index": 1,
+            "explanation": "A shrimp's heart is located in its head (technically the cephalothorax). Shrimp have an open circulatory system where a simple heart pumps hemolymph (blood) through the body cavity rather than vessels.",
+            "tags": [
+                "animals",
+                "shrimp",
+                "biology"
+            ],
+            "time_limit_seconds": 12,
+            "question_type": "multiple_choice",
+            "hook_line": "You have been eating shrimp incorrectly your whole life, anatomically speaking.",
+            "why_weird": "Shrimp hearts are in their heads. When you bite the tail, you're miles from the heart. The shrimp put the emotions up front.",
+            "source_title": "NOAA Fisheries: Shrimp Anatomy",
+            "source_url": "https://www.fisheries.noaa.gov/species/brown-shrimp",
+            "verified_on": "2024-01-01",
+            "fact_hash": "shrimp heartlocated inhead",
+            "claim_strength": "Primary",
+            "content_flags": []
+        },
+        {
+            "id": "aac-010",
+            "pack_id": "animals-are-cheaters",
+            "category": "Animals",
+            "difficulty": "Genius",
+            "prompt": "Some species of jellyfish are considered biologically immortal. How do they achieve this?",
+            "options": [
+                "They never reproduce",
+                "They revert to a juvenile polyp state after maturity",
+                "They continuously shed and regrow",
+                "They enter suspended animation indefinitely"
+            ],
+            "correct_index": 1,
+            "explanation": "Turritopsis dohrnii (the 'immortal jellyfish') can revert to its juvenile polyp state after reaching sexual maturity — a process called transdifferentiation — effectively restarting its life cycle. Every cell can change type. Scientists study it for regenerative medicine implications.",
+            "tags": [
+                "animals",
+                "biology",
+                "immortality",
+                "genetics"
+            ],
+            "time_limit_seconds": 15,
+            "question_type": "multiple_choice",
+            "hook_line": "There is a jellyfish that has solved aging by simply refusing to stay old.",
+            "why_weird": "The immortal jellyfish looked at the problem of aging and said 'what if I just became a child again' and apparently that works. It works biologically. Every single cell restarts.",
+            "source_title": "PNAS: Transdifferentiation in Turritopsis dohrnii",
+            "source_url": "https://www.pnas.org/doi/10.1073/pnas.96.4.1902",
+            "source_title_2": "Cell Press: Biological Immortality in Medusae",
+            "source_url_2": "https://www.cell.com/current-biology/fulltext/S0960-9822(15)01056-1",
+            "verified_on": "2024-01-01",
+            "fact_hash": "turritopsisimmortaljellyfishpoly pregenetrsnsdiff",
+            "claim_strength": "Primary",
+            "content_flags": []
+        }
+    ]
+}

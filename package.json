@@ -1,0 +1,19 @@
+{
+  "name": "tipsy-trivia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tipsy Trivia — Jackbox-style party trivia game",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
+    "build": "pnpm --filter shared build && pnpm --filter server build && pnpm --filter client build",
+    "test": "pnpm --filter server test",
+    "lint": "concurrently \"pnpm --filter server lint\" \"pnpm --filter client lint\"",
+    "seed": "pnpm --filter server seed",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  }
+}
