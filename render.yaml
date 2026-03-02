@@ -18,10 +18,8 @@ services:
       - key: CORS_ORIGINS
         value: "*"
 
-  - type: web
+  - type: static_site
     name: tipsy-trivia-client
-    env: static
-    plan: free
     buildCommand: npm install -g pnpm && pnpm install --frozen-lockfile && pnpm --filter shared build && pnpm --filter client build
     staticPublishPath: ./client/dist
     envVars:
