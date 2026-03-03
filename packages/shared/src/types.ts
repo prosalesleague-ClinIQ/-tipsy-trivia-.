@@ -2,6 +2,8 @@
 // TIPSY TRIVIA — Shared Types: Game State
 // ============================================================
 
+import type { Difficulty } from './question';
+
 export type GameMode = 'trivia_categories' | 'rapid_fire' | 'jeopardy' | 'legacy_ladder';
 
 export type GamePhase =
@@ -76,6 +78,8 @@ export interface Room {
     settings: RoomSettings;
 }
 
+export type ContentRating = 'family' | 'adult' | 'spicy';
+
 export interface RoomSettings {
     max_players: number;          // 2–12
     question_timer_seconds: number;
@@ -83,6 +87,8 @@ export interface RoomSettings {
     buzzer_passdown: boolean;
     rapid_fire_penalty: boolean;
     rapid_fire_per_player: boolean;
+    difficulty: Difficulty;
+    content_rating: ContentRating;
     ladder_difficulty: 'Easy' | 'Medium' | 'Hard' | 'Genius';
     jeopardy_daily_double: boolean;
     jeopardy_final_typed: boolean;

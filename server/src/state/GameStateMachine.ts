@@ -61,7 +61,11 @@ export class GameStateMachine {
     }
 
     async showNextQuestion(room: Room): Promise<void> {
-        const question = this.questionManager.pickQuestion(room);
+        // Use difficulty setting to filter questions when set
+        const diff = room.settings.difficulty;
+        const question = diff
+            ? (this.questionManager.pickQuestionByDifficulty(room, diff) ?? this.questionManager.pickQuestion(room))
+            : this.questionManager.pickQuestion(room);
         if (!question) {
             await this.endRound(room);
             return;

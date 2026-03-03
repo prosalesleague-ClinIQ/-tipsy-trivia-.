@@ -30,6 +30,8 @@ export class RoomManager {
             buzzer_passdown: true,
             rapid_fire_penalty: false,
             rapid_fire_per_player: false,
+            difficulty: 'Medium',
+            content_rating: 'adult',
             ladder_difficulty: 'Medium',
             jeopardy_daily_double: true,
             jeopardy_final_typed: false,

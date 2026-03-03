@@ -6,7 +6,7 @@ import type { ComedianPreset } from '@tipsy-trivia/shared';
 // server-side by the AI host engine) — no external voice API needed.
 function browserSpeak(text: string, pace: 'slow' | 'normal' | 'fast') {
     if (!window.speechSynthesis || !text) return;
-    const rateMap = { slow: 0.82, normal: 1.0, fast: 1.2 };
+    const rateMap = { slow: 0.82, normal: 1.0, fast: 1.15 };
     window.speechSynthesis.cancel();
 
     function doSpeak() {
@@ -17,11 +17,18 @@ function browserSpeak(text: string, pace: 'slow' | 'normal' | 'fast') {
         }
         const utt = new SpeechSynthesisUtterance(text);
         utt.rate = rateMap[pace];
-        utt.pitch = 1.05;
-        // Prefer a clear English voice
+        utt.pitch = 0.9; // slightly lower for a deeper male tone
+        // Prefer high-quality male English voices
         const voice =
+            voices.find(v => v.name === 'Google UK English Male') ??
+            voices.find(v => v.name === 'Daniel') ??              // macOS high-quality male
+            voices.find(v => v.name === 'Aaron') ??               // macOS male
+            voices.find(v => v.name === 'Alex') ??                // macOS male
+            voices.find(v => v.name === 'Tom') ??                 // macOS male
+            voices.find(v => v.name === 'Microsoft David') ??     // Windows male
+            voices.find(v => v.name === 'Microsoft Mark') ??      // Windows male
             voices.find(v => v.name === 'Google US English') ??
-            voices.find(v => v.name === 'Samantha') ??
+            voices.find(v => /male/i.test(v.name) && /en/i.test(v.lang)) ??
             voices.find(v => /en[-_]US/i.test(v.lang)) ??
             voices.find(v => v.lang.startsWith('en')) ??
             voices[0] ??
