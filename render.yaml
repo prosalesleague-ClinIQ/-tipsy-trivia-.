@@ -15,10 +15,7 @@ services:
       - key: SESSION_SECRET
         generateValue: true
       - key: CORS_ORIGINS
-        fromService:
-          type: static_site
-          name: tipsy-trivia-client
-          property: host
+        value: "https://tipsy-trivia.vercel.app,https://tipsy-trivia-server.onrender.com"
       - key: ELEVENLABS_API_KEY
         sync: false   # set this manually in the Render dashboard
 
