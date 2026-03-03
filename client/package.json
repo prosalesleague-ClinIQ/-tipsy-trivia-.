@@ -10,14 +10,17 @@
         "lint": "eslint src --ext .ts,.tsx"
     },
     "dependencies": {
+        "@react-three/drei": "^10.7.7",
+        "@react-three/fiber": "^9.5.0",
         "@tipsy-trivia/shared": "workspace:*",
+        "canvas-confetti": "^1.9.4",
+        "framer-motion": "^11.0.3",
+        "lucide-react": "^0.323.0",
+        "qrcode.react": "^3.1.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.21.3",
-        "socket.io-client": "^4.6.2",
-        "qrcode.react": "^3.1.0",
-        "framer-motion": "^11.0.3",
-        "lucide-react": "^0.323.0"
+        "socket.io-client": "^4.6.2"
     },
     "devDependencies": {
         "@types/react": "^18.2.48",

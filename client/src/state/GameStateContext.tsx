@@ -3,6 +3,8 @@ import type { Room, Player, Question, ScoreEntry, HostScript } from '@tipsy-triv
 import type {
     QuestionShowPayload, AnswerRevealPayload, BuzzerLockPayload,
     GameEndPayload, RoomJoinedPayload,
+    MovieQuestionStartPayload, MovieStageAdvancePayload,
+    MovieAnswerResultPayload, MovieRevealPayload,
 } from '@tipsy-trivia/shared';
 import { useSocket } from '../socket/SocketProvider';
 
@@ -20,6 +22,11 @@ export interface GameState {
     serverTime: number;
     buzzerMode: boolean;
     connectionStatus: 'connecting' | 'connected' | 'disconnected';
+    // Movie Ladder state
+    movieQuestion: MovieQuestionStartPayload | null;
+    movieStageUpdate: MovieStageAdvancePayload | null;
+    movieAnswerResult: MovieAnswerResultPayload | null;
+    movieReveal: MovieRevealPayload | null;
 }
 
 type Action =
@@ -32,6 +39,10 @@ type Action =
     | { type: 'HOST_SCRIPT'; payload: { script: HostScript } }
     | { type: 'GAME_END'; payload: GameEndPayload }
     | { type: 'CONNECTION_STATUS'; payload: 'connecting' | 'connected' | 'disconnected' }
+    | { type: 'MOVIE_QUESTION_START'; payload: MovieQuestionStartPayload }
+    | { type: 'MOVIE_STAGE_ADVANCE'; payload: MovieStageAdvancePayload }
+    | { type: 'MOVIE_ANSWER_RESULT'; payload: MovieAnswerResultPayload }
+    | { type: 'MOVIE_REVEAL'; payload: MovieRevealPayload }
     | { type: 'RESET' };
 
 const initialState: GameState = {
@@ -48,6 +59,10 @@ const initialState: GameState = {
     serverTime: 0,
     buzzerMode: false,
     connectionStatus: 'connecting',
+    movieQuestion: null,
+    movieStageUpdate: null,
+    movieAnswerResult: null,
+    movieReveal: null,
 };
 
 function reducer(state: GameState, action: Action): GameState {
@@ -84,6 +99,20 @@ function reducer(state: GameState, action: Action): GameState {
             return { ...state, gameEnd: action.payload, scores: action.payload.scores };
         case 'CONNECTION_STATUS':
             return { ...state, connectionStatus: action.payload };
+        case 'MOVIE_QUESTION_START':
+            return {
+                ...state,
+                movieQuestion: action.payload,
+                movieStageUpdate: null,
+                movieAnswerResult: null,
+                movieReveal: null,
+            };
+        case 'MOVIE_STAGE_ADVANCE':
+            return { ...state, movieStageUpdate: action.payload };
+        case 'MOVIE_ANSWER_RESULT':
+            return { ...state, movieAnswerResult: action.payload };
+        case 'MOVIE_REVEAL':
+            return { ...state, movieReveal: action.payload, scores: action.payload.scores };
         case 'RESET':
             return { ...initialState };
         default:
@@ -114,6 +143,10 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
         socket.on('scoreboard:update', (data) => dispatch({ type: 'SCOREBOARD_UPDATE', payload: data }));
         socket.on('host:script', (data) => dispatch({ type: 'HOST_SCRIPT', payload: data }));
         socket.on('game:end', (data) => dispatch({ type: 'GAME_END', payload: data }));
+        socket.on('movie:question_start', (data) => dispatch({ type: 'MOVIE_QUESTION_START', payload: data }));
+        socket.on('movie:stage_advance', (data) => dispatch({ type: 'MOVIE_STAGE_ADVANCE', payload: data }));
+        socket.on('movie:answer_result', (data) => dispatch({ type: 'MOVIE_ANSWER_RESULT', payload: data }));
+        socket.on('movie:reveal', (data) => dispatch({ type: 'MOVIE_REVEAL', payload: data }));
 
         return () => {
             socket.off('room:updated');
@@ -123,6 +156,10 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
             socket.off('scoreboard:update');
             socket.off('host:script');
             socket.off('game:end');
+            socket.off('movie:question_start');
+            socket.off('movie:stage_advance');
+            socket.off('movie:answer_result');
+            socket.off('movie:reveal');
         };
     }, [socket]);
 

@@ -6,26 +6,32 @@ import { WifiOff, Tv } from 'lucide-react';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
-// Controller-mode big button colors
+// Controller-mode big button colors — classic game-show A/B/C/D palette
 const CTRL_COLORS = [
-    'bg-blue-500/80 border-blue-400 active:bg-blue-400',
-    'bg-teal-500/80 border-teal-400 active:bg-teal-400',
-    'bg-yellow-500/80 border-yellow-400 active:bg-yellow-400',
-    'bg-pink-500/80 border-pink-400 active:bg-pink-400',
+    'bg-red-600 active:bg-red-700',
+    'bg-blue-600 active:bg-blue-700',
+    'bg-green-600 active:bg-green-700',
+    'bg-yellow-500 active:bg-yellow-600',
 ];
 
-type Screen = 'join' | 'waiting' | 'question' | 'buzzer' | 'reveal' | 'scoreboard' | 'end';
+type Screen = 'join' | 'waiting' | 'question' | 'buzzer' | 'reveal' | 'scoreboard' | 'end' | 'movie_answer' | 'movie_solved' | 'movie_reveal';
 
 export default function PlayPage() {
     const { socket, connected } = useSocket();
     const { state, dispatch } = useGameState();
     const [screen, setScreen] = useState<Screen>('join');
     const [name, setName] = useState('');
-    const [code, setCode] = useState(sessionStorage.getItem('joinCode') ?? '');
+    const [code, setCode] = useState(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('code') ?? sessionStorage.getItem('joinCode') ?? '';
+    });
     const [joinError, setJoinError] = useState('');
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
     const [hasBuzzed, setHasBuzzed] = useState(false);
     const [buzzerLocked, setBuzzerLocked] = useState(false);
+    const [movieAnswer, setMovieAnswer] = useState<string>('');
+    const [movieDelta, setMovieDelta] = useState<number | null>(null);
+    const [movieLockoutEnd, setMovieLockoutEnd] = useState<number>(0);
     const sessionToken = state.mySessionToken;
 
     // Controller mode: phone shows only buzzer / answer buttons, not the full question text.
@@ -64,6 +70,27 @@ export default function PlayPage() {
             if (data.room.phase === 'question') { setScreen('question'); setSelectedAnswer(null); }
         });
 
+        socket.on('movie:question_start', () => {
+            setScreen('movie_answer');
+            setMovieAnswer('');
+            setMovieDelta(null);
+            setMovieLockoutEnd(0);
+        });
+
+        socket.on('movie:answer_result', (data) => {
+            if (data.correct) {
+                setMovieDelta(data.delta);
+                setScreen('movie_solved');
+            } else {
+                setMovieLockoutEnd(data.locked_until ?? 0);
+                setMovieDelta(data.delta);
+            }
+        });
+
+        socket.on('movie:reveal', () => {
+            setScreen('movie_reveal');
+        });
+
         return () => {
             socket.off('question:show');
             socket.off('buzzer:lock');
@@ -71,6 +98,9 @@ export default function PlayPage() {
             socket.off('scoreboard:update');
             socket.off('game:end');
             socket.off('room:updated');
+            socket.off('movie:question_start');
+            socket.off('movie:answer_result');
+            socket.off('movie:reveal');
         };
     }, [socket]);
 
@@ -110,7 +140,7 @@ export default function PlayPage() {
 
     if (!connected) {
         return (
-            <div className="animated-bg min-h-screen flex items-center justify-center">
+            <div className="min-h-screen flex items-center justify-center">
                 <div className="glass p-8 text-center">
                     <WifiOff className="w-10 h-10 text-red-400 mx-auto mb-3" />
                     <p className="text-white/60">Reconnecting…</p>
@@ -121,7 +151,7 @@ export default function PlayPage() {
 
     /* ── Join Screen ── */
     if (screen === 'join') return (
-        <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6">
+        <div className="min-h-screen flex flex-col items-center justify-center p-6">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 className="glass p-8 w-full max-w-sm">
                 <h1 className="font-display font-black text-3xl gradient-text text-center mb-1">Join Game</h1>
@@ -164,7 +194,7 @@ export default function PlayPage() {
 
     /* ── Waiting ── */
     if (screen === 'waiting') return (
-        <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
             <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass p-10">
                 <div className="w-16 h-16 rounded-full bg-brand-purple/50 flex items-center justify-center font-display font-black text-2xl mx-auto mb-4">
                     {state.myPlayer?.name[0].toUpperCase() ?? '?'}
@@ -205,67 +235,92 @@ export default function PlayPage() {
         // --- BUZZER MODE ---
         if (isBuzzerMode && !state.buzzerWinner) {
             return (
-                <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6">
-                    {/* In controller mode don't repeat the question — it's on the TV */}
-                    {!controllerMode && (
-                        <p className="text-white/50 text-center mb-6 font-body text-lg">
-                            {q?.prompt ?? 'Read the question on the main screen…'}
-                        </p>
+                <div className="min-h-screen flex flex-col items-center justify-center">
+                    {controllerMode ? (
+                        // Controller mode: giant red physical-style dome buzzer
+                        <>
+                            <p className="text-white/30 text-center mb-8 font-body text-xs tracking-widest uppercase select-none">
+                                Buzz in when you know it
+                            </p>
+                            <motion.button
+                                whileTap={{ scale: 0.88 }}
+                                className="rounded-full flex items-center justify-center select-none cursor-pointer disabled:cursor-not-allowed"
+                                style={{
+                                    width: 'min(72vmin, 320px)',
+                                    height: 'min(72vmin, 320px)',
+                                    background: hasBuzzed || buzzerLocked
+                                        ? 'radial-gradient(circle at 35% 30%, #6b7280, #374151)'
+                                        : 'radial-gradient(circle at 35% 30%, #f87171, #dc2626, #991b1b)',
+                                    boxShadow: hasBuzzed || buzzerLocked
+                                        ? '0 6px 0 #1f2937, 0 10px 40px rgba(0,0,0,0.4)'
+                                        : '0 8px 0 #7f1d1d, 0 16px 60px rgba(239,68,68,0.5)',
+                                    transition: 'background 0.2s, box-shadow 0.2s',
+                                }}
+                                onClick={pressBuzzer}
+                                disabled={hasBuzzed || buzzerLocked}
+                            >
+                                <span className="font-display font-black text-white tracking-widest"
+                                    style={{ fontSize: 'clamp(2rem, 10vmin, 4rem)' }}>
+                                    {hasBuzzed ? '⏳' : 'BUZZ'}
+                                </span>
+                            </motion.button>
+                            {hasBuzzed && (
+                                <p className="text-white/30 mt-8 font-body text-sm">Waiting for host…</p>
+                            )}
+                        </>
+                    ) : (
+                        // Mobile mode: show question + yellow BUZZ button
+                        <div className="flex flex-col items-center p-6">
+                            <p className="text-white/50 text-center mb-6 font-body text-lg">
+                                {q?.prompt ?? 'Read the question on the main screen…'}
+                            </p>
+                            <motion.button
+                                whileTap={{ scale: 0.85 }}
+                                className={`btn-buzz w-64 h-64 rounded-full text-4xl font-black ${hasBuzzed ? 'opacity-50' : ''}`}
+                                onClick={pressBuzzer}
+                                disabled={hasBuzzed || buzzerLocked}
+                            >
+                                {hasBuzzed ? '⏳' : '⚡ BUZZ!'}
+                            </motion.button>
+                            {hasBuzzed && <p className="text-white/40 mt-4">Buzzed! Waiting…</p>}
+                        </div>
                     )}
-                    {controllerMode && (
-                        <p className="text-white/40 text-center mb-6 font-body text-sm">
-                            Watch the TV — buzz in when you know the answer!
-                        </p>
-                    )}
-                    <motion.button
-                        whileTap={{ scale: 0.85 }}
-                        className={`btn-buzz w-64 h-64 rounded-full text-4xl font-black ${hasBuzzed ? 'opacity-50' : ''}`}
-                        onClick={pressBuzzer}
-                        disabled={hasBuzzed || buzzerLocked}
-                    >
-                        {hasBuzzed ? '⏳' : '⚡ BUZZ!'}
-                    </motion.button>
-                    {hasBuzzed && <p className="text-white/40 mt-4">Buzzed! Waiting…</p>}
                 </div>
             );
         }
 
-        if (!q) return <div className="animated-bg min-h-screen flex items-center justify-center text-white/40">Loading…</div>;
+        if (!q) return <div className="min-h-screen flex items-center justify-center text-white/40">Loading…</div>;
 
-        // --- CONTROLLER MODE: big A/B/C/D buttons, no question text ---
+        // --- CONTROLLER MODE: full-bleed A/B/C/D pad, no question text ---
         if (controllerMode) {
             return (
-                <div className="animated-bg min-h-screen flex flex-col p-4">
-                    <div className="flex items-center justify-center gap-2 mb-4 mt-2">
-                        <Tv className="w-4 h-4 text-brand-teal" />
-                        <span className="text-white/40 text-sm">Answer on your phone — question is on the TV</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 flex-1 mt-2">
+                <div className="min-h-screen flex flex-col gap-1 p-1">
+                    <div className="grid grid-cols-2 gap-1 flex-1">
                         {q.options.map((opt, i) => (
                             <motion.button
                                 key={i}
-                                whileTap={{ scale: 0.93 }}
+                                whileTap={{ scale: 0.96 }}
                                 className={`
-                                    rounded-2xl border-2 flex flex-col items-center justify-center p-4 gap-3 min-h-[140px]
-                                    font-display font-black text-white text-2xl transition-all
+                                    rounded-2xl flex flex-col items-center justify-center gap-2 p-4
+                                    font-display font-black text-white transition-all select-none
                                     ${CTRL_COLORS[i]}
-                                    ${selectedAnswer === i ? 'ring-4 ring-white/60 scale-95' : ''}
-                                    ${selectedAnswer !== null && selectedAnswer !== i ? 'opacity-40' : ''}
+                                    ${selectedAnswer === i ? 'ring-4 ring-white/80' : ''}
+                                    ${selectedAnswer !== null && selectedAnswer !== i ? 'opacity-30' : ''}
                                 `}
+                                style={{ minHeight: 'calc(50vh - 0.5rem)' }}
                                 onClick={() => submitAnswer(i)}
                                 disabled={selectedAnswer !== null}
                             >
-                                <span className="text-5xl font-black">{OPTION_LABELS[i]}</span>
-                                <span className="text-sm font-body font-semibold text-white/90 text-center leading-tight line-clamp-2">{opt}</span>
+                                <span className="text-7xl font-black leading-none">{OPTION_LABELS[i]}</span>
+                                <span className="text-base font-body font-semibold text-white/90 text-center leading-tight line-clamp-2 max-w-[14ch]">{opt}</span>
                             </motion.button>
                         ))}
                     </div>
 
                     {selectedAnswer !== null && (
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                            className="text-center py-4">
-                            <p className="text-white/40 font-body">
+                            className="text-center py-3 shrink-0">
+                            <p className="text-white/40 font-body text-sm">
                                 Picked <span className="text-white font-bold">{OPTION_LABELS[selectedAnswer]}</span> — locked in!
                             </p>
                         </motion.div>
@@ -276,7 +331,7 @@ export default function PlayPage() {
 
         // --- FULL MODE: question text + options ---
         return (
-            <div className="animated-bg min-h-screen flex flex-col p-4">
+            <div className="min-h-screen flex flex-col p-4">
                 <div className="flex gap-2 mb-4">
                     <span className="glass px-3 py-1 rounded-full text-xs text-white/50">{q.category}</span>
                     <span className="glass px-3 py-1 rounded-full text-xs font-bold text-brand-gold">{q.difficulty}</span>
@@ -320,7 +375,31 @@ export default function PlayPage() {
         const correct = myAnswer === rev?.correct_index;
 
         return (
-            <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6">
+            <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
+                {/* 3D Floating Background */}
+                <div className="fixed inset-0 -z-10">
+                    <svg width="100vw" height="100vh" style={{ position: 'absolute', width: '100vw', height: '100vh' }}>
+                        <defs>
+                            <radialGradient id="bgGradPlay" cx="50%" cy="50%" r="80%">
+                                <stop offset="0%" stopColor="#181a20" />
+                                <stop offset="100%" stopColor="#23263a" />
+                            </radialGradient>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#bgGradPlay)" />
+                        {/* Floating glass orbs */}
+                        {[...Array(4)].map((_, i) => (
+                            <ellipse
+                                key={i}
+                                cx={180 + i * 260}
+                                cy={120 + i * 180}
+                                rx={60 + i * 20}
+                                ry={60 + i * 20}
+                                fill={i % 2 === 0 ? '#00f6ff22' : '#ff00c822'}
+                                style={{ filter: 'blur(24px)' }}
+                            />
+                        ))}
+                    </svg>
+                </div>
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -353,7 +432,7 @@ export default function PlayPage() {
 
     /* ── Scoreboard ── */
     if (screen === 'scoreboard') return (
-        <div className="animated-bg min-h-screen flex flex-col p-6">
+        <div className="min-h-screen flex flex-col p-6">
             <h2 className="font-display font-black text-3xl gradient-text text-center mb-6">Scores</h2>
             <div className="space-y-3">
                 {state.scores.map((s, i) => (
@@ -373,7 +452,7 @@ export default function PlayPage() {
 
     /* ── End ── */
     if (screen === 'end') return (
-        <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
             <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass p-10 max-w-sm w-full">
                 <div className="text-6xl mb-4">🎉</div>
                 <h2 className="font-display font-black text-3xl gradient-text mb-2">Game Over!</h2>
@@ -386,12 +465,148 @@ export default function PlayPage() {
                         </div>
                     ))}
                 </div>
-                <button className="btn-secondary w-full mt-6" onClick={() => window.location.href = '/'}>
+                <motion.button
+                    className="w-full mt-6 py-3 rounded-2xl font-bold text-white"
+                    style={{ background: 'linear-gradient(90deg, #00f6ff, #ff00c8)', boxShadow: '0 4px 24px #00f6ff55' }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                    onClick={() => window.location.href = '/'}
+                >
                     Play Again
-                </button>
+                </motion.button>
             </motion.div>
         </div>
     );
+
+    /* ── Movie Answer ── */
+    if (screen === 'movie_answer') {
+        const mq = state.movieQuestion;
+        const ms = state.room?.movie_state;
+        const isMC = ms?.settings?.answer_mode === 'multiple_choice';
+        const choices = mq?.choices;
+        const isLocked = movieLockoutEnd > Date.now();
+
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center p-6">
+                <div className="w-full max-w-sm">
+                    <p className="text-white/40 text-center text-xs uppercase tracking-widest mb-2 font-body">
+                        🎬 {ms?.settings?.variant === 'plot_ladder' ? 'Plot Ladder' : 'Cast Ladder'} · Stage {mq?.stage}
+                    </p>
+                    {movieDelta !== null && movieDelta < 0 && (
+                        <motion.p initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+                            className="text-red-400 text-center font-display font-bold text-lg mb-3">
+                            Wrong! {movieDelta} pts
+                        </motion.p>
+                    )}
+                    {isLocked && (
+                        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                            className="text-red-400 text-center font-body text-sm mb-4">
+                            🔒 Locked out… wait a moment
+                        </motion.p>
+                    )}
+
+                    {isMC && choices ? (
+                        <div className="space-y-3">
+                            {choices.map((choice, i) => (
+                                <motion.button key={i} whileTap={{ scale: 0.97 }}
+                                    className="answer-btn w-full flex items-start gap-3"
+                                    onClick={() => {
+                                        if (isLocked || !mq) return;
+                                        socket?.emit('movie:answer', {
+                                            question_id: mq.question_id,
+                                            answer: choice,
+                                            client_time_ms: Date.now(),
+                                        });
+                                    }}
+                                    disabled={isLocked}
+                                >
+                                    <span className={`font-display font-black text-xl ${['text-red-400','text-blue-400','text-green-400','text-yellow-400'][i]}`}>
+                                        {OPTION_LABELS[i]}
+                                    </span>
+                                    <span className="flex-1">{choice}</span>
+                                </motion.button>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="space-y-3">
+                            <input
+                                className="input text-center text-xl"
+                                value={movieAnswer}
+                                onChange={e => setMovieAnswer(e.target.value)}
+                                placeholder="Type the movie title…"
+                                disabled={isLocked}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter' && !isLocked && mq) {
+                                        socket?.emit('movie:answer', {
+                                            question_id: mq.question_id,
+                                            answer: movieAnswer,
+                                            client_time_ms: Date.now(),
+                                        });
+                                    }
+                                }}
+                            />
+                            <motion.button whileTap={{ scale: 0.97 }}
+                                className="w-full py-4 font-display font-bold text-lg bg-orange-500 hover:bg-orange-400 text-black rounded-2xl transition-colors"
+                                onClick={() => {
+                                    if (isLocked || !mq || !movieAnswer.trim()) return;
+                                    socket?.emit('movie:answer', {
+                                        question_id: mq.question_id,
+                                        answer: movieAnswer,
+                                        client_time_ms: Date.now(),
+                                    });
+                                }}
+                                disabled={isLocked || !movieAnswer.trim()}
+                            >
+                                Submit →
+                            </motion.button>
+                        </div>
+                    )}
+
+                    <p className="text-white/20 text-center text-xs mt-6 font-body">Watch the host screen for hints</p>
+                </div>
+            </div>
+        );
+    }
+
+    /* ── Movie Solved ── */
+    if (screen === 'movie_solved') {
+        const mq = state.movieQuestion;
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+                <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass p-10 max-w-sm w-full border-2 border-green-400/50">
+                    <div className="text-6xl mb-4">🎉</div>
+                    <p className="font-display font-black text-2xl text-green-400 mb-2">Got it!</p>
+                    <p className="text-white/60 font-body mb-4">Solved at Stage {mq?.stage}</p>
+                    {movieDelta !== null && (
+                        <p className="font-display font-black text-4xl text-brand-gold">+{movieDelta} pts</p>
+                    )}
+                    <p className="text-white/30 text-sm mt-6 font-body">Waiting for next question…</p>
+                </motion.div>
+            </div>
+        );
+    }
+
+    /* ── Movie Reveal ── */
+    if (screen === 'movie_reveal') {
+        const rev = state.movieReveal;
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+                <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass p-8 max-w-sm w-full border-2 border-orange-400/40">
+                    <div className="text-4xl mb-3">🎬</div>
+                    <h3 className="font-display font-black text-3xl text-orange-400 mb-1">{rev?.answer}</h3>
+                    <p className="text-white/40 text-sm mb-4">({rev?.year}) · {rev?.mpaa}</p>
+                    <p className="text-white/60 font-body italic text-sm mb-6">{rev?.explain}</p>
+                    <div className="mt-4 glass p-4 text-left">
+                        <p className="text-white/30 text-xs mb-2 uppercase tracking-widest">Your score</p>
+                        <p className="font-display font-black text-3xl text-brand-gold">
+                            {state.scores.find(s => s.player_id === socket?.id)?.score.toLocaleString() ?? '0'}
+                        </p>
+                    </div>
+                </motion.div>
+            </div>
+        );
+    }
 
     return null;
 }

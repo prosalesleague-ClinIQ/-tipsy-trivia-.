@@ -28,26 +28,44 @@ export default function LandingPage() {
     };
 
     return (
-        <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden">
-            {/* Floating orbs */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-brand-purple/20 blur-3xl animate-pulse" />
-                <div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-brand-teal/20 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-brand-pink/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden relative">
+            {/* 3D Floating Background */}
+            <div className="fixed inset-0 -z-10">
+                <svg width="100vw" height="100vh" style={{ position: 'absolute', width: '100vw', height: '100vh' }}>
+                    <defs>
+                        <radialGradient id="bgGrad" cx="50%" cy="50%" r="80%">
+                            <stop offset="0%" stopColor="#181a20" />
+                            <stop offset="100%" stopColor="#23263a" />
+                        </radialGradient>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#bgGrad)" />
+                    {/* Floating glass orbs */}
+                    {[...Array(5)].map((_, i) => (
+                        <ellipse
+                            key={i}
+                            cx={120 + i * 320}
+                            cy={180 + i * 120}
+                            rx={80 + i * 10}
+                            ry={80 + i * 10}
+                            fill={i % 2 === 0 ? '#00f6ff22' : '#ff00c822'}
+                            style={{ filter: 'blur(24px)' }}
+                        />
+                    ))}
+                </svg>
             </div>
 
             <motion.div
                 initial={{ opacity: 0, y: -30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
+                transition={{ duration: 0.7, type: 'spring' }}
                 className="text-center mb-10"
             >
                 <div className="flex items-center justify-center gap-3 mb-4">
-                    <Beer className="w-12 h-12 text-brand-gold" />
-                    <h1 className="font-display text-7xl font-black gradient-text">Tipsy Trivia</h1>
-                    <Beer className="w-12 h-12 text-brand-gold" />
+                    <Beer className="w-12 h-12 text-brand-gold drop-shadow-lg" />
+                    <h1 className="font-display text-7xl font-black gradient-text neon-text">Tipsy Trivia</h1>
+                    <Beer className="w-12 h-12 text-brand-gold drop-shadow-lg" />
                 </div>
-                <p className="text-white/60 text-xl font-body">The party trivia game where facts get weird and everyone gets roasted.</p>
+                <p className="text-white/80 text-xl font-body glow">The party trivia game where facts get weird and everyone gets roasted.</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl mb-10">
@@ -55,8 +73,9 @@ export default function LandingPage() {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                    className="glass p-6 flex flex-col gap-4 col-span-1 md:col-span-2"
+                    transition={{ delay: 0.2, duration: 0.5, type: 'spring' }}
+                    className="bg-white/70 backdrop-blur-lg p-6 flex flex-col gap-4 col-span-1 md:col-span-2 rounded-3xl shadow-2xl border border-white/20"
+                    style={{ boxShadow: '0 8px 32px #181a20, 0 1.5px 0 #fff inset' }}
                 >
                     <div className="flex items-center gap-3">
                         <Smartphone className="w-7 h-7 text-brand-teal" />
@@ -101,7 +120,7 @@ export default function LandingPage() {
                         Join Game →
                     </button>
                     <button
-                        className="btn-secondary text-sm"
+                        className="btn-secondary text-sm bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl px-4 py-2 text-white/70 hover:text-white transition-all"
                         onClick={() => {
                             sessionStorage.setItem('controllerMode', playMode === 'controller' ? 'true' : 'false');
                             navigate('/play');
@@ -118,20 +137,26 @@ export default function LandingPage() {
                     transition={{ delay: 0.35, duration: 0.5 }}
                     className="flex flex-col gap-4"
                 >
-                    <div className="glass p-6 flex flex-col gap-3 cursor-pointer hover:border-brand-purple/40 transition-all"
+                    <motion.div
+                        className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 flex flex-col gap-3 cursor-pointer shadow-xl"
+                        whileHover={{ scale: 1.03, boxShadow: '0 0 32px #7c3aed55' }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
                         onClick={() => navigate('/host')}>
                         <Tv className="w-8 h-8 text-brand-purple" />
-                        <h2 className="font-display font-bold text-xl">Host a Game</h2>
+                        <h2 className="font-display font-bold text-xl text-white">Host a Game</h2>
                         <p className="text-white/50 text-sm">Start a room, pick a mode, and let the chaos begin</p>
-                        <button className="btn-primary w-full mt-2">Host →</button>
-                    </div>
-                    <div className="glass p-6 flex flex-col gap-3 cursor-pointer hover:border-brand-teal/40 transition-all"
+                        <div className="w-full mt-2 py-2 rounded-xl font-bold text-center text-white" style={{ background: 'linear-gradient(90deg, #7c3aed, #ff00c8)' }}>Host →</div>
+                    </motion.div>
+                    <motion.div
+                        className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 flex flex-col gap-3 cursor-pointer shadow-xl"
+                        whileHover={{ scale: 1.03, boxShadow: '0 0 32px #00f6ff55' }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
                         onClick={() => navigate('/watch')}>
                         <Eye className="w-7 h-7 text-brand-teal" />
-                        <h2 className="font-display font-bold text-xl">Spectate</h2>
+                        <h2 className="font-display font-bold text-xl text-white">Spectate</h2>
                         <p className="text-white/50 text-sm">Watch and see live scores without playing</p>
-                        <button className="btn-secondary w-full mt-2">Watch →</button>
-                    </div>
+                        <div className="w-full mt-2 py-2 rounded-xl font-bold text-center text-white" style={{ background: 'linear-gradient(90deg, #0d9488, #00f6ff)' }}>Watch →</div>
+                    </motion.div>
                 </motion.div>
             </div>
 

@@ -4,6 +4,13 @@
 
 import type { Room, Player, HostConfig, HostScript, ScoreEntry, RoomSettings } from './types';
 import type { Question } from './question';
+import type {
+    MovieQuestionStartPayload,
+    MovieStageAdvancePayload,
+    MovieAnswerResultPayload,
+    MovieRevealPayload,
+    MovieModeSettings,
+} from './movie';
 
 // ---- Payloads (client → server) ----
 
@@ -180,6 +187,11 @@ export interface ServerToClientEvents {
     'game:mode_selected': (data: { mode: string }) => void;
     'settings:updated': (data: { settings: RoomSettings }) => void;
     'error': (data: { message: string }) => void;
+    // Movie Ladder events (server → client)
+    'movie:question_start': (data: MovieQuestionStartPayload) => void;
+    'movie:stage_advance': (data: MovieStageAdvancePayload) => void;
+    'movie:answer_result': (data: MovieAnswerResultPayload) => void;
+    'movie:reveal': (data: MovieRevealPayload) => void;
 }
 
 export interface ClientToServerEvents {
@@ -200,4 +212,8 @@ export interface ClientToServerEvents {
     'round:advance': () => void;
     'ad:reward:request': (data: { player_id: string }) => void;
     'ad:reward:complete': (data: AdRewardGrantPayload) => void;
+    // Movie Ladder events (client → server)
+    'movie:answer': (data: { question_id: string; answer: string | number; client_time_ms: number }) => void;
+    'movie:hint_advance': () => void;  // Host only: force advance to next stage
+    'movie:start': (data: { settings: MovieModeSettings }) => void;
 }

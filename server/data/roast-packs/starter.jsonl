@@ -1,0 +1,90 @@
+{"pack_id":"clean_observer","tone":"PG","trigger":"wrong_answer","line":"Close. In a universe where facts are optional.","tags":["dry","safe_roast"]}
+{"pack_id":"clean_observer","tone":"PG13","trigger":"wrong_answer","line":"That answer had vibes, not evidence.","tags":["dry","confidence_check"]}
+{"pack_id":"clean_observer","tone":"SPICY","trigger":"wrong_answer","line":"You built a whole theory there. None of it was true.","tags":["dry","misfire"]}
+{"pack_id":"clean_observer","tone":"PG","trigger":"timeout","line":"No answer. Bold strategy.","tags":["dry","timer"]}
+{"pack_id":"clean_observer","tone":"PG13","trigger":"timeout","line":"Time's up. Your brain filed for an extension.","tags":["dry","timer"]}
+{"pack_id":"clean_observer","tone":"SPICY","trigger":"timeout","line":"We waited. The answer did not.","tags":["dry","timer","deadpan"]}
+{"pack_id":"clean_observer","tone":"PG","trigger":"streak_break","line":"And the streak ends. A moment of silence for consistency.","tags":["dry","streak"]}
+{"pack_id":"clean_observer","tone":"PG13","trigger":"streak_break","line":"Streak broken. Statistics just sighed.","tags":["dry","streak"]}
+{"pack_id":"clean_observer","tone":"SPICY","trigger":"streak_break","line":"The streak collapsed like a cheap lawn chair.","tags":["dry","streak"]}
+{"pack_id":"clean_observer","tone":"PG","trigger":"perfect_round","line":"Perfect round. Disgusting. Keep going.","tags":["praise","dry"]}
+{"pack_id":"clean_observer","tone":"PG13","trigger":"perfect_round","line":"Perfect. I assume you bribed the textbook.","tags":["praise","dry"]}
+{"pack_id":"clean_observer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. Somebody stop {name} before they start teaching.","tags":["praise","dry"]}
+{"pack_id":"clean_observer","tone":"PG","trigger":"ridiculous_guess","line":"That was a guess with ambition.","tags":["guess","dry"]}
+{"pack_id":"clean_observer","tone":"PG13","trigger":"ridiculous_guess","line":"That guess was a scenic route away from reality.","tags":["guess","dry"]}
+{"pack_id":"clean_observer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess wasn't wrong, it was freestyle.","tags":["guess","dry"]}
+{"pack_id":"preacher_provoker","tone":"PG","trigger":"wrong_answer","line":"Not today, {name}. Not today.","tags":["rhythmic","crowd"]}
+{"pack_id":"preacher_provoker","tone":"PG13","trigger":"wrong_answer","line":"That wasn't an answer, that was a confession.","tags":["rhythmic","crowd"]}
+{"pack_id":"preacher_provoker","tone":"SPICY","trigger":"wrong_answer","line":"You didn't choose that answer. That answer chose you.","tags":["rhythmic","crowd"]}
+{"pack_id":"preacher_provoker","tone":"PG","trigger":"timeout","line":"Time! The clock said 'wrap it up.'","tags":["timer","rhythmic"]}
+{"pack_id":"preacher_provoker","tone":"PG13","trigger":"timeout","line":"Time's up. Your thoughts missed the bus.","tags":["timer","rhythmic"]}
+{"pack_id":"preacher_provoker","tone":"SPICY","trigger":"timeout","line":"Time! We are not doing a director's cut.","tags":["timer","rhythmic"]}
+{"pack_id":"preacher_provoker","tone":"PG","trigger":"streak_break","line":"The streak is over. Somebody check on {name}.","tags":["streak","crowd"]}
+{"pack_id":"preacher_provoker","tone":"PG13","trigger":"streak_break","line":"Streak snapped. Reality hit the brakes.","tags":["streak","crowd"]}
+{"pack_id":"preacher_provoker","tone":"SPICY","trigger":"streak_break","line":"Streak broken. The universe said 'humble yourself.'","tags":["streak","crowd"]}
+{"pack_id":"preacher_provoker","tone":"PG","trigger":"perfect_round","line":"Perfect round! Somebody clap like they mean it.","tags":["praise","crowd"]}
+{"pack_id":"preacher_provoker","tone":"PG13","trigger":"perfect_round","line":"Perfect! {name} came to WORK.","tags":["praise","crowd"]}
+{"pack_id":"preacher_provoker","tone":"SPICY","trigger":"perfect_round","line":"Perfect round! This is getting suspicious.","tags":["praise","crowd"]}
+{"pack_id":"preacher_provoker","tone":"PG","trigger":"ridiculous_guess","line":"That guess was LOUD.","tags":["guess","crowd"]}
+{"pack_id":"preacher_provoker","tone":"PG13","trigger":"ridiculous_guess","line":"That guess had confidence and zero witnesses.","tags":["guess","crowd"]}
+{"pack_id":"preacher_provoker","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess walked in like it paid rent here.","tags":["guess","crowd"]}
+{"pack_id":"ranting_skeptic","tone":"PG","trigger":"wrong_answer","line":"That's fine. Facts are overrated. Apparently.","tags":["rant","safe_roast"]}
+{"pack_id":"ranting_skeptic","tone":"PG13","trigger":"wrong_answer","line":"That answer was a crime and you left fingerprints.","tags":["rant","spice"]}
+{"pack_id":"ranting_skeptic","tone":"SPICY","trigger":"wrong_answer","line":"You didn't miss the question. You attacked it.","tags":["rant","spice"]}
+{"pack_id":"ranting_skeptic","tone":"PG","trigger":"timeout","line":"Time's up. We'll invoice you for the silence.","tags":["timer","rant"]}
+{"pack_id":"ranting_skeptic","tone":"PG13","trigger":"timeout","line":"Time's up. Your brain went AFK.","tags":["timer","rant"]}
+{"pack_id":"ranting_skeptic","tone":"SPICY","trigger":"timeout","line":"Time. That pause had a whole backstory.","tags":["timer","rant"]}
+{"pack_id":"ranting_skeptic","tone":"PG","trigger":"streak_break","line":"Streak broken. Gravity still works.","tags":["streak","rant"]}
+{"pack_id":"ranting_skeptic","tone":"PG13","trigger":"streak_break","line":"Streak snapped. Nature is healing.","tags":["streak","rant"]}
+{"pack_id":"ranting_skeptic","tone":"SPICY","trigger":"streak_break","line":"The streak died and it wasn't peaceful.","tags":["streak","rant"]}
+{"pack_id":"ranting_skeptic","tone":"PG","trigger":"perfect_round","line":"Perfect round. Who are you and what did you do with {name}?","tags":["praise","rant"]}
+{"pack_id":"ranting_skeptic","tone":"PG13","trigger":"perfect_round","line":"Perfect. This is the kind of competence that scares me.","tags":["praise","rant"]}
+{"pack_id":"ranting_skeptic","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. I hate how much I respect that.","tags":["praise","rant"]}
+{"pack_id":"ranting_skeptic","tone":"PG","trigger":"ridiculous_guess","line":"That guess was optimistic.","tags":["guess","rant"]}
+{"pack_id":"ranting_skeptic","tone":"PG13","trigger":"ridiculous_guess","line":"That guess was built out of hope and duct tape.","tags":["guess","rant"]}
+{"pack_id":"ranting_skeptic","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess fell out of your mouth and ran for its life.","tags":["guess","rant"]}
+{"pack_id":"laidback_truth_teller","tone":"PG","trigger":"wrong_answer","line":"Respect the attempt, {name}. Not the result.","tags":["chill","safe_roast"]}
+{"pack_id":"laidback_truth_teller","tone":"PG13","trigger":"wrong_answer","line":"That answer was… creative.","tags":["chill","misfire"]}
+{"pack_id":"laidback_truth_teller","tone":"SPICY","trigger":"wrong_answer","line":"You weren't wrong. You were just… elsewhere.","tags":["chill","spice"]}
+{"pack_id":"laidback_truth_teller","tone":"PG","trigger":"timeout","line":"Time. The answer ghosted you.","tags":["timer","chill"]}
+{"pack_id":"laidback_truth_teller","tone":"PG13","trigger":"timeout","line":"Time's up. Your thoughts took a nap.","tags":["timer","chill"]}
+{"pack_id":"laidback_truth_teller","tone":"SPICY","trigger":"timeout","line":"Time. That was more 'meditation' than 'thinking.'","tags":["timer","chill"]}
+{"pack_id":"laidback_truth_teller","tone":"PG","trigger":"streak_break","line":"Streak's over. Still proud of you.","tags":["streak","warm"]}
+{"pack_id":"laidback_truth_teller","tone":"PG13","trigger":"streak_break","line":"Streak snapped. Happens to the best of us.","tags":["streak","warm"]}
+{"pack_id":"laidback_truth_teller","tone":"SPICY","trigger":"streak_break","line":"Streak broke. Reality checked in.","tags":["streak","spice"]}
+{"pack_id":"laidback_truth_teller","tone":"PG","trigger":"perfect_round","line":"Perfect round. Okay, show-off.","tags":["praise","chill"]}
+{"pack_id":"laidback_truth_teller","tone":"PG13","trigger":"perfect_round","line":"Perfect. Somebody's been studying.","tags":["praise","chill"]}
+{"pack_id":"laidback_truth_teller","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. Don't make this your personality.","tags":["praise","spice"]}
+{"pack_id":"laidback_truth_teller","tone":"PG","trigger":"ridiculous_guess","line":"That guess had confidence. I'll give it that.","tags":["guess","chill"]}
+{"pack_id":"laidback_truth_teller","tone":"PG13","trigger":"ridiculous_guess","line":"That guess came from a deep place. Not a correct place.","tags":["guess","chill"]}
+{"pack_id":"laidback_truth_teller","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess was on vacation from reality.","tags":["guess","spice"]}
+{"pack_id":"anxious_raconteur","tone":"PG","trigger":"wrong_answer","line":"Honestly, relatable. Incorrect, but relatable.","tags":["anxious","safe_roast"]}
+{"pack_id":"anxious_raconteur","tone":"PG13","trigger":"wrong_answer","line":"That answer felt like it had footnotes. Wrong footnotes.","tags":["anxious","wordy"]}
+{"pack_id":"anxious_raconteur","tone":"SPICY","trigger":"wrong_answer","line":"You engineered the incorrect answer. Respect the craftsmanship.","tags":["anxious","spice"]}
+{"pack_id":"anxious_raconteur","tone":"PG","trigger":"timeout","line":"Time's up. The pressure won.","tags":["timer","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"PG13","trigger":"timeout","line":"Time's up. That was a full internal debate.","tags":["timer","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"SPICY","trigger":"timeout","line":"Time. We just watched you overthink in real time.","tags":["timer","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"PG","trigger":"streak_break","line":"Streak broken. It happens. Breathe.","tags":["streak","kind"]}
+{"pack_id":"anxious_raconteur","tone":"PG13","trigger":"streak_break","line":"Streak snapped. Your confidence left the chat.","tags":["streak","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"SPICY","trigger":"streak_break","line":"Streak broke. I felt that in my circuits.","tags":["streak","spice"]}
+{"pack_id":"anxious_raconteur","tone":"PG","trigger":"perfect_round","line":"Perfect round. Terrifying competence. Love it.","tags":["praise","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"PG13","trigger":"perfect_round","line":"Perfect. This is the part where you start believing in yourself.","tags":["praise","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. Don't get cocky. The universe is listening.","tags":["praise","spice"]}
+{"pack_id":"anxious_raconteur","tone":"PG","trigger":"ridiculous_guess","line":"That was a bold guess. Bold is good.","tags":["guess","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"PG13","trigger":"ridiculous_guess","line":"That guess felt like a panic response.","tags":["guess","anxious"]}
+{"pack_id":"anxious_raconteur","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess was your brain pulling the fire alarm.","tags":["guess","spice"]}
+{"pack_id":"friendly_storyteller","tone":"PG","trigger":"wrong_answer","line":"Nice try, {name}. The truth zigged, you zagged.","tags":["warm","safe_roast"]}
+{"pack_id":"friendly_storyteller","tone":"PG13","trigger":"wrong_answer","line":"That one took the scenic route to wrong.","tags":["warm","tease"]}
+{"pack_id":"friendly_storyteller","tone":"SPICY","trigger":"wrong_answer","line":"That answer was adorable. Incorrect, but adorable.","tags":["warm","spice_light"]}
+{"pack_id":"friendly_storyteller","tone":"PG","trigger":"timeout","line":"Time's up. No worries. We'll get the next one.","tags":["warm","timer"]}
+{"pack_id":"friendly_storyteller","tone":"PG13","trigger":"timeout","line":"Time's up. The answer didn't show up for you.","tags":["warm","timer"]}
+{"pack_id":"friendly_storyteller","tone":"SPICY","trigger":"timeout","line":"Time. That was less trivia, more interpretive silence.","tags":["warm","spice_light"]}
+{"pack_id":"friendly_storyteller","tone":"PG","trigger":"streak_break","line":"Streak ended. Still proud of you.","tags":["warm","streak"]}
+{"pack_id":"friendly_storyteller","tone":"PG13","trigger":"streak_break","line":"Streak snapped. Shake it off.","tags":["warm","streak"]}
+{"pack_id":"friendly_storyteller","tone":"SPICY","trigger":"streak_break","line":"Streak broke. The comeback arc starts now.","tags":["warm","spice_light"]}
+{"pack_id":"friendly_storyteller","tone":"PG","trigger":"perfect_round","line":"Perfect round! Okay {name}, we see you.","tags":["warm","praise"]}
+{"pack_id":"friendly_storyteller","tone":"PG13","trigger":"perfect_round","line":"Perfect! Somebody's on a roll.","tags":["warm","praise"]}
+{"pack_id":"friendly_storyteller","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. Save some points for everyone else.","tags":["warm","spice_light"]}
+{"pack_id":"friendly_storyteller","tone":"PG","trigger":"ridiculous_guess","line":"Wild guess. I respect the bravery.","tags":["warm","guess"]}
+{"pack_id":"friendly_storyteller","tone":"PG13","trigger":"ridiculous_guess","line":"That guess was pure courage, zero map.","tags":["warm","guess"]}
+{"pack_id":"friendly_storyteller","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess came in with a smile and no plan.","tags":["warm","spice_light"]}

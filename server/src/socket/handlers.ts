@@ -2,6 +2,7 @@ import type { Server, Socket } from 'socket.io';
 import type { ServerToClientEvents, ClientToServerEvents } from '@tipsy-trivia/shared';
 import { RoomManager } from '../rooms/RoomManager';
 import { GameStateMachine } from '../state/GameStateMachine';
+import { MovieLadderStateMachine } from '../state/MovieLadderStateMachine';
 import { COMEDIAN_PRESETS } from '../host/ComedianHostEngine';
 import { AdRewardManager } from '../ads/AdRewardManager';
 
@@ -10,6 +11,7 @@ export function registerSocketHandlers(
     roomManager: RoomManager,
 ): void {
     const stateMachine = new GameStateMachine(io);
+    const movieMachine = new MovieLadderStateMachine(io);
     const adManager = new AdRewardManager();
 
     // Rate limiting state (per socket)
@@ -103,6 +105,31 @@ export function registerSocketHandlers(
             io.to(room.code).emit('room:updated', { room });
         });
 
+        // ─── Movie: Start ─────────────────────────────────────────
+        socket.on('movie:start', (data) => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room || room.host_socket_id !== socket.id) return;
+            if (room.phase !== 'lobby' && room.phase !== 'mode_select') return;
+            movieMachine.startMovieGame(room, data.settings);
+        });
+
+        // ─── Movie: Answer (player) ───────────────────────────────
+        socket.on('movie:answer', (data) => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room || room.phase !== 'movie_stage') return;
+            const ms = room.movie_state;
+            if (!ms || data.question_id !== ms.question_ids[ms.question_index]) return;
+            movieMachine.processMovieAnswer(room, socket.id, data.answer, data.client_time_ms);
+        });
+
+        // ─── Movie: Hint Advance (host only) ─────────────────────
+        socket.on('movie:hint_advance', () => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room || room.host_socket_id !== socket.id) return;
+            if (room.phase !== 'movie_stage') return;
+            movieMachine.advanceStage(room);
+        });
+
         // ─── Answer: Submit ───────────────────────────────────────
         socket.on('answer:submit', async (data) => {
             const room = roomManager.getRoomBySocket(socket.id);
@@ -154,11 +181,15 @@ export function registerSocketHandlers(
         // ─── Disconnect ───────────────────────────────────────────
         socket.on('disconnect', () => {
             console.log(`Socket disconnected: ${socket.id}`);
-            roomManager.removePlayer(socket.id);
             const room = roomManager.getRoomBySocket(socket.id);
             if (room) {
+                // If host disconnects from a movie game, clean up timers
+                if (room.host_socket_id === socket.id && room.movie_state) {
+                    movieMachine.cleanup(room.code);
+                }
                 io.to(room.code).emit('player:left', { player_id: socket.id });
             }
+            roomManager.removePlayer(socket.id);
             buzzerCooldowns.delete(socket.id);
         });
     });

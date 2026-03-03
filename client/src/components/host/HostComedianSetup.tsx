@@ -52,7 +52,7 @@ export default function HostComedianSetup({ onDone }: Props) {
     };
 
     return (
-        <div className="animated-bg min-h-screen p-8 flex flex-col">
+        <div className="min-h-screen p-8 flex flex-col">
             <div className="mb-8">
                 <div className="flex items-center gap-3 mb-2">
                     <Mic className="w-8 h-8 text-brand-gold" />

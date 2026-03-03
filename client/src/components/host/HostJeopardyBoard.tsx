@@ -6,7 +6,7 @@ export default function HostJeopardyBoard() {
     const board = room?.jeopardy_board;
 
     if (!board) return (
-        <div className="animated-bg min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center">
             <div className="glass p-8 text-center text-white/40">Loading Jeopardy Board…</div>
         </div>
     );
@@ -14,7 +14,7 @@ export default function HostJeopardyBoard() {
     const categories = board.map(col => col[0]?.category ?? '');
 
     return (
-        <div className="animated-bg min-h-screen p-6 flex flex-col">
+        <div className="min-h-screen p-6 flex flex-col">
             <h1 className="font-display font-black text-4xl gradient-text text-center mb-6">
                 {room?.jeopardy_controller_id
                     ? `${Object.values(room.players).find(p => p.id === room.jeopardy_controller_id)?.name ?? 'Player'}'s Turn`

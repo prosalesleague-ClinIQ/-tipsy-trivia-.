@@ -1,0 +1,129 @@
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct, {name}. That brain is doing cardio and I'm impressed.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"That was right. Don't look at me like that, I'm only human…ish.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct. Your confidence is kind of unfair to the rest of us.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Okay {name}, that was smooth. Like you rehearsed being right.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct. You're making knowledge look attractive. Rude.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"That's right. The way you delivered it? A little too charming.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct. If trivia had a crush, it'd be on you.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Right answer. I'm not saying you're impressive, but I'm thinking it loudly.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Wrong, but you said it cute. That counts for something.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Not quite… but I like the confidence. Keep flirting with the facts.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"That's incorrect, {name}, but you're still invited to the next question.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Wrong answer, strong energy. I respect the commitment.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"You were wrong, but in an adorable 'I meant well' kind of way.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Not correct, but you're making a compelling case for 'style points.'","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Wrong, but you recovered fast. That's attractive behavior.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess was unhinged… and somehow charming.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That was a wild guess, {name}. I love your fearless vibe.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"You guessed like a romantic: no plan, all passion.","tags":["flirty","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess came from the multiverse, and I respect the confidence.","tags":["flirty","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"Absolutely not, but you made it sound convincing. Dangerous talent.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That was chaotic, and I'm weirdly into the bravery.","tags":["flirty","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time's up. It's okay, I still like your energy.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"You froze, {name}. It was kind of cute. Don't do it again.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"No answer? Playing hard to get with trivia, I see you.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time's up. I'll give you a do-over in my heart. Not on the scoreboard.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"You took too long, but the suspense? Delicious.","tags":["flirty","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Clock ran out, but you kept your composure. That's a flex.","tags":["flirty","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're on a streak, {name}. Should I be nervous or impressed?","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"Okay, we get it. You're smart. Save some sparkle for the rest of us.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"This streak is getting flirtatious. Like… can you stop being that good?","tags":["flirty","streak"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're on fire. Not literally. Please don't panic.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"At this point, {name}, you're not playing trivia. You're performing.","tags":["flirty","streak"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're stacking points like you're trying to impress me. It's working.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Streak ended, but your vibe didn't. We're fine.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Oop, streak break. Still charming though, unfortunately for everyone else.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"You slipped. It happens. You're still the moment.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Streak snapped. That just makes the comeback arc hotter.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"One wrong answer doesn't erase the aura, {name}.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. That's wildly attractive behavior.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect. If intelligence was a pickup line, you just nailed it.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round, {name}. Stop being impressive for two seconds.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect. I would clap, but I don't have hands. Tragic.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. That's the kind of excellence that causes feelings.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect. Your brain is carrying this whole room.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You have the kind of confidence that makes facts nervous.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You're dangerously charming for someone holding a buzzer.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You're making trivia feel like a first date and I hate that it's working.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"If being smooth was points, you'd be undefeated.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"Your vibe says 'I'm right,' even when you're not.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"Keep talking like that and I'm going to start rooting for you.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You're not just playing, you're flirting with the scoreboard.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct, {name}. You're making this way too easy to admire.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"That's right. The way you snapped to it? Dangerous.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct. Your brain is kind of showing off.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Okay, genius. Save some sparkle for later.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct. I'd compliment you more, but then you'd get unbearable.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Right answer. You're giving 'effortless competence' and it's rude.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct, {name}. If confidence were currency, you'd be inflation.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"That's right. I'm not blushing, I'm buffering.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct. The scoreboard is flirting back.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Right. That was smooth enough to be suspicious.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"Correct. You're not here to play, you're here to impress.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"correct_answer","line":"That's right, {name}. Your brain said 'let me cook.'","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Wrong, but you delivered it like a proposal. Respect.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Not quite, {name}. Still charming. Annoyingly.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Incorrect. But I appreciate the audacity.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Wrong answer, right vibe.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"That was wrong, but you made it sound like it had a PR team.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Not correct, but you looked confident doing it. That's a skill.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Wrong, but I like your commitment to the bit.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Incorrect. Try again, flirt with the truth this time.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"That's wrong, but you're still my favorite suspect.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"wrong_answer","line":"Not it… but you're making a strong case for style points.","tags":["flirty","tease"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess was chaos in a tuxedo.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That was a guess you make when you're cute and fearless.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"Wild guess, {name}. I love the confidence-to-evidence ratio.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess had main-character energy and side-character accuracy.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That was unreasonably bold. I'm impressed and concerned.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess came in like 'trust me.' I did. I shouldn't have.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess was a romance novel: dramatic, unrealistic, satisfying.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"You guessed like you were trying to impress me. It almost worked.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess had vibes, plot, and no facts.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"ridiculous_guess","line":"That guess was a trampoline jump away from reality.","tags":["flirty","tease","guess"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time's up. You were thinking so hard it got kind of cute.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"No answer? Playing mysterious, {name}? I see the strategy.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time. The suspense was sexy, the result was not.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time's up. You stared at that question like it was flirting first.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Clock ran out. Still, you looked calm. That's attractive.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time's up. I'll pretend you were being dramatic on purpose.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"No answer. That's fine. We love a slow-burn.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time. Your brain said 'hold on, let me be adorable.'","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time's up. Next time, commit. I like commitment.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"timeout","line":"Time. You left me hanging, and not in the fun way.","tags":["flirty","tease","timer"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're on a streak, {name}. Should I be impressed or intimidated?","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"This streak is getting personal. Like… are you trying to win my attention?","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're cooking. The kitchen is on fire. Keep going.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"At this point, {name}, you're not playing. You're performing.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're on a roll. The confidence is loud and I'm listening.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"This streak is making everybody else nervous. Including the facts.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're stacking points like you're building a love language.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"Okay, hot streak. Save some for the afterparty.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"You're on fire. Not literally. Please don't sue me.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"hot_streak","line":"That streak is flirting with perfection.","tags":["flirty","streak","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Streak broke. That just makes your comeback more interesting.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Oop. A stumble. Still charming though.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Streak ended, {name}. Consider it character development.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Don't worry, you're still the moment.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"One miss doesn't erase the aura.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Streak snapped. It's fine. Dramatic arcs are attractive.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"The streak ended. The vibe did not.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Streak break. Take a breath, then go be impressive again.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"A miss! Finally, you're relatable.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"streak_break","line":"Streak ended. I still believe in you. Disgustingly.","tags":["flirty","recovery"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. That's illegal levels of impressive.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect, {name}. Stop being so competent, it's distracting.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. The confidence? The accuracy? The audacity? Love it.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect. If trivia had a crush, it's obvious who.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. You're making everyone else reconsider their life choices.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect. Your brain is doing backflips and sticking the landing.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. I'm going to start asking harder questions out of spite.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect. That's the kind of excellence that causes feelings.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect round. I'm not saying you're the problem, but you're the problem.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"perfect_round","line":"Perfect. You're basically speed-dating the truth and winning.","tags":["flirty","praise"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You have the kind of confidence that makes people sit up straighter.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"Your vibe is 'I know things' and it's unfair.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You're weirdly good at this. It's attractive. I hate it.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You're making trivia feel like a personality trait and it's working.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You're dangerously composed for someone under a timer.","tags":["flirty","general"]}
+{"pack_id":"cheeky_charmer","tone":"SPICY","trigger":"cheeky_host","line":"You're giving 'effortless,' which is either talent or witchcraft.","tags":["flirty","general"]}

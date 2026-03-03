@@ -122,6 +122,8 @@ export class ComedianHostEngine {
             rapid_fire: "RAPID FIRE. No pausing. No deliberating. No asking your neighbor. You have the time you have, you answer what you got. Hesitate and the points leave you.",
             jeopardy: "You are playing a board game where YOU pick the question. The board has categories, the categories have values, and the values have vibes. Pick wisely.",
             legacy_ladder: "The Legacy Ladder. You climb or you fall. Wrong answers cost strikes. Lose all your strikes and the run is over. There is no shame in falling on step four. There is a little shame. Not much.",
+            plot_ladder: "Plot Ladder. I give you a clue. You guess the movie. Each stage reveals a little more. The faster you get it, the more points you earn. Try not to overthink it.",
+            cast_ladder: "Cast Ladder. I name actors. You name the film. It starts vague, it ends obvious. The trick is getting there first.",
         };
         return intros[mode] ?? "Let's play trivia!";
     }

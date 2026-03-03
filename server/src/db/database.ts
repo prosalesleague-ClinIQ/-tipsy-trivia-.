@@ -74,10 +74,46 @@ function runMigrations(db: Database.Database): void {
       extra_strikes INTEGER NOT NULL DEFAULT 1
     );
 
+    CREATE TABLE IF NOT EXISTS movie_questions (
+      id TEXT PRIMARY KEY,
+      mode TEXT NOT NULL CHECK(mode IN ('plot_ladder','cast_ladder')),
+      title TEXT NOT NULL,
+      year INTEGER NOT NULL,
+      mpaa TEXT NOT NULL,
+      genres TEXT NOT NULL,   -- JSON array
+      plot_clue TEXT,
+      actor_top TEXT NOT NULL,
+      actor_2nd TEXT NOT NULL,
+      actor_3rd TEXT NOT NULL,
+      role_tag_stage TEXT,
+      role_tag_text TEXT,
+      choices TEXT NOT NULL,  -- JSON array[4]
+      answer TEXT NOT NULL,
+      explain TEXT NOT NULL,
+      tmdb_id INTEGER,
+      fetched_at TEXT,
+      UNIQUE(tmdb_id, mode)
+    );
+
+    CREATE TABLE IF NOT EXISTS tmdb_cache (
+      tmdb_id INTEGER PRIMARY KEY,
+      data TEXT NOT NULL,
+      cached_at TEXT NOT NULL
+    );
+
     CREATE INDEX IF NOT EXISTS idx_questions_pack ON questions(pack_id);
     CREATE INDEX IF NOT EXISTS idx_questions_category ON questions(category, difficulty);
     CREATE INDEX IF NOT EXISTS idx_questions_hash ON questions(fact_hash);
     CREATE INDEX IF NOT EXISTS idx_sessions_token ON sessions(token);
     CREATE INDEX IF NOT EXISTS idx_ad_rewards_player ON ad_rewards(player_id, room_code);
+    CREATE INDEX IF NOT EXISTS idx_movie_mode ON movie_questions(mode);
+    CREATE INDEX IF NOT EXISTS idx_movie_year ON movie_questions(year);
   `);
+
+    // Add category system columns if they don't already exist (ALTER TABLE is not idempotent in older SQLite)
+    const existingCols: { name: string }[] = db.pragma('table_info(questions)') as { name: string }[];
+    const colNames = new Set(existingCols.map(c => c.name));
+    if (!colNames.has('difficulty_level')) db.exec(`ALTER TABLE questions ADD COLUMN difficulty_level TEXT DEFAULT 'D2'`);
+    if (!colNames.has('adult_level'))      db.exec(`ALTER TABLE questions ADD COLUMN adult_level TEXT DEFAULT 'A0'`);
+    if (!colNames.has('category_group'))   db.exec(`ALTER TABLE questions ADD COLUMN category_group TEXT DEFAULT 'core'`);
 }

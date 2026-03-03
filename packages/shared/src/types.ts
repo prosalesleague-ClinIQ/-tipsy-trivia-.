@@ -3,8 +3,9 @@
 // ============================================================
 
 import type { Difficulty } from './question';
+import type { MovieRoomState, MovieStage } from './movie';
 
-export type GameMode = 'trivia_categories' | 'rapid_fire' | 'jeopardy' | 'legacy_ladder';
+export type GameMode = 'trivia_categories' | 'rapid_fire' | 'jeopardy' | 'legacy_ladder' | 'plot_ladder' | 'cast_ladder';
 
 export type GamePhase =
     | 'lobby'
@@ -20,7 +21,9 @@ export type GamePhase =
     | 'jeopardy_daily_double'
     | 'jeopardy_final'
     | 'ladder_result'
-    | 'final_scoreboard';
+    | 'final_scoreboard'
+    | 'movie_stage'
+    | 'movie_reveal';
 
 export type PlayerStatus = 'active' | 'disconnected' | 'spectating';
 
@@ -39,6 +42,8 @@ export interface Player {
     answer_time_ms: number | null;
     wager: number | null;     // Jeopardy Daily Double / Final
     buzzed_at: number | null; // unix ms for buzzer
+    movie_locked_until: number | null;   // unix ms lockout end (Movie Ladder)
+    movie_solved_stage: MovieStage | null; // stage at which player solved (Movie Ladder)
 }
 
 export interface ScoreEntry {
@@ -76,6 +81,7 @@ export interface Room {
     used_fact_hashes: string[];
     created_at: number;
     settings: RoomSettings;
+    movie_state: MovieRoomState | null; // null when not in movie mode
 }
 
 export type ContentRating = 'family' | 'adult' | 'spicy';

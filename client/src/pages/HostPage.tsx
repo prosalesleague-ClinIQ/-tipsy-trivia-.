@@ -4,7 +4,7 @@ import { useGameState } from '../state/GameStateContext';
 import { useSpeech } from '../state/useSpeech';
 import { motion } from 'framer-motion';
 import { WifiOff, Users, Zap, Flame, Brain, Loader2 } from 'lucide-react';
-import type { HostConfig, GameMode, Difficulty, ContentRating } from '@tipsy-trivia/shared';
+import type { HostConfig, GameMode, Difficulty, ContentRating, MovieModeSettings } from '@tipsy-trivia/shared';
 import HostLobbyScreen from '../components/host/HostLobbyScreen';
 import HostComedianSetup from '../components/host/HostComedianSetup';
 import HostModeSelect from '../components/host/HostModeSelect';
@@ -13,6 +13,9 @@ import HostRevealScreen from '../components/host/HostRevealScreen';
 import HostScoreboard from '../components/host/HostScoreboard';
 import HostJeopardyBoard from '../components/host/HostJeopardyBoard';
 import HostEndGame from '../components/host/HostEndGame';
+import HostMovieSetup from '../components/host/HostMovieSetup';
+import HostMovieStageScreen from '../components/host/HostMovieStageScreen';
+import HostMovieRevealScreen from '../components/host/HostMovieRevealScreen';
 
 const DIFFICULTY_OPTIONS: { value: Difficulty; label: string; icon: string; color: string }[] = [
     { value: 'Easy', label: 'Easy', icon: '🟢', color: 'border-green-500 bg-green-500/20 text-green-300' },
@@ -32,7 +35,7 @@ export default function HostPage() {
     const { state, dispatch } = useGameState();
     const [roomCode, setRoomCode] = useState<string | null>(null);
     const [hostName, setHostName] = useState('Host');
-    const [screen, setScreen] = useState<'setup' | 'lobby' | 'comedian' | 'mode_select' | 'game'>('setup');
+    const [screen, setScreen] = useState<'setup' | 'lobby' | 'comedian' | 'mode_select' | 'movie_setup' | 'game'>('setup');
 
     // Setup state
     const [playerCount, setPlayerCount] = useState(4);
@@ -87,6 +90,7 @@ export default function HostPage() {
         if (phase === 'lobby') setScreen('lobby');
         else if (phase === 'comedian_setup') setScreen('comedian');
         else if (phase === 'mode_select') setScreen('mode_select');
+        else if (phase === 'movie_stage' || phase === 'movie_reveal') setScreen('game');
         else setScreen('game');
     }, [state.room?.phase]);
 
@@ -128,12 +132,21 @@ export default function HostPage() {
         });
     };
 
-    const startGame = (mode: GameMode) => {
+    const handleModeSelect = (mode: GameMode | 'movie_modes') => {
+        if (mode === 'movie_modes') {
+            setScreen('movie_setup');
+            return;
+        }
         if (!socket || !roomCode) return;
         socket.emit('game:start', {
             mode,
             settings: { ...state.room?.settings, difficulty, content_rating: contentRating },
         });
+    };
+
+    const startMovieGame = (settings: MovieModeSettings) => {
+        if (!socket) return;
+        socket.emit('movie:start', { settings });
     };
 
     const setHostConfig = (config: HostConfig) => {
@@ -265,10 +278,23 @@ export default function HostPage() {
         return <HostComedianSetup onDone={setHostConfig} />;
     }
     if (screen === 'mode_select') {
-        return <HostModeSelect onSelect={startGame} />;
+        return <HostModeSelect onSelect={handleModeSelect} />;
+    }
+
+    if (screen === 'movie_setup') {
+        return <HostMovieSetup
+            onStart={startMovieGame}
+            onBack={() => setScreen('mode_select')}
+        />;
     }
 
     const phase = state.room?.phase;
+
+    // Movie phases
+    if (phase === 'movie_stage') return <HostMovieStageScreen />;
+    if (phase === 'movie_reveal') return <HostMovieRevealScreen />;
+
+    // Standard phases
     if (phase === 'question' || phase === 'buzzer_wait' || phase === 'buzzer_answer') return <HostQuestionScreen />;
     if (phase === 'answer_reveal') return <HostRevealScreen />;
     if (phase === 'round_end' || phase === 'final_scoreboard') {

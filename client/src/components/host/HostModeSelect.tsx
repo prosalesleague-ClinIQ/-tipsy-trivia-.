@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import type { GameMode } from '@tipsy-trivia/shared';
-import { Grid, Zap, List, Infinity } from 'lucide-react';
+import { Grid, Zap, List, Infinity, Film } from 'lucide-react';
 
 interface Props {
-    onSelect: (mode: GameMode) => void;
+    onSelect: (mode: GameMode | 'movie_modes') => void;
 }
 
 const MODES = [
@@ -47,17 +47,27 @@ const MODES = [
         accent: 'text-brand-pink',
         emoji: '🪜',
     },
+    {
+        id: 'movie_modes' as const,
+        name: 'Movie Modes',
+        icon: Film,
+        description: 'Plot Ladder & Cast Ladder · stage hints · free text or MC · speed bonus',
+        color: 'border-orange-500/50 hover:border-orange-400',
+        bg: 'bg-orange-500/10',
+        accent: 'text-orange-400',
+        emoji: '🎬',
+    },
 ];
 
 export default function HostModeSelect({ onSelect }: Props) {
     return (
-        <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-8">
+        <div className="min-h-screen flex flex-col items-center justify-center p-8">
             <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
                 <h1 className="font-display font-black text-5xl gradient-text mb-3">Choose Your Mode</h1>
                 <p className="text-white/50 text-lg">Select a game mode. The host script will adapt automatically.</p>
             </motion.div>
 
-            <div className="grid grid-cols-2 gap-6 w-full max-w-4xl">
+            <div className="grid grid-cols-2 gap-6 w-full max-w-4xl" style={{ gridAutoRows: '1fr' }}>
                 {MODES.map((mode, i) => {
                     const Icon = mode.icon;
                     return (

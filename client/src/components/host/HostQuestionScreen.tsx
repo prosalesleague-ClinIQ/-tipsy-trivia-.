@@ -4,6 +4,7 @@ import { useGameState } from '../../state/GameStateContext';
 import { useSocket } from '../../socket/SocketProvider';
 import TimerRing from '../shared/TimerRing';
 import { Users, Zap } from 'lucide-react';
+import { Buzzer3D } from '../../components/Buzzer3D';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 const OPTION_COLORS = [
@@ -36,7 +37,7 @@ export default function HostQuestionScreen() {
     const answeredCount = players.filter(p => p.answered).length;
 
     return (
-        <div className="animated-bg min-h-screen p-8 flex flex-col">
+        <div className="min-h-screen p-8 flex flex-col items-center justify-center">
             {/* Hook line */}
             {currentQuestion.hook_line && (
                 <motion.div
@@ -53,7 +54,7 @@ export default function HostQuestionScreen() {
                 <div className="flex-1 flex flex-col">
                     {/* Category badge */}
                     <div className="flex gap-3 mb-6">
-                        <span className="glass px-4 py-1 rounded-full text-sm text-white/60">{currentQuestion.category}</span>
+                        <span className="bg-white/70 backdrop-blur-lg px-4 py-1 rounded-full text-sm text-white/60 border border-white/20 shadow-md">{currentQuestion.category}</span>
                         <span className={`glass px-4 py-1 rounded-full text-sm font-bold ${currentQuestion.difficulty === 'Easy' ? 'text-green-400' :
                                 currentQuestion.difficulty === 'Medium' ? 'text-brand-gold' :
                                     currentQuestion.difficulty === 'Hard' ? 'text-orange-400' : 'text-red-400'

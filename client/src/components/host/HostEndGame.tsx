@@ -34,7 +34,7 @@ export default function HostEndGame() {
     if (!gameEnd) return null;
 
     return (
-        <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-10 relative overflow-hidden">
+        <div className="min-h-screen flex flex-col items-center justify-center p-10 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
             {/* Confetti */}
             {confetti.map(c => (
                 <div
@@ -52,16 +52,17 @@ export default function HostEndGame() {
             {/* Winner */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: 'spring', damping: 12 }}
-                className="glass p-10 text-center max-w-2xl w-full mb-8 border-2 border-brand-gold/50"
+                animate={{ opacity: 1, scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 12 }}
+                className="bg-white/10 backdrop-blur-2xl border-2 border-brand-gold/60 rounded-3xl p-10 text-center max-w-2xl w-full mb-8 shadow-2xl"
+                style={{ boxShadow: '0 0 48px #fbbf2444, 0 0 80px #ff00c833' }}
             >
                 <Trophy className="w-16 h-16 text-brand-gold mx-auto mb-4" />
                 <p className="text-brand-gold font-display font-bold text-lg uppercase tracking-widest mb-2">🏆 Winner</p>
                 <h1 className="font-display font-black text-6xl gradient-text mb-4">{gameEnd.winner_name}</h1>
                 <p className="text-white/60 text-xl font-body mb-6">{gameEnd.scores[0]?.score.toLocaleString()} points</p>
                 {gameEnd.host_winner_roast && (
-                    <div className="glass bg-brand-gold/10 p-4 rounded-xl border-l-4 border-brand-gold">
+                    <div className="bg-brand-gold/10 backdrop-blur-lg border border-brand-gold/40 rounded-2xl p-4 border-l-4">
                         <p className="text-brand-gold font-body italic text-lg">🎭 {gameEnd.host_winner_roast}</p>
                     </div>
                 )}

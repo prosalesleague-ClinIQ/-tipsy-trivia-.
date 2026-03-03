@@ -41,17 +41,17 @@ export default function WatchPage() {
     };
 
     if (!connected) return (
-        <div className="animated-bg min-h-screen flex items-center justify-center">
-            <div className="glass p-8 text-center">
+        <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: 'spring' }} className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 text-center shadow-2xl">
                 <WifiOff className="w-10 h-10 text-red-400 mx-auto mb-3" />
                 <p className="text-white/60">Connecting...</p>
-            </div>
+            </motion.div>
         </div>
     );
 
     if (!isWatching) return (
-        <div className="animated-bg min-h-screen flex items-center justify-center p-6">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass p-8 w-full max-w-sm text-center">
+        <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', stiffness: 300, damping: 22 }} className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 w-full max-w-sm text-center shadow-2xl" style={{ boxShadow: '0 8px 32px #181a20, 0 0 0 1.5px #00f6ff22 inset' }}>
                 <Eye className="w-10 h-10 text-brand-teal mx-auto mb-4" />
                 <h1 className="font-display font-black text-3xl gradient-text mb-6">Spectate Game</h1>
                 <input
@@ -63,25 +63,32 @@ export default function WatchPage() {
                     onKeyDown={e => e.key === 'Enter' && joinSpectator()}
                 />
                 {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
-                <button className="btn-secondary w-full text-xl py-3" onClick={joinSpectator}>
+                <motion.button
+                    className="w-full text-xl py-3 rounded-2xl font-bold text-white"
+                    style={{ background: 'linear-gradient(90deg, #00f6ff, #ff00c8)', boxShadow: '0 4px 24px #00f6ff55' }}
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                    onClick={joinSpectator}
+                >
                     Watch →
-                </button>
+                </motion.button>
             </motion.div>
         </div>
     );
 
     return (
-        <div className="animated-bg min-h-screen p-6 flex flex-col">
+        <div className="min-h-screen p-6 flex flex-col" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
             <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-2">
                     <Eye className="w-5 h-5 text-brand-teal" />
-                    <span className="font-display font-bold text-white/50">Spectating Room: <span className="text-brand-gold">{state.room?.code}</span></span>
+                    <span className="font-display font-bold text-white/70">Spectating Room: <span className="text-brand-gold neon-text">{state.room?.code}</span></span>
                 </div>
-                <span className="glass px-3 py-1 text-xs rounded-full">Phase: {state.room?.phase}</span>
+                <span className="bg-white/10 backdrop-blur-lg border border-white/20 px-3 py-1 text-xs rounded-full text-white/60">Phase: {state.room?.phase}</span>
             </div>
 
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="glass p-6">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring' }} className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl">
                     <h2 className="font-display font-bold text-xl mb-4 text-white/70">Current State</h2>
                     {state.currentQuestion ? (
                         <div>
@@ -91,20 +98,20 @@ export default function WatchPage() {
                     ) : (
                         <p className="text-white/40 italic">Waiting for question...</p>
                     )}
-                </div>
+                </motion.div>
 
-                <div className="glass p-6">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', delay: 0.1 }} className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl">
                     <h2 className="font-display font-bold text-xl mb-4 text-white/70">Live Standings</h2>
                     <div className="space-y-2">
                         {state.scores.map((s, i) => (
-                            <div key={s.player_id} className="flex justify-between p-2 rounded bg-white/5">
+                            <motion.div key={s.player_id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.07, type: 'spring' }} className="flex justify-between p-2 rounded-xl bg-white/5 border border-white/10">
                                 <span className="font-body"><span className="text-white/40 w-4 inline-block">{i + 1}.</span> {s.player_name}</span>
                                 <span className="font-display font-bold text-brand-gold">{s.score.toLocaleString()}</span>
-                            </div>
+                            </motion.div>
                         ))}
                         {state.scores.length === 0 && <p className="text-white/40 text-sm italic">No scores yet</p>}
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

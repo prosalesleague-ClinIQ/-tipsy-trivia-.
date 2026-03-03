@@ -69,8 +69,8 @@ export default function AdminPage() {
     };
 
     if (!authed) return (
-        <div className="animated-bg min-h-screen flex items-center justify-center p-6">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="glass p-8 w-full max-w-sm text-center">
+        <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: 'spring', stiffness: 300, damping: 22 }} className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 w-full max-w-sm text-center shadow-2xl" style={{ boxShadow: '0 8px 32px #181a20, 0 0 0 1.5px #ff00c822 inset' }}>
                 <Shield className="w-12 h-12 text-brand-pink mx-auto mb-4" />
                 <h1 className="font-display font-black text-3xl mb-6">Admin Panel</h1>
                 <input
@@ -82,21 +82,28 @@ export default function AdminPage() {
                     onKeyDown={e => e.key === 'Enter' && login()}
                 />
                 {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
-                <button className="btn-primary w-full" onClick={login}>Login</button>
+                <motion.button
+                    className="w-full py-3 rounded-2xl font-bold text-white"
+                    style={{ background: 'linear-gradient(90deg, #ff00c8, #00f6ff)', boxShadow: '0 4px 24px #ff00c855' }}
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                    onClick={login}
+                >Login</motion.button>
             </motion.div>
         </div>
     );
 
     return (
-        <div className="animated-bg min-h-screen p-8 text-white">
-            <div className="flex items-center gap-3 mb-8">
-                <Shield className="w-8 h-8 text-brand-pink" />
-                <h1 className="font-display font-black text-3xl">Content Admin</h1>
-            </div>
+        <div className="min-h-screen p-8 text-white" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
+            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring' }} className="flex items-center gap-3 mb-8">
+                <Shield className="w-8 h-8" style={{ color: '#ff00c8', filter: 'drop-shadow(0 0 8px #ff00c8)' }} />
+                <h1 className="font-display font-black text-3xl neon-text">Content Admin</h1>
+            </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Pack upload */}
-                <div className="glass p-6 flex flex-col gap-4">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', delay: 0.1 }} className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 flex flex-col gap-4 shadow-xl">
                     <h2 className="font-display font-bold text-xl">Import Pack</h2>
                     <p className="text-white/50 text-sm">Upload a JSON question pack to add or update questions.</p>
                     <input
@@ -105,13 +112,17 @@ export default function AdminPage() {
                         onChange={e => setFile(e.target.files?.[0] || null)}
                         className="text-white/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-purple/20 file:text-brand-purple hover:file:bg-brand-purple/30"
                     />
-                    <button
-                        className={`btn-primary flex items-center justify-center gap-2 ${!file ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    <motion.button
+                        className={`flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-white ${!file ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        style={{ background: 'linear-gradient(90deg, #00f6ff, #ff00c8)', boxShadow: '0 4px 24px #00f6ff55' }}
+                        whileHover={file ? { scale: 1.05 } : {}}
+                        whileTap={file ? { scale: 0.95 } : {}}
+                        transition={{ type: 'spring', stiffness: 400, damping: 18 }}
                         onClick={handleUpload}
                         disabled={!file || uploadStatus.status === 'uploading'}
                     >
                         <Upload className="w-4 h-4" /> Upload & Parse
-                    </button>
+                    </motion.button>
 
                     {uploadStatus.status !== 'idle' && (
                         <div className={`p-4 rounded-xl flex items-start gap-3 mt-2 ${uploadStatus.status === 'error' ? 'bg-red-500/20 text-red-200 border border-red-500/50' :
@@ -122,17 +133,17 @@ export default function AdminPage() {
                             <span className="text-sm font-body">{uploadStatus.msg}</span>
                         </div>
                     )}
-                </div>
+                </motion.div>
 
                 {/* Installed packs */}
-                <div className="glass p-6">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', delay: 0.2 }} className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl">
                     <h2 className="font-display font-bold text-xl mb-4">Installed Packs</h2>
                     {packs.length === 0 ? (
                         <p className="text-white/40 italic text-sm">No packs found in database.</p>
                     ) : (
                         <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
                             {packs.map(p => (
-                                <div key={p.id} className="bg-white/5 p-4 rounded-xl border border-white/10 flex justify-between items-center">
+                                <motion.div key={p.id} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ type: 'spring' }} className="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 flex justify-between items-center shadow-md">
                                     <div>
                                         <h3 className="font-body font-bold text-lg text-brand-gold">{p.name}</h3>
                                         <p className="text-white/40 text-xs">ID: {p.id} • v{p.version}</p>
@@ -141,11 +152,11 @@ export default function AdminPage() {
                                         <span className="font-display font-black text-2xl text-white block">{p.question_count}</span>
                                         <span className="text-white/40 text-xs uppercase tracking-widest">Questions</span>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     )}
-                </div>
+                </motion.div>
             </div>
         </div>
     );

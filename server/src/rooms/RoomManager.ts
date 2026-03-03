@@ -63,6 +63,7 @@ export class RoomManager {
             used_fact_hashes: [],
             created_at: Date.now(),
             settings: this.defaultSettings(),
+            movie_state: null,
         };
         this.rooms.set(code, room);
         return room;
@@ -104,6 +105,8 @@ export class RoomManager {
             answer_time_ms: null,
             wager: null,
             buzzed_at: null,
+            movie_locked_until: null,
+            movie_solved_stage: null,
         };
 
         room.players[socketId] = player;

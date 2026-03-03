@@ -22,12 +22,14 @@ export default function HostRevealScreen() {
     const options = currentQuestion.options;
 
     return (
-        <div className="animated-bg min-h-screen p-8 flex flex-col justify-center">
+        <div className="min-h-screen p-8 flex flex-col justify-center" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
             {/* Correct answer banner */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="glass border-2 border-green-400/60 bg-green-500/10 p-6 rounded-2xl mb-6 text-center"
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                className="bg-green-500/20 backdrop-blur-xl border-2 border-green-400/60 p-6 rounded-3xl mb-6 text-center shadow-2xl"
+                style={{ boxShadow: '0 0 32px #22c55e44' }}
             >
                 <p className="text-green-300 font-display font-bold text-sm uppercase tracking-widest mb-2">Correct Answer</p>
                 <p className="font-display font-black text-4xl text-white">
@@ -52,8 +54,8 @@ export default function HostRevealScreen() {
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="glass p-6"
+                    transition={{ delay: 0.5, type: 'spring' }}
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl"
                 >
                     <h3 className="font-display font-bold text-lg text-white/70 mb-3">The Fact</h3>
                     <p className="font-body text-lg text-white leading-relaxed mb-4">{lastReveal.explanation}</p>
@@ -79,8 +81,8 @@ export default function HostRevealScreen() {
                 <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="glass p-6"
+                    transition={{ delay: 0.6, type: 'spring' }}
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl"
                 >
                     <h3 className="font-display font-bold text-lg text-white/70 mb-3">Standings</h3>
                     <div className="space-y-3">
