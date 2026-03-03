@@ -74,8 +74,7 @@ export default function LandingPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.5, type: 'spring' }}
-                    className="bg-white/70 backdrop-blur-lg p-6 flex flex-col gap-4 col-span-1 md:col-span-2 rounded-3xl shadow-2xl border border-white/20"
-                    style={{ boxShadow: '0 8px 32px #181a20, 0 1.5px 0 #fff inset' }}
+                    className="glass p-6 flex flex-col gap-4 col-span-1 md:col-span-2"
                 >
                     <div className="flex items-center gap-3">
                         <Smartphone className="w-7 h-7 text-brand-teal" />
