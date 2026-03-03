@@ -12,6 +12,9 @@
     "docker:up": "docker compose up --build",
     "docker:down": "docker compose down"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2",
     "typescript": "^5.3.3"
