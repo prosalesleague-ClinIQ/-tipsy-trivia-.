@@ -1,14 +1,13 @@
 services:
   - type: web
     name: tipsy-trivia-server
-    env: docker
-    dockerfilePath: ./Dockerfile.server
-    plan: free
+    env: node
+    buildCommand: npm install -g pnpm && pnpm install --frozen-lockfile && pnpm --filter shared build && pnpm --filter server build
+    startCommand: node server/dist/index.js
+    healthCheckPath: /health
     envVars:
       - key: PORT
-        value: "3001"
-      - key: DATABASE_URL
-        value: "/app/data/tipsy-trivia.db"
+        value: "10000"
       - key: NODE_ENV
         value: "production"
       - key: ADMIN_PASSWORD
@@ -16,7 +15,10 @@ services:
       - key: SESSION_SECRET
         generateValue: true
       - key: CORS_ORIGINS
-        value: "*"
+        fromService:
+          type: static_site
+          name: tipsy-trivia-client
+          property: host
       - key: ELEVENLABS_API_KEY
         sync: false   # set this manually in the Render dashboard
 
