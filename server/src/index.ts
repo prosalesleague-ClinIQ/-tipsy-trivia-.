@@ -27,6 +27,11 @@ async function main() {
     app.use(cors({ origin: CORS_ORIGINS, credentials: true }));
     app.use(express.json({ limit: '5mb' }));
 
+    // Root route
+    app.get('/', (_req, res) => {
+        res.json({ name: 'Tipsy Trivia API', status: 'ok', uptime: process.uptime() });
+    });
+
     // Health check
     app.get('/health', (_req, res) => {
         res.json({ status: 'ok', uptime: process.uptime() });
