@@ -19,6 +19,7 @@ export class GameStateMachine {
     private questionManager: QuestionManager;
     private hostEngine: ComedianHostEngine;
     private timers = new Map<string, NodeJS.Timeout>();
+    private questionNums = new Map<string, number>();
 
     constructor(io: Server<ClientToServerEvents, ServerToClientEvents>) {
         this.io = io;
@@ -43,6 +44,9 @@ export class GameStateMachine {
 
     async beginRound(room: Room): Promise<void> {
         room.phase = 'round_intro';
+        this.questionNums.set(room.code, 0);
+        this.io.to(room.code).emit('room:updated', { room });
+
         const modeIntro = room.host_config
             ? this.hostEngine.getRoundIntro(room.host_config, room.current_round, room.mode!)
             : '';
@@ -70,6 +74,9 @@ export class GameStateMachine {
         room.buzzer_locked = false;
         used_fact_hashes_add(room, question.fact_hash);
 
+        const qNum = (this.questionNums.get(room.code) ?? 0) + 1;
+        this.questionNums.set(room.code, qNum);
+
         // Reset player answer state
         for (const player of Object.values(room.players)) {
             player.answered = false;
@@ -78,9 +85,10 @@ export class GameStateMachine {
             player.buzzed_at = null;
         }
 
+        this.io.to(room.code).emit('room:updated', { room });
         this.io.to(room.code).emit('question:show', {
             question: this.stripAnswer(question),
-            question_number: room.current_question_id ? 1 : 1,
+            question_number: qNum,
             total_questions: 10,
             server_time: Date.now(),
             buzzer_mode: room.settings.buzzer_enabled,
@@ -142,6 +150,7 @@ export class GameStateMachine {
             ? this.hostEngine.getReaction(room.host_config, room, question)
             : '';
 
+        this.io.to(room.code).emit('room:updated', { room });
         this.io.to(room.code).emit('answer:reveal', {
             question_id: question.id,
             correct_index: question.correct_index,
@@ -152,11 +161,6 @@ export class GameStateMachine {
             source_url: question.source_url,
             scores,
             host_reaction: reaction,
-        });
-
-        this.io.to(room.code).emit('scoreboard:update', {
-            scores,
-            round: room.current_round,
         });
 
         setTimeout(() => this.showNextQuestion(room), 6000);
@@ -201,6 +205,7 @@ export class GameStateMachine {
     async endRound(room: Room): Promise<void> {
         room.phase = 'round_end';
         const scores = this.buildScoreEntries(room);
+        this.io.to(room.code).emit('room:updated', { room });
         this.io.to(room.code).emit('scoreboard:update', { scores, round: room.current_round });
 
         if (room.current_round >= room.total_rounds) {
@@ -224,6 +229,7 @@ export class GameStateMachine {
             ? this.hostEngine.getWinnerRoast(room.host_config, winner?.player_name ?? 'nobody')
             : '';
 
+        this.io.to(room.code).emit('room:updated', { room });
         this.io.to(room.code).emit('game:end', {
             scores,
             winner_id: winner?.player_id ?? '',

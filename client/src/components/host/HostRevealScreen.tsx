@@ -1,12 +1,22 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useGameState } from '../../state/GameStateContext';
-import { ExternalLink, CheckCircle, XCircle } from 'lucide-react';
+import { useSpeech } from '../../state/useSpeech';
+import { ExternalLink } from 'lucide-react';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
 export default function HostRevealScreen() {
     const { state } = useGameState();
     const { lastReveal, currentQuestion } = state;
+    const { speak } = useSpeech(state.room?.host_config?.pace ?? 'normal', state.room?.host_config?.presets);
+
+    useEffect(() => {
+        if (lastReveal?.host_reaction) speak(lastReveal.host_reaction);
+        // speak is stable (useCallback), safe to omit from deps to avoid re-firing on re-render
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [lastReveal?.host_reaction]);
+
     if (!lastReveal || !currentQuestion) return null;
 
     const options = currentQuestion.options;

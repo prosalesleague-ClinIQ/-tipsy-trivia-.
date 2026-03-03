@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useGameState } from '../../state/GameStateContext';
-import { Trophy, Star } from 'lucide-react';
+import { useSpeech } from '../../state/useSpeech';
+import { Trophy } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 function generateConfetti() {
@@ -17,6 +18,18 @@ export default function HostEndGame() {
     const { state } = useGameState();
     const { gameEnd, scores } = state;
     const [confetti] = useState(generateConfetti);
+    const { speak } = useSpeech(state.room?.host_config?.pace ?? 'normal', state.room?.host_config?.presets);
+    // For manual replay
+    const [lastHostLines, setLastHostLines] = useState('');
+
+    useEffect(() => {
+        if (!gameEnd) return;
+        const lines = [gameEnd.host_wrap, gameEnd.host_winner_roast].filter(Boolean).join(' ');
+        setLastHostLines(lines);
+        if (lines) speak(lines);
+        // speak is stable (useCallback); gameEnd is the right trigger
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [gameEnd]);
 
     if (!gameEnd) return null;
 
@@ -68,7 +81,7 @@ export default function HostEndGame() {
 
             {/* Final podium */}
             <div className="flex items-end gap-4 justify-center">
-                {scores.slice(0, 3).map((s, i) => {
+                {scores.slice(0, 3).map((_s, i) => {
                     const heights = ['h-40', 'h-56', 'h-32'];
                     const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd
                     const actual = scores[podiumOrder[i]];
@@ -89,6 +102,15 @@ export default function HostEndGame() {
                     );
                 })}
             </div>
+                {/* Manual Host Voice Replay Button for Debugging */}
+                {lastHostLines && (
+                    <button
+                        onClick={() => speak(lastHostLines)}
+                        className="mt-8 px-6 py-3 rounded-xl bg-brand-gold text-black font-bold shadow-lg hover:bg-yellow-400 transition"
+                    >
+                        Play Host Voice Again
+                    </button>
+                )}
         </div>
     );
 }

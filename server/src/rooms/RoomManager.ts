@@ -3,7 +3,6 @@ import type { ServerToClientEvents, ClientToServerEvents } from '@tipsy-trivia/s
 import type { Room, Player, RoomSettings } from '@tipsy-trivia/shared';
 import { v4 as uuidv4 } from 'uuid';
 import { GameStateMachine } from '../state/GameStateMachine';
-import { filterName } from '../filters/ProfanityFilter';
 
 export class RoomManager {
     private rooms = new Map<string, Room>();
@@ -86,7 +85,7 @@ export class RoomManager {
         const activePlayers = Object.values(room.players).filter(p => p.status === 'active');
         if (activePlayers.length >= room.settings.max_players) return { error: 'Room is full' };
 
-        const cleanName = filterName(playerName).slice(0, 20) || 'Player';
+        const cleanName = playerName.trim().slice(0, 20) || 'Player';
         const token = uuidv4();
         const player: Player = {
             id: socketId,

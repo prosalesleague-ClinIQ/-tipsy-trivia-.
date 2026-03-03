@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { HostConfig, ComedianPreset } from '@tipsy-trivia/shared';
 import { COMEDIAN_PRESETS_CLIENT } from '../../data/comedianPresets';
-import { Check, ChevronRight, Mic } from 'lucide-react';
+import { ChevronRight, Mic, Volume2 } from 'lucide-react';
+import { useSpeech } from '../../state/useSpeech';
 
 interface Props {
     onDone: (config: HostConfig) => void;
@@ -13,13 +14,22 @@ export default function HostComedianSetup({ onDone }: Props) {
     const [weights, setWeights] = useState<number[]>([50, 50, 50]);
     const [roastLevel, setRoastLevel] = useState<HostConfig['roast_level']>('medium');
     const [pace, setPace] = useState<HostConfig['pace']>('normal');
+    const { speak } = useSpeech(pace, selected);
+    const [ttsStatus, setTtsStatus] = useState<'idle' | 'playing' | 'error'>('idle');
+
+    const trySpeak = () => {
+        setTtsStatus('playing');
+        speak('Welcome to Tipsy Trivia! This is your host voice preview.');
+        // Reset after a short window — speak() handles errors internally
+        setTimeout(() => setTtsStatus('idle'), 2000);
+    };
 
     const togglePreset = (preset: ComedianPreset) => {
         setSelected(prev => {
             if (prev.find(p => p.id === preset.id)) {
                 return prev.filter(p => p.id !== preset.id);
             }
-            if (prev.length >= 3) return prev; // max 3
+            if (prev.length >= 3) return prev;
             return [...prev, preset];
         });
     };
@@ -51,7 +61,8 @@ export default function HostComedianSetup({ onDone }: Props) {
                 <p className="text-white/50">Pick up to 3 comedian style influences. The host will use original commentary inspired by your blend.</p>
             </div>
 
-            <div className="grid grid-cols-5 gap-3 mb-8">
+            {/* Comedian preset grid */}
+            <div className="grid grid-cols-3 md:grid-cols-5 gap-3 mb-8">
                 {COMEDIAN_PRESETS_CLIENT.map(preset => {
                     const isSelected = !!selected.find(s => s.id === preset.id);
                     const idx = selected.findIndex(s => s.id === preset.id);
@@ -61,8 +72,7 @@ export default function HostComedianSetup({ onDone }: Props) {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => togglePreset(preset)}
-                            className={`glass p-4 text-left transition-all relative ${isSelected ? 'border-brand-gold/60 bg-brand-gold/10' : 'hover:border-white/30'
-                                }`}
+                            className={`glass p-4 text-left transition-all relative ${isSelected ? 'border-brand-gold/60 bg-brand-gold/10' : 'hover:border-white/30'}`}
                         >
                             {isSelected && (
                                 <span className="absolute top-2 right-2 bg-brand-gold text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
@@ -106,7 +116,8 @@ export default function HostComedianSetup({ onDone }: Props) {
                 </div>
             )}
 
-            <div className="grid grid-cols-2 gap-6 mb-8">
+            {/* Roast level + Pace */}
+            <div className="grid grid-cols-2 gap-6 mb-6">
                 <div className="glass p-6">
                     <h3 className="font-display font-bold mb-4">Roast Level</h3>
                     <div className="flex gap-3">
@@ -114,8 +125,7 @@ export default function HostComedianSetup({ onDone }: Props) {
                             <button
                                 key={l}
                                 onClick={() => setRoastLevel(l)}
-                                className={`flex-1 py-3 rounded-xl font-display font-bold transition-all ${roastLevel === l ? 'bg-brand-purple text-white' : 'glass text-white/60 hover:text-white'
-                                    }`}
+                                className={`flex-1 py-3 rounded-xl font-display font-bold transition-all ${roastLevel === l ? 'bg-brand-purple text-white' : 'glass text-white/60 hover:text-white'}`}
                             >{roastLabels[l]}</button>
                         ))}
                     </div>
@@ -127,19 +137,35 @@ export default function HostComedianSetup({ onDone }: Props) {
                             <button
                                 key={p}
                                 onClick={() => setPace(p)}
-                                className={`flex-1 py-3 rounded-xl font-display font-bold transition-all ${pace === p ? 'bg-brand-teal text-white' : 'glass text-white/60 hover:text-white'
-                                    }`}
+                                className={`flex-1 py-3 rounded-xl font-display font-bold transition-all ${pace === p ? 'bg-brand-teal text-white' : 'glass text-white/60 hover:text-white'}`}
                             >{paceLabels[p]}</button>
                         ))}
                     </div>
                 </div>
             </div>
 
+            {/* Test voice */}
+            <div className="glass p-5 mb-8 flex items-center gap-4">
+                <button
+                    onClick={trySpeak}
+                    disabled={ttsStatus === 'playing'}
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-gold text-black font-bold shadow-lg hover:bg-yellow-400 transition disabled:opacity-60"
+                >
+                    <Volume2 className="w-5 h-5" />
+                    {ttsStatus === 'playing' ? 'Playing…' : 'Test Host Voice'}
+                </button>
+                <p className="text-white/50 text-sm">
+                    {ttsStatus === 'error'
+                        ? '⚠️ Playback failed — check browser audio settings or try ElevenLabs API key.'
+                        : 'Hear a sample with your current comedian blend and pace.'}
+                </p>
+            </div>
+
             <div className="flex justify-between items-center">
-                <div className="text-white/40 text-sm">
-                    <p>⚠️ Host commentary is original writing. No imitation, no catchphrases, no protected-class content.</p>
-                    <p>Roast targets: game behavior only (wrong answers, slow buzzing, rivalry).</p>
-                </div>
+                <p className="text-white/30 text-xs max-w-sm">
+                    ⚠️ Host commentary is original writing. No imitation, no catchphrases, no protected-class content.
+                    Roast targets game behavior only.
+                </p>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}

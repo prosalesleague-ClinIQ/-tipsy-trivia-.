@@ -5,6 +5,7 @@ export default defineConfig({
     plugins: [react()],
     server: {
         port: 5173,
+        host: true,
         proxy: {
             '/socket.io': {
                 target: process.env.VITE_SERVER_URL ?? 'http://localhost:3001',
@@ -16,6 +17,14 @@ export default defineConfig({
                 changeOrigin: true,
             },
             '/health': {
+                target: process.env.VITE_SERVER_URL ?? 'http://localhost:3001',
+                changeOrigin: true,
+            },
+            '/tts': {
+                target: process.env.VITE_SERVER_URL ?? 'http://localhost:3001',
+                changeOrigin: true,
+            },
+            '/local-ip': {
                 target: process.env.VITE_SERVER_URL ?? 'http://localhost:3001',
                 changeOrigin: true,
             },

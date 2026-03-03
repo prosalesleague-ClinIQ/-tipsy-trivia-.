@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
-import { WifiOff, Zap } from 'lucide-react';
-import type { Question } from '@tipsy-trivia/shared';
+import { WifiOff, Tv } from 'lucide-react';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
-const OPTION_COLORS_PLAYER = [
-    'border-blue-400 hover:bg-blue-500/30 active:bg-blue-500/50',
-    'border-teal-400 hover:bg-teal-500/30 active:bg-teal-500/50',
-    'border-yellow-400 hover:bg-yellow-500/30 active:bg-yellow-500/50',
-    'border-pink-400 hover:bg-pink-500/30 active:bg-pink-500/50',
+
+// Controller-mode big button colors
+const CTRL_COLORS = [
+    'bg-blue-500/80 border-blue-400 active:bg-blue-400',
+    'bg-teal-500/80 border-teal-400 active:bg-teal-400',
+    'bg-yellow-500/80 border-yellow-400 active:bg-yellow-400',
+    'bg-pink-500/80 border-pink-400 active:bg-pink-400',
 ];
 
 type Screen = 'join' | 'waiting' | 'question' | 'buzzer' | 'reveal' | 'scoreboard' | 'end';
@@ -26,6 +27,10 @@ export default function PlayPage() {
     const [hasBuzzed, setHasBuzzed] = useState(false);
     const [buzzerLocked, setBuzzerLocked] = useState(false);
     const sessionToken = state.mySessionToken;
+
+    // Controller mode: phone shows only buzzer / answer buttons, not the full question text.
+    // Set by the landing page when the user chooses "TV / Big Screen" mode.
+    const [controllerMode] = useState(() => sessionStorage.getItem('controllerMode') === 'true');
 
     useEffect(() => {
         if (!socket) return;
@@ -119,8 +124,14 @@ export default function PlayPage() {
         <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 className="glass p-8 w-full max-w-sm">
-                <h1 className="font-display font-black text-3xl gradient-text text-center mb-6">Join Game</h1>
-                <div className="space-y-4">
+                <h1 className="font-display font-black text-3xl gradient-text text-center mb-1">Join Game</h1>
+                {controllerMode && (
+                    <div className="flex items-center justify-center gap-2 mb-4 mt-1">
+                        <Tv className="w-4 h-4 text-brand-teal" />
+                        <span className="text-brand-teal text-sm font-body">TV Controller Mode</span>
+                    </div>
+                )}
+                <div className="space-y-4 mt-4">
                     <div>
                         <label className="text-white/50 text-sm mb-1 block">Room Code</label>
                         <input
@@ -159,7 +170,13 @@ export default function PlayPage() {
                     {state.myPlayer?.name[0].toUpperCase() ?? '?'}
                 </div>
                 <h2 className="font-display font-bold text-2xl mb-2">{state.myPlayer?.name}</h2>
-                <p className="text-white/40 text-sm mb-6">Room: <span className="text-brand-gold font-bold">{state.room?.code}</span></p>
+                <p className="text-white/40 text-sm mb-2">Room: <span className="text-brand-gold font-bold">{state.room?.code}</span></p>
+                {controllerMode && (
+                    <div className="flex items-center justify-center gap-1 mb-4">
+                        <Tv className="w-3 h-3 text-brand-teal" />
+                        <span className="text-brand-teal text-xs">Phone Controller</span>
+                    </div>
+                )}
                 <div className="flex gap-1 justify-center mb-4">
                     {[0, 1, 2].map(i => (
                         <div key={i} className="w-2 h-2 rounded-full bg-brand-purple animate-bounce"
@@ -185,12 +202,21 @@ export default function PlayPage() {
         const q = state.currentQuestion;
         const isBuzzerMode = state.buzzerMode;
 
+        // --- BUZZER MODE ---
         if (isBuzzerMode && !state.buzzerWinner) {
             return (
                 <div className="animated-bg min-h-screen flex flex-col items-center justify-center p-6">
-                    <p className="text-white/50 text-center mb-6 font-body text-lg">
-                        {q?.prompt ?? 'Read the question on the main screen…'}
-                    </p>
+                    {/* In controller mode don't repeat the question — it's on the TV */}
+                    {!controllerMode && (
+                        <p className="text-white/50 text-center mb-6 font-body text-lg">
+                            {q?.prompt ?? 'Read the question on the main screen…'}
+                        </p>
+                    )}
+                    {controllerMode && (
+                        <p className="text-white/40 text-center mb-6 font-body text-sm">
+                            Watch the TV — buzz in when you know the answer!
+                        </p>
+                    )}
                     <motion.button
                         whileTap={{ scale: 0.85 }}
                         className={`btn-buzz w-64 h-64 rounded-full text-4xl font-black ${hasBuzzed ? 'opacity-50' : ''}`}
@@ -206,6 +232,49 @@ export default function PlayPage() {
 
         if (!q) return <div className="animated-bg min-h-screen flex items-center justify-center text-white/40">Loading…</div>;
 
+        // --- CONTROLLER MODE: big A/B/C/D buttons, no question text ---
+        if (controllerMode) {
+            return (
+                <div className="animated-bg min-h-screen flex flex-col p-4">
+                    <div className="flex items-center justify-center gap-2 mb-4 mt-2">
+                        <Tv className="w-4 h-4 text-brand-teal" />
+                        <span className="text-white/40 text-sm">Answer on your phone — question is on the TV</span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 flex-1 mt-2">
+                        {q.options.map((opt, i) => (
+                            <motion.button
+                                key={i}
+                                whileTap={{ scale: 0.93 }}
+                                className={`
+                                    rounded-2xl border-2 flex flex-col items-center justify-center p-4 gap-3 min-h-[140px]
+                                    font-display font-black text-white text-2xl transition-all
+                                    ${CTRL_COLORS[i]}
+                                    ${selectedAnswer === i ? 'ring-4 ring-white/60 scale-95' : ''}
+                                    ${selectedAnswer !== null && selectedAnswer !== i ? 'opacity-40' : ''}
+                                `}
+                                onClick={() => submitAnswer(i)}
+                                disabled={selectedAnswer !== null}
+                            >
+                                <span className="text-5xl font-black">{OPTION_LABELS[i]}</span>
+                                <span className="text-sm font-body font-semibold text-white/90 text-center leading-tight line-clamp-2">{opt}</span>
+                            </motion.button>
+                        ))}
+                    </div>
+
+                    {selectedAnswer !== null && (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                            className="text-center py-4">
+                            <p className="text-white/40 font-body">
+                                Picked <span className="text-white font-bold">{OPTION_LABELS[selectedAnswer]}</span> — locked in!
+                            </p>
+                        </motion.div>
+                    )}
+                </div>
+            );
+        }
+
+        // --- FULL MODE: question text + options ---
         return (
             <div className="animated-bg min-h-screen flex flex-col p-4">
                 <div className="flex gap-2 mb-4">
@@ -264,10 +333,10 @@ export default function PlayPage() {
                     <p className="font-display font-bold text-lg text-white/70 mb-4">
                         Answer: {OPTION_LABELS[rev?.correct_index ?? 0]}. {q?.options[rev?.correct_index ?? 0]}
                     </p>
-                    {rev?.explanation && (
+                    {rev?.explanation && !controllerMode && (
                         <p className="text-white/60 text-sm font-body leading-relaxed">{rev.explanation}</p>
                     )}
-                    {rev?.why_weird && (
+                    {rev?.why_weird && !controllerMode && (
                         <p className="text-brand-gold italic text-sm mt-3 font-body">🤯 {rev.why_weird}</p>
                     )}
                 </motion.div>

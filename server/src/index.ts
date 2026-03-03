@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import http from 'http';
+import { networkInterfaces } from 'os';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -29,6 +30,54 @@ async function main() {
     // Health check
     app.get('/health', (_req, res) => {
         res.json({ status: 'ok', uptime: process.uptime() });
+    });
+
+    // Local network IP — used by client to build phone QR code
+    app.get('/local-ip', (_req, res) => {
+        const nets = networkInterfaces();
+        for (const iface of Object.values(nets)) {
+            for (const net of iface ?? []) {
+                if (net.family === 'IPv4' && !net.internal) {
+                    res.json({ ip: net.address });
+                    return;
+                }
+            }
+        }
+        res.json({ ip: 'localhost' });
+    });
+
+    // ElevenLabs TTS proxy — keeps API key server-side
+    app.post('/tts', async (req, res) => {
+        const apiKey = process.env.ELEVENLABS_API_KEY;
+        if (!apiKey) {
+            res.status(503).json({ error: 'TTS_NOT_CONFIGURED' });
+            return;
+        }
+        const { text, voice_id, model_id, voice_settings } = req.body as {
+            text: string;
+            voice_id: string;
+            model_id: string;
+            voice_settings: Record<string, unknown>;
+        };
+        try {
+            const upstream = await fetch(
+                `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}`,
+                {
+                    method: 'POST',
+                    headers: { 'xi-api-key': apiKey, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, model_id, voice_settings }),
+                },
+            );
+            if (!upstream.ok) {
+                res.status(upstream.status).json({ error: 'TTS upstream error' });
+                return;
+            }
+            res.set('Content-Type', 'audio/mpeg');
+            const buf = await upstream.arrayBuffer();
+            res.send(Buffer.from(buf));
+        } catch {
+            res.status(500).json({ error: 'TTS request failed' });
+        }
     });
 
     // Admin API

@@ -17,6 +17,8 @@ services:
         generateValue: true
       - key: CORS_ORIGINS
         value: "*"
+      - key: ELEVENLABS_API_KEY
+        sync: false   # set this manually in the Render dashboard
 
   - type: static_site
     name: tipsy-trivia-client
@@ -28,3 +30,7 @@ services:
           type: web
           name: tipsy-trivia-server
           envVarKey: RENDER_EXTERNAL_URL
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

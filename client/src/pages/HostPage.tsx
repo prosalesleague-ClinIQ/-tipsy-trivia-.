@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
-import { QRCodeSVG } from 'qrcode.react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Wifi, WifiOff, Users, Settings, Play, ChevronRight } from 'lucide-react';
-import type { Room, Player, HostConfig, ComedianPreset, GameMode } from '@tipsy-trivia/shared';
-import { COMEDIAN_PRESETS_CLIENT } from '../data/comedianPresets';
+import { useSpeech } from '../state/useSpeech';
+import { motion } from 'framer-motion';
+import { WifiOff } from 'lucide-react';
+import type { HostConfig, GameMode } from '@tipsy-trivia/shared';
 import HostLobbyScreen from '../components/host/HostLobbyScreen';
 import HostComedianSetup from '../components/host/HostComedianSetup';
 import HostModeSelect from '../components/host/HostModeSelect';
@@ -21,6 +20,25 @@ export default function HostPage() {
     const [roomCode, setRoomCode] = useState<string | null>(null);
     const [hostName, setHostName] = useState('Host');
     const [screen, setScreen] = useState<'setup' | 'lobby' | 'comedian' | 'mode_select' | 'game'>('setup');
+    const pace = state.room?.host_config?.pace ?? 'normal';
+    const { speak, stop } = useSpeech(pace, state.room?.host_config?.presets ?? undefined);
+
+    // Speak opening monologue when host script arrives
+    useEffect(() => {
+        if (state.hostScript?.opening_monologue) {
+            speak(state.hostScript.opening_monologue);
+        }
+    }, [state.hostScript]);
+
+    // Speak round intros
+    useEffect(() => {
+        if (!socket) return;
+        const handler = (data: { host_intro?: string }) => {
+            if (data.host_intro) speak(data.host_intro);
+        };
+        socket.on('round:advance', handler);
+        return () => { socket.off('round:advance', handler); };
+    }, [socket, speak]);
 
     useEffect(() => {
         if (!socket) return;
@@ -31,13 +49,9 @@ export default function HostPage() {
             setScreen('lobby');
         });
 
-        socket.on('player:joined', () => { });
-        socket.on('game:mode_selected', () => { });
-
         return () => {
             socket.off('room:joined');
-            socket.off('player:joined');
-            socket.off('game:mode_selected');
+            stop();
         };
     }, [socket]);
 
@@ -53,11 +67,6 @@ export default function HostPage() {
 
     const createRoom = () => {
         if (!socket) return;
-        socket.emit('room:join',
-            { code: '__create__', player_name: hostName },
-            () => { }
-        );
-        // Actually use create event
         socket.emit('room:create', { host_name: hostName }, (res) => {
             if ('error' in res) {
                 alert(res.error);

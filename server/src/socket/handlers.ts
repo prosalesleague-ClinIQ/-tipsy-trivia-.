@@ -42,11 +42,9 @@ export function registerSocketHandlers(
             socket.join(room.code);
             cb({ room, your_player: player, session_token: token });
 
-            // Notify others
+            // Broadcast updated room to everyone so host lobby and player waiting lists refresh
+            io.to(room.code).emit('room:updated', { room });
             socket.to(room.code).emit('player:joined', { player });
-            socket.to(room.code).emit('player:list', {
-                players: Object.values(room.players),
-            });
         });
 
         // ─── Room: Spectate ───────────────────────────────────────
@@ -102,6 +100,7 @@ export function registerSocketHandlers(
             if (data.settings) Object.assign(room.settings, data.settings);
 
             await stateMachine.startGame(room);
+            io.to(room.code).emit('room:updated', { room });
         });
 
         // ─── Answer: Submit ───────────────────────────────────────
