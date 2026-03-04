@@ -19,7 +19,7 @@ export default function HostLobbyScreen({ roomCode, room, onNext }: Props) {
             <div className="flex items-center justify-between mb-8">
                 <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ type: 'spring' }}>
                     <p className="text-white/50 text-sm font-body uppercase tracking-widest mb-1">Room Code</p>
-                    <h1 className="font-display font-black text-8xl tracking-widest gradient-text neon-text">{roomCode}</h1>
+                    <h1 className="font-display font-black text-8xl tracking-widest gradient-text">{roomCode}</h1>
                     <p className="text-white/50 mt-2">Players join at <span className="text-brand-teal font-semibold">{playUrl}</span></p>
                 </motion.div>
                 <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: 'spring', delay: 0.1 }} className="bg-white p-4 rounded-2xl shadow-xl">

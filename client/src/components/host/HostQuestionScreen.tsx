@@ -18,11 +18,12 @@ export default function HostQuestionScreen() {
     const { state } = useGameState();
     const { socket } = useSocket();
     const { currentQuestion, room, buzzerWinner, serverTime, buzzerMode } = state;
-    const [timeLeft, setTimeLeft] = useState(currentQuestion?.time_limit_seconds ?? 12);
+    const effectiveTime = Math.max(currentQuestion?.time_limit_seconds ?? 20, 20);
+    const [timeLeft, setTimeLeft] = useState(effectiveTime);
 
     useEffect(() => {
         if (!currentQuestion || !serverTime) return;
-        const total = currentQuestion.time_limit_seconds * 1000;
+        const total = effectiveTime * 1000;
         const interval = setInterval(() => {
             const elapsed = Date.now() - serverTime;
             const remaining = Math.max(0, total - elapsed) / 1000;
@@ -54,7 +55,7 @@ export default function HostQuestionScreen() {
                 <div className="flex-1 flex flex-col">
                     {/* Category badge */}
                     <div className="flex gap-3 mb-6">
-                        <span className="bg-white/70 backdrop-blur-lg px-4 py-1 rounded-full text-sm text-white/60 border border-white/20 shadow-md">{currentQuestion.category}</span>
+                        <span className="glass px-4 py-1 rounded-full text-sm text-white/60">{currentQuestion.category}</span>
                         <span className={`glass px-4 py-1 rounded-full text-sm font-bold ${currentQuestion.difficulty === 'Easy' ? 'text-green-400' :
                                 currentQuestion.difficulty === 'Medium' ? 'text-brand-gold' :
                                     currentQuestion.difficulty === 'Hard' ? 'text-orange-400' : 'text-red-400'
@@ -93,7 +94,7 @@ export default function HostQuestionScreen() {
                 <div className="flex flex-col gap-6 w-64">
                     <div className="glass p-6 flex flex-col items-center">
                         <TimerRing
-                            total={currentQuestion.time_limit_seconds}
+                            total={effectiveTime}
                             current={timeLeft}
                             size={120}
                         />

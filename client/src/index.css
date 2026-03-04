@@ -80,12 +80,15 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1.5px 0 rgba(255,255,255,0.07) inset;
 }
 
-/* Gradient text */
+/* Gradient text — crisp, no blur */
 .gradient-text {
   background: linear-gradient(135deg, #7C3AED, #EC4899, #F59E0B);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Animated bg — deep 3D spatial gradient */
@@ -163,18 +166,28 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.05) inset;
 }
 
-/* Answer option */
+/* Answer option — large touch targets, no transform on hover so taps register reliably */
 .answer-btn {
-  @apply w-full text-left p-4 rounded-2xl border-2 border-white/20 transition-all duration-150 cursor-pointer font-body font-semibold;
+  @apply w-full text-left p-5 rounded-2xl border-2 border-white/20 cursor-pointer font-body font-semibold;
   background: rgba(255,255,255,0.06);
   backdrop-filter: blur(12px);
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  -webkit-tap-highlight-color: rgba(0, 246, 255, 0.25);
+  touch-action: manipulation;
+  user-select: none;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
-.answer-btn:hover {
-  border-color: rgba(0, 246, 255, 0.6);
-  background: rgba(0, 246, 255, 0.08);
-  transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
+@media (hover: hover) {
+  .answer-btn:hover {
+    border-color: rgba(0, 246, 255, 0.6);
+    background: rgba(0, 246, 255, 0.08);
+    box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
+  }
+}
+.answer-btn:active {
+  border-color: #00f6ff;
+  background: rgba(0, 246, 255, 0.18);
+  box-shadow: 0 0 24px rgba(0, 246, 255, 0.3);
 }
 .answer-btn.selected {
   border-color: #00f6ff;

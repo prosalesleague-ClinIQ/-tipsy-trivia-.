@@ -42,7 +42,7 @@ function runMigrations(db: Database.Database): void {
       correct_index     INTEGER NOT NULL,
       explanation       TEXT NOT NULL DEFAULT '',
       tags              TEXT NOT NULL DEFAULT '[]',
-      time_limit_seconds INTEGER NOT NULL DEFAULT 12,
+      time_limit_seconds INTEGER NOT NULL DEFAULT 20,
       question_type     TEXT NOT NULL DEFAULT 'multiple_choice',
       hook_line         TEXT NOT NULL DEFAULT '',
       why_weird         TEXT NOT NULL DEFAULT '',

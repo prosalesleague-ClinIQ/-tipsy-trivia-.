@@ -98,8 +98,8 @@ export class GameStateMachine {
             buzzer_mode: room.settings.buzzer_enabled,
         });
 
-        // Start countdown timer
-        const timerMs = question.time_limit_seconds * 1000;
+        // Start countdown timer — enforce minimum 20 s so players have time to read + answer
+        const timerMs = Math.max(question.time_limit_seconds, 20) * 1000;
         const timer = setTimeout(() => {
             this.revealAnswer(room, question);
         }, timerMs);

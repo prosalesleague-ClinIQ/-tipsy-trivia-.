@@ -72,7 +72,7 @@ export default function LandingPage() {
                 className="text-center mb-10"
             >
                 <span className="text-6xl mb-4 block">{'\u{1F37A}'}</span>
-                <h1 className="font-display text-6xl sm:text-7xl font-black gradient-text neon-text leading-tight">
+                <h1 className="font-display text-6xl sm:text-7xl font-black gradient-text leading-tight drop-shadow-lg">
                     Tipsy Trivia
                 </h1>
                 <p className="text-white/70 text-lg sm:text-xl font-body mt-4 max-w-md mx-auto">

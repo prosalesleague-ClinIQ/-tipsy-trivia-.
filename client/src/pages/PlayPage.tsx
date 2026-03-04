@@ -297,23 +297,23 @@ export default function PlayPage() {
                 <div className="min-h-screen flex flex-col gap-1 p-1">
                     <div className="grid grid-cols-2 gap-1 flex-1">
                         {q.options.map((opt, i) => (
-                            <motion.button
+                            <button
                                 key={i}
-                                whileTap={{ scale: 0.96 }}
                                 className={`
                                     rounded-2xl flex flex-col items-center justify-center gap-2 p-4
-                                    font-display font-black text-white transition-all select-none
+                                    font-display font-black text-white select-none
                                     ${CTRL_COLORS[i]}
                                     ${selectedAnswer === i ? 'ring-4 ring-white/80' : ''}
                                     ${selectedAnswer !== null && selectedAnswer !== i ? 'opacity-30' : ''}
                                 `}
-                                style={{ minHeight: 'calc(50vh - 0.5rem)' }}
+                                style={{ minHeight: 'calc(50vh - 0.5rem)', touchAction: 'manipulation', WebkitTapHighlightColor: 'rgba(255,255,255,0.2)' }}
                                 onClick={() => submitAnswer(i)}
+                                onPointerDown={(e) => { e.currentTarget.click(); }}
                                 disabled={selectedAnswer !== null}
                             >
                                 <span className="text-7xl font-black leading-none">{OPTION_LABELS[i]}</span>
                                 <span className="text-base font-body font-semibold text-white/90 text-center leading-tight line-clamp-2 max-w-[14ch]">{opt}</span>
-                            </motion.button>
+                            </button>
                         ))}
                     </div>
 
@@ -341,19 +341,19 @@ export default function PlayPage() {
 
                 <div className="space-y-3 flex-1">
                     {q.options.map((opt, i) => (
-                        <motion.button
+                        <button
                             key={i}
-                            whileTap={{ scale: 0.97 }}
                             className={`answer-btn w-full flex items-start gap-3 ${selectedAnswer === i ? 'selected' : ''
                                 } ${selectedAnswer !== null && selectedAnswer !== i ? 'opacity-50' : ''}`}
                             onClick={() => submitAnswer(i)}
+                            onPointerDown={(e) => { e.currentTarget.click(); }}
                             disabled={selectedAnswer !== null}
                         >
                             <span className={`font-display font-black text-xl ${['text-blue-400', 'text-teal-400', 'text-yellow-400', 'text-pink-400'][i]}`}>
                                 {OPTION_LABELS[i]}
                             </span>
                             <span className="flex-1">{opt}</span>
-                        </motion.button>
+                        </button>
                     ))}
                 </div>
 

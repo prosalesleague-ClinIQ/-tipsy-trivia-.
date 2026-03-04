@@ -12,7 +12,7 @@ export default function HostScoreboard() {
             <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring' }} className="text-center mb-10">
                 <div className="flex items-center gap-3 justify-center mb-2">
                     <Trophy className="w-8 h-8" style={{ color: '#fbbf24', filter: 'drop-shadow(0 0 12px #fbbf24)' }} />
-                    <h1 className="font-display font-black text-4xl gradient-text neon-text">
+                    <h1 className="font-display font-black text-4xl gradient-text">
                         Round {room?.current_round} Scoreboard
                     </h1>
                 </div>
