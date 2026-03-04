@@ -13,7 +13,7 @@ import { initDB } from './db/database';
 import { seedDatabase } from './seed/seed';
 
 const PORT = parseInt(process.env.PORT ?? '3001', 10);
-const CORS_ORIGINS_ENV = process.env.CORS_ORIGINS ?? 'http://localhost:5173,http://localhost:5174,https://tipsy-trivia.vercel.app,https://tipsy-trivia-server.onrender.com';
+const CORS_ORIGINS_ENV = process.env.CORS_ORIGINS ?? '*';
 const CORS_ORIGINS = CORS_ORIGINS_ENV === '*' ? '*' : CORS_ORIGINS_ENV.split(',').map(s => s.trim());
 
 async function main() {
