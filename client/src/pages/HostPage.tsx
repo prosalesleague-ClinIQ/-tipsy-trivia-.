@@ -3,7 +3,7 @@ import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
 import { useSpeech } from '../state/useSpeech';
 import { motion } from 'framer-motion';
-import { WifiOff, Users, Zap, Flame, Brain, Loader2 } from 'lucide-react';
+import { Users, Zap, Flame, Brain, Loader2 } from 'lucide-react';
 import type { HostConfig, GameMode, Difficulty, ContentRating, MovieModeSettings } from '@tipsy-trivia/shared';
 import HostLobbyScreen from '../components/host/HostLobbyScreen';
 import HostComedianSetup from '../components/host/HostComedianSetup';
@@ -31,7 +31,7 @@ const CONTENT_OPTIONS: { value: ContentRating; label: string; desc: string; colo
 ];
 
 export default function HostPage() {
-    const { socket, connected } = useSocket();
+    const { socket, connected, warmupStatus } = useSocket();
     const { state, dispatch } = useGameState();
     const [roomCode, setRoomCode] = useState<string | null>(null);
     const [hostName, setHostName] = useState('Host');
@@ -164,10 +164,20 @@ export default function HostPage() {
         return (
             <div className="animated-bg min-h-screen flex items-center justify-center p-6">
                 <div className="glass p-8 text-center max-w-md">
-                    <WifiOff className="w-12 h-12 text-red-400 mx-auto mb-4" />
-                    <p className="text-white/70 text-lg mb-2">Connecting to game server...</p>
-                    <p className="text-white/40 text-sm">This may take a moment if the server is waking up.</p>
-                    <Loader2 className="w-6 h-6 text-brand-purple animate-spin mx-auto mt-4" />
+                    <Loader2 className="w-12 h-12 text-brand-purple animate-spin mx-auto mb-4" />
+                    <p className="text-white/70 text-lg mb-2">
+                        {warmupStatus === 'warming' ? 'Waking up game server...' : 'Connecting to game server...'}
+                    </p>
+                    <p className="text-white/40 text-sm">
+                        {warmupStatus === 'warming'
+                            ? 'Free servers sleep after inactivity. This can take up to 30 seconds.'
+                            : 'Almost there...'}
+                    </p>
+                    {warmupStatus === 'warming' && (
+                        <div className="mt-4 mx-auto w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-brand-purple rounded-full animate-[indeterminate_1.5s_ease-in-out_infinite]" />
+                        </div>
+                    )}
                 </div>
             </div>
         );

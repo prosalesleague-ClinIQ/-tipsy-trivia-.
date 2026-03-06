@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
 import { motion } from 'framer-motion';
-import { Eye, WifiOff } from 'lucide-react';
+import { Eye, Loader2 } from 'lucide-react';
 
 export default function WatchPage() {
-    const { socket, connected } = useSocket();
+    const { socket, connected, warmupStatus } = useSocket();
     const { state, dispatch } = useGameState();
     const [code, setCode] = useState('');
     const [error, setError] = useState('');
@@ -43,8 +43,13 @@ export default function WatchPage() {
     if (!connected) return (
         <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #181a20 0%, #23263a 100%)' }}>
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: 'spring' }} className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 text-center shadow-2xl">
-                <WifiOff className="w-10 h-10 text-red-400 mx-auto mb-3" />
-                <p className="text-white/60">Connecting...</p>
+                <Loader2 className="w-10 h-10 text-brand-purple animate-spin mx-auto mb-3" />
+                <p className="text-white/70 text-lg mb-1">
+                    {warmupStatus === 'warming' ? 'Waking up server...' : 'Connecting...'}
+                </p>
+                <p className="text-white/40 text-sm">
+                    {warmupStatus === 'warming' ? 'This can take up to 30 seconds.' : 'Almost there...'}
+                </p>
             </motion.div>
         </div>
     );

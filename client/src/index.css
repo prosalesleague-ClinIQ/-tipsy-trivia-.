@@ -273,6 +273,12 @@ body.large-text .answer-btn {
   }
 }
 
+@keyframes indeterminate {
+  0%   { width: 10%; transform: translateX(-100%); }
+  50%  { width: 40%; }
+  100% { width: 10%; transform: translateX(1200%); }
+}
+
 /* Jeopardy board cell */
 .jeopardy-cell {
   @apply glass flex items-center justify-center cursor-pointer transition-all hover:border-brand-gold/60 hover:bg-brand-gold/10 font-display font-bold text-brand-gold;

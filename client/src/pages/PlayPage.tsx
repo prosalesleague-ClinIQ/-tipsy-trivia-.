@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
-import { WifiOff, Tv } from 'lucide-react';
+import { Loader2, Tv } from 'lucide-react';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
@@ -17,7 +17,7 @@ const CTRL_COLORS = [
 type Screen = 'join' | 'waiting' | 'question' | 'buzzer' | 'reveal' | 'scoreboard' | 'end' | 'movie_answer' | 'movie_solved' | 'movie_reveal';
 
 export default function PlayPage() {
-    const { socket, connected } = useSocket();
+    const { socket, connected, warmupStatus } = useSocket();
     const { state, dispatch } = useGameState();
     const [screen, setScreen] = useState<Screen>('join');
     const [name, setName] = useState('');
@@ -140,10 +140,17 @@ export default function PlayPage() {
 
     if (!connected) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="glass p-8 text-center">
-                    <WifiOff className="w-10 h-10 text-red-400 mx-auto mb-3" />
-                    <p className="text-white/60">Reconnecting…</p>
+            <div className="min-h-screen flex items-center justify-center p-6">
+                <div className="glass p-8 text-center max-w-sm">
+                    <Loader2 className="w-10 h-10 text-brand-purple animate-spin mx-auto mb-3" />
+                    <p className="text-white/70 text-lg mb-1">
+                        {warmupStatus === 'warming' ? 'Waking up server...' : 'Connecting...'}
+                    </p>
+                    <p className="text-white/40 text-sm">
+                        {warmupStatus === 'warming'
+                            ? 'This can take up to 30 seconds.'
+                            : 'Almost there...'}
+                    </p>
                 </div>
             </div>
         );
