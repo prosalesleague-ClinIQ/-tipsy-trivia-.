@@ -57,7 +57,13 @@ export class GameStateMachine {
         });
 
         // Auto-advance after intro display
-        setTimeout(() => this.showNextQuestion(room), 3000);
+        setTimeout(() => {
+            if (room.mode === 'jeopardy') {
+                this.showJeopardyBoard(room);
+            } else {
+                this.showNextQuestion(room);
+            }
+        }, 3000);
     }
 
     async showNextQuestion(room: Room): Promise<void> {
@@ -167,7 +173,18 @@ export class GameStateMachine {
             host_reaction: reaction,
         });
 
-        setTimeout(() => this.showNextQuestion(room), 6000);
+        setTimeout(() => {
+            if (room.mode === 'jeopardy') {
+                const allAnswered = room.jeopardy_board?.every(col => col.every(c => c.answered));
+                if (allAnswered) {
+                    this.endRound(room);
+                } else {
+                    this.showJeopardyBoard(room);
+                }
+            } else {
+                this.showNextQuestion(room);
+            }
+        }, 6000);
     }
 
     async processBuzzer(room: Room, playerId: string, clientTimeMs: number): Promise<void> {
@@ -271,6 +288,76 @@ export class GameStateMachine {
             clearTimeout(t);
             this.timers.delete(roomCode);
         }
+    }
+
+    getCategories(): string[] {
+        return this.questionManager.getCategories();
+    }
+
+    showJeopardyBoard(room: Room): void {
+        if (!room.jeopardy_board) {
+            room.jeopardy_board = this.questionManager.generateJeopardyBoard(room);
+        }
+
+        if (!room.jeopardy_controller_id) {
+            const activePlayers = Object.values(room.players).filter(p => p.status === 'active');
+            if (activePlayers.length > 0) {
+                room.jeopardy_controller_id = activePlayers[Math.floor(Math.random() * activePlayers.length)].id;
+            }
+        }
+
+        room.phase = 'jeopardy_board';
+        this.io.to(room.code).emit('room:updated', { room });
+        this.io.to(room.code).emit('jeopardy:board', {
+            board: room.jeopardy_board,
+            controller_id: room.jeopardy_controller_id ?? ''
+        });
+    }
+
+    async processJeopardyPick(room: Room, playerId: string, categoryIndex: number, valueIndex: number): Promise<void> {
+        if (room.phase !== 'jeopardy_board' || room.jeopardy_controller_id !== playerId) return;
+
+        const cell = room.jeopardy_board?.[categoryIndex]?.[valueIndex];
+        if (!cell || cell.answered) return;
+
+        cell.answered = true;
+        const question = this.questionManager.getQuestion(cell.question_id);
+
+        if (!question) {
+            this.showJeopardyBoard(room);
+            return;
+        }
+
+        room.current_question_id = question.id;
+        room.question_start_time = Date.now();
+        room.phase = 'question';
+        room.buzzer_winner_id = null;
+        room.buzzer_locked = false;
+
+        const qNum = (this.questionNums.get(room.code) ?? 0) + 1;
+        this.questionNums.set(room.code, qNum);
+
+        for (const player of Object.values(room.players)) {
+            player.answered = false;
+            player.answer_index = null;
+            player.answer_time_ms = null;
+            player.buzzed_at = null;
+        }
+
+        this.io.to(room.code).emit('room:updated', { room });
+        this.io.to(room.code).emit('question:show', {
+            question: this.stripAnswer(question),
+            question_number: qNum,
+            total_questions: 25,
+            server_time: Date.now(),
+            buzzer_mode: room.settings.buzzer_enabled,
+        });
+
+        const timerMs = Math.max(question.time_limit_seconds, 20) * 1000;
+        const timer = setTimeout(() => {
+            this.revealAnswer(room, question);
+        }, timerMs);
+        this.setTimer(room.code, timer);
     }
 }
 

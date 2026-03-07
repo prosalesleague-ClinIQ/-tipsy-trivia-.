@@ -177,7 +177,9 @@ export interface ServerToClientEvents {
     'round:advance': (data: RoundAdvancePayload) => void;
     'scoreboard:update': (data: ScoreboardUpdatePayload) => void;
     'jeopardy:board': (data: JeopardyBoardPayload) => void;
+    'jeopardy:cursor': (data: { x: number; y: number }) => void;
     'jeopardy:pick': (data: { category_index: number; value_index: number }) => void;
+    'categories:list': (data: { categories: string[] }) => void;
     'jeopardy:daily_double': (data: { player_id: string }) => void;
     'jeopardy:final': (data: { question: Question }) => void;
     'ladder:step': (data: LadderStepPayload) => void;
@@ -208,9 +210,11 @@ export interface ClientToServerEvents {
     'answer:typed': (data: AnswerTypedPayload) => void;
     'buzzer:press': (data: BuzzerPressPayload) => void;
     'wager:submit': (data: WagerSubmitPayload) => void;
+    'jeopardy:cursor': (data: { x: number; y: number }) => void;
     'jeopardy:pick': (data: JeopardyPickPayload) => void;
     'round:advance': () => void;
     'ad:reward:request': (data: { player_id: string }) => void;
+    'categories:list': () => void;
     'ad:reward:complete': (data: AdRewardGrantPayload) => void;
     // Movie Ladder events (client → server)
     'movie:answer': (data: { question_id: string; answer: string | number; client_time_ms: number }) => void;

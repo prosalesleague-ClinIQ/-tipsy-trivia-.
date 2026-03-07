@@ -25,7 +25,7 @@ export class RoomManager {
     defaultSettings(): RoomSettings {
         return {
             max_players: 12,
-            question_timer_seconds: 12,
+            question_timer_seconds: 30,
             buzzer_enabled: false,
             buzzer_passdown: true,
             rapid_fire_penalty: false,

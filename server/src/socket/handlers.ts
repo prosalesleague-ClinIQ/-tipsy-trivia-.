@@ -113,6 +113,28 @@ export function registerSocketHandlers(
             movieMachine.startMovieGame(room, data.settings);
         });
 
+        // ─── Jeopardy: Cursor (D-Pad navigation) ─────────────────────
+        socket.on('jeopardy:cursor', (data) => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room) return;
+            // Broadcast cursor to everyone (mainly Host TV)
+            if (room.jeopardy_controller_id === socket.id) {
+                io.to(room.code).emit('jeopardy:cursor', data);
+            }
+        });
+
+        // ─── Jeopardy: Pick ─────────────────────────────────────────
+        socket.on('jeopardy:pick', (data) => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room || room.jeopardy_controller_id !== socket.id) return;
+            stateMachine.processJeopardyPick(room, socket.id, data.category_index, data.value_index);
+        });
+        // ─── Categories ─────────────────────────────────────────────
+        socket.on('categories:list', () => {
+            const categories = stateMachine.getCategories();
+            socket.emit('categories:list', { categories });
+        });
+
         // ─── Movie: Answer (player) ───────────────────────────────
         socket.on('movie:answer', (data) => {
             const room = roomManager.getRoomBySocket(socket.id);

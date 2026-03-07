@@ -10,7 +10,11 @@ interface SocketContextValue {
     warmupStatus: 'idle' | 'warming' | 'ready' | 'failed';
 }
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? '';
+let SERVER_URL = import.meta.env.VITE_SERVER_URL ?? '';
+// If env forces localhost but player is on LAN (192.168.*), force use of Vite proxy
+if (SERVER_URL.includes('localhost') && window.location.hostname !== 'localhost') {
+    SERVER_URL = '';
+}
 
 const SocketContext = createContext<SocketContextValue>({ socket: null, connected: false, warmupStatus: 'idle' });
 

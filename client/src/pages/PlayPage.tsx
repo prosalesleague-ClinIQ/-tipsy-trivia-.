@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
 import { Loader2, Tv } from 'lucide-react';
+import DPadController from '../components/player/DPadController';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
@@ -14,7 +15,7 @@ const CTRL_COLORS = [
     'bg-yellow-500 active:bg-yellow-600',
 ];
 
-type Screen = 'join' | 'waiting' | 'question' | 'buzzer' | 'reveal' | 'scoreboard' | 'end' | 'movie_answer' | 'movie_solved' | 'movie_reveal';
+type Screen = 'join' | 'waiting' | 'jeopardy_board' | 'question' | 'buzzer' | 'reveal' | 'scoreboard' | 'end' | 'movie_answer' | 'movie_solved' | 'movie_reveal';
 
 export default function PlayPage() {
     const { socket, connected, warmupStatus } = useSocket();
@@ -33,6 +34,18 @@ export default function PlayPage() {
     const [movieDelta, setMovieDelta] = useState<number | null>(null);
     const [movieLockoutEnd, setMovieLockoutEnd] = useState<number>(0);
     const sessionToken = state.mySessionToken;
+
+    // Jeopardy cursor state
+    const [cursorCol, setCursorCol] = useState(0);
+    const [cursorRow, setCursorRow] = useState(0);
+    const [qCursor, setQCursor] = useState(0);
+
+    // Sync cursor
+    useEffect(() => {
+        if (screen === 'jeopardy_board' && socket) {
+            socket.emit('jeopardy:cursor', { x: cursorCol, y: cursorRow });
+        }
+    }, [cursorCol, cursorRow, screen, socket]);
 
     // Controller mode: phone shows only buzzer / answer buttons, not the full question text.
     // Set by the landing page when the user chooses "TV / Big Screen" mode.
@@ -67,7 +80,14 @@ export default function PlayPage() {
 
         socket.on('room:updated', (data) => {
             if (data.room.phase === 'lobby') setScreen('waiting');
-            if (data.room.phase === 'question') { setScreen('question'); setSelectedAnswer(null); }
+            if (data.room.phase === 'jeopardy_board') setScreen('jeopardy_board');
+            if (data.room.phase === 'question') { setScreen('question'); setSelectedAnswer(null); setQCursor(0); }
+        });
+
+        socket.on('jeopardy:board', () => {
+            setScreen('jeopardy_board');
+            setCursorCol(0);
+            setCursorRow(0);
         });
 
         socket.on('movie:question_start', () => {
@@ -98,6 +118,7 @@ export default function PlayPage() {
             socket.off('scoreboard:update');
             socket.off('game:end');
             socket.off('room:updated');
+            socket.off('jeopardy:board');
             socket.off('movie:question_start');
             socket.off('movie:answer_result');
             socket.off('movie:reveal');
@@ -234,6 +255,37 @@ export default function PlayPage() {
         </div>
     );
 
+    /* ── Jeopardy Board ── */
+    if (screen === 'jeopardy_board') {
+        const isController = state.room?.jeopardy_controller_id === socket?.id;
+
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-900">
+                {isController ? (
+                    <DPadController
+                        label="Categories TV Control"
+                        onMove={(dx, dy) => {
+                            setCursorCol(c => Math.max(0, Math.min(4, c + dx)));
+                            setCursorRow(r => Math.max(0, Math.min(4, r + dy)));
+                        }}
+                        onSelect={() => {
+                            socket?.emit('jeopardy:pick', { category_index: cursorCol, value_index: cursorRow });
+                        }}
+                    />
+                ) : (
+                    <div className="glass p-8 text-center max-w-sm">
+                        <p className="text-white/60 mb-2 mt-4 font-body tracking-widest uppercase">
+                            Look at the TV board
+                        </p>
+                        <p className="font-display font-bold text-xl text-brand-gold">
+                            Another player is choosing
+                        </p>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
     /* ── Question ── */
     if (screen === 'question') {
         const q = state.currentQuestion;
@@ -298,10 +350,50 @@ export default function PlayPage() {
 
         if (!q) return <div className="min-h-screen flex items-center justify-center text-white/40">Loading…</div>;
 
+        // --- JEOPARDY DPAD QUESTION MODE ---
+        if (state.room?.mode === 'jeopardy') {
+            return (
+                <div className="min-h-screen flex flex-col bg-slate-900 p-4">
+                    <p className="text-white/40 text-center font-body mb-4 uppercase tracking-widest text-xs mt-2">
+                        Select Answer & Lock In
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                        {q.options.map((opt, i) => (
+                            <div key={i} className={`p-4 rounded-xl text-center font-display font-bold ${selectedAnswer !== null
+                                    ? selectedAnswer === i ? 'bg-brand-gold text-black shadow-lg ring-4 ring-brand-gold/50' : 'bg-white/5 opacity-40'
+                                    : qCursor === i ? 'bg-brand-purple shadow-lg ring-2 ring-brand-purple/50' : 'bg-white/10'
+                                }`}>
+                                <span className="block text-3xl mb-1">{OPTION_LABELS[i]}</span>
+                            </div>
+                        ))}
+                    </div>
+                    {selectedAnswer === null ? (
+                        <div className="flex-1 mt-6">
+                            <DPadController
+                                onMove={(dx, dy) => {
+                                    let n = qCursor;
+                                    if (dx === 1 && n % 2 === 0) n++;
+                                    if (dx === -1 && n % 2 === 1) n--;
+                                    if (dy === 1 && n < 2) n += 2;
+                                    if (dy === -1 && n >= 2) n -= 2;
+                                    setQCursor(n);
+                                }}
+                                onSelect={() => submitAnswer(qCursor)}
+                            />
+                        </div>
+                    ) : (
+                        <div className="flex-1 flex items-center justify-center">
+                            <p className="text-white/50 text-xl font-body mt-8 font-bold">LOCKED IN</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
         // --- CONTROLLER MODE: full-bleed A/B/C/D pad, no question text ---
         if (controllerMode) {
             return (
-                <div className="min-h-screen flex flex-col gap-1 p-1">
+                <div className="min-h-screen flex flex-col gap-1 p-1 bg-slate-900">
                     <div className="grid grid-cols-2 gap-1 flex-1">
                         {q.options.map((opt, i) => (
                             <button
@@ -528,7 +620,7 @@ export default function PlayPage() {
                                     }}
                                     disabled={isLocked}
                                 >
-                                    <span className={`font-display font-black text-xl ${['text-red-400','text-blue-400','text-green-400','text-yellow-400'][i]}`}>
+                                    <span className={`font-display font-black text-xl ${['text-red-400', 'text-blue-400', 'text-green-400', 'text-yellow-400'][i]}`}>
                                         {OPTION_LABELS[i]}
                                     </span>
                                     <span className="flex-1">{choice}</span>

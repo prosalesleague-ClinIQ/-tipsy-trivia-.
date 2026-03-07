@@ -16,6 +16,7 @@ import HostEndGame from '../components/host/HostEndGame';
 import HostMovieSetup from '../components/host/HostMovieSetup';
 import HostMovieStageScreen from '../components/host/HostMovieStageScreen';
 import HostMovieRevealScreen from '../components/host/HostMovieRevealScreen';
+import Ladder3D from '../components/host/Ladder3D';
 
 const DIFFICULTY_OPTIONS: { value: Difficulty; label: string; icon: string; color: string }[] = [
     { value: 'Easy', label: 'Easy', icon: '🟢', color: 'border-green-500 bg-green-500/20 text-green-300' },
@@ -210,8 +211,7 @@ export default function HostPage() {
                         <div className="flex gap-2 flex-wrap">
                             {[2, 3, 4, 5, 6, 7, 8, 10, 12].map(n => (
                                 <button key={n}
-                                    className={`w-12 h-12 rounded-xl font-display font-bold text-lg transition-all ${
-                                        playerCount === n
+                                    className={`w-12 h-12 rounded-xl font-display font-bold text-lg transition-all ${playerCount === n
                                             ? 'bg-brand-purple text-white scale-110 shadow-lg shadow-purple-900/50'
                                             : 'bg-white/10 text-white/50 hover:bg-white/20'}`}
                                     onClick={() => setPlayerCount(n)}>{n}</button>
@@ -243,8 +243,7 @@ export default function HostPage() {
                         <div className="grid grid-cols-4 gap-2">
                             {DIFFICULTY_OPTIONS.map(opt => (
                                 <button key={opt.value}
-                                    className={`p-3 rounded-xl font-display font-bold text-sm border-2 transition-all ${
-                                        difficulty === opt.value ? opt.color : 'border-white/10 text-white/40 hover:border-white/30'}`}
+                                    className={`p-3 rounded-xl font-display font-bold text-sm border-2 transition-all ${difficulty === opt.value ? opt.color : 'border-white/10 text-white/40 hover:border-white/30'}`}
                                     onClick={() => setDifficulty(opt.value)}>
                                     <span className="text-lg block">{opt.icon}</span>
                                     {opt.label}
@@ -261,8 +260,7 @@ export default function HostPage() {
                         <div className="grid grid-cols-3 gap-2">
                             {CONTENT_OPTIONS.map(opt => (
                                 <button key={opt.value}
-                                    className={`p-3 rounded-xl font-display font-bold text-sm border-2 transition-all text-center ${
-                                        contentRating === opt.value ? opt.color : 'border-white/10 text-white/40 hover:border-white/30'}`}
+                                    className={`p-3 rounded-xl font-display font-bold text-sm border-2 transition-all text-center ${contentRating === opt.value ? opt.color : 'border-white/10 text-white/40 hover:border-white/30'}`}
                                     onClick={() => setContentRating(opt.value)}>
                                     {opt.label}
                                     <span className="block text-xs font-body font-normal mt-1 opacity-70">{opt.desc}</span>
@@ -299,18 +297,32 @@ export default function HostPage() {
     }
 
     const phase = state.room?.phase;
+    const isLadder = state.room?.mode === 'legacy_ladder';
+    const maxScore = Math.max(0, ...(state.scores?.map(s => s.score) || [0]));
+    const currentStep = Math.min(15, Math.max(0, Math.floor(maxScore / 100)));
 
-    // Movie phases
-    if (phase === 'movie_stage') return <HostMovieStageScreen />;
-    if (phase === 'movie_reveal') return <HostMovieRevealScreen />;
+    const renderGameScreen = () => {
+        // Movie phases
+        if (phase === 'movie_stage') return <HostMovieStageScreen />;
+        if (phase === 'movie_reveal') return <HostMovieRevealScreen />;
 
-    // Standard phases
-    if (phase === 'question' || phase === 'buzzer_wait' || phase === 'buzzer_answer') return <HostQuestionScreen />;
-    if (phase === 'answer_reveal') return <HostRevealScreen />;
-    if (phase === 'round_end' || phase === 'final_scoreboard') {
-        if (state.gameEnd) return <HostEndGame />;
+        // Standard phases
+        if (phase === 'question' || phase === 'buzzer_wait' || phase === 'buzzer_answer') return <HostQuestionScreen />;
+        if (phase === 'answer_reveal') return <HostRevealScreen />;
+        if (phase === 'round_end' || phase === 'final_scoreboard') {
+            if (state.gameEnd) return <HostEndGame />;
+            return <HostScoreboard />;
+        }
+        if (phase === 'jeopardy_board') return <HostJeopardyBoard />;
         return <HostScoreboard />;
-    }
-    if (phase === 'jeopardy_board') return <HostJeopardyBoard />;
-    return <HostScoreboard />;
+    };
+
+    return (
+        <>
+            {isLadder && <Ladder3D currentStep={currentStep} maxSteps={15} />}
+            <div className={isLadder ? "relative z-10 w-full h-full" : "animated-bg"}>
+                {renderGameScreen()}
+            </div>
+        </>
+    );
 }

@@ -1,9 +1,27 @@
 import { useGameState } from '../../state/GameStateContext';
+import { useSocket } from '../../socket/SocketProvider';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function HostJeopardyBoard() {
     const { state } = useGameState();
+    const { socket } = useSocket();
     const { room } = state;
     const board = room?.jeopardy_board;
+    const [cursor, setCursor] = useState({ col: 0, row: 0 });
+
+    useEffect(() => {
+        if (!socket) return;
+
+        const handleCursor = (data: { x: number; y: number }) => {
+            setCursor({ col: data.x, row: data.y });
+        };
+
+        socket.on('jeopardy:cursor', handleCursor);
+        return () => {
+            socket.off('jeopardy:cursor', handleCursor);
+        };
+    }, [socket]);
 
     if (!board) return (
         <div className="min-h-screen flex items-center justify-center">
@@ -34,10 +52,14 @@ export default function HostJeopardyBoard() {
                     board.map((col, colIdx) => {
                         const cell = col[row];
                         if (!cell) return <div key={`${colIdx}-${row}`} />;
+                        const isSelected = cursor.col === colIdx && cursor.row === row;
+
                         return (
                             <div
                                 key={`${colIdx}-${row}`}
-                                className={`jeopardy-cell text-2xl font-display font-bold h-20 ${cell.answered ? 'used' : ''} ${cell.daily_double ? 'border-brand-gold' : ''}`}
+                                className={`jeopardy-cell relative text-2xl font-display font-bold h-20 ${cell.answered ? 'used' : ''
+                                    } ${cell.daily_double ? 'border-brand-gold' : ''} ${isSelected && !cell.answered ? 'ring-4 ring-brand-purple drop-shadow-[0_0_15px_rgba(168,85,247,0.8)] z-10' : ''
+                                    }`}
                             >
                                 {cell.answered ? '' : `$${cell.value}`}
                                 {cell.daily_double && !cell.answered && <span className="ml-1 text-xs text-brand-gold">⭐</span>}

@@ -31,22 +31,26 @@ export class QuestionManager {
     pickQuestion(room: Room): Question | null {
         const db = getDB();
         const usedHashes = room.used_fact_hashes;
-        const placeholders = usedHashes.length > 0
-            ? usedHashes.map(() => '?').join(',')
-            : "'__none__'";
+        const category = room.category_filter;
 
-        const statement = usedHashes.length > 0
-            ? db.prepare(`
-          SELECT * FROM questions
-          WHERE fact_hash NOT IN (${placeholders})
-          ORDER BY RANDOM()
-          LIMIT 1
-        `)
-            : db.prepare(`SELECT * FROM questions ORDER BY RANDOM() LIMIT 1`);
+        let query = `SELECT * FROM questions WHERE 1=1 `;
+        const params: any[] = [];
 
-        const row = usedHashes.length > 0
-            ? statement.get(...usedHashes) as DBQuestion | undefined
-            : statement.get() as DBQuestion | undefined;
+        if (category) {
+            query += `AND category = ? `;
+            params.push(category);
+        }
+
+        if (usedHashes.length > 0) {
+            const placeholders = usedHashes.map(() => '?').join(',');
+            query += `AND fact_hash NOT IN (${placeholders}) `;
+            params.push(...usedHashes);
+        }
+
+        query += `ORDER BY RANDOM() LIMIT 1`;
+
+        const statement = db.prepare(query);
+        const row = statement.get(...params) as DBQuestion | undefined;
 
         if (!row) return null;
 
@@ -58,23 +62,26 @@ export class QuestionManager {
     pickQuestionByDifficulty(room: Room, difficulty: string): Question | null {
         const db = getDB();
         const usedHashes = room.used_fact_hashes;
-        const placeholders = usedHashes.length > 0
-            ? usedHashes.map(() => '?').join(',')
-            : null;
+        const category = room.category_filter;
 
-        let row: DBQuestion | undefined;
-        if (placeholders) {
-            row = db.prepare(`
-        SELECT * FROM questions
-        WHERE difficulty = ?
-        AND fact_hash NOT IN (${placeholders})
-        ORDER BY RANDOM() LIMIT 1
-      `).get(difficulty, ...usedHashes) as DBQuestion | undefined;
-        } else {
-            row = db.prepare(`
-        SELECT * FROM questions WHERE difficulty = ? ORDER BY RANDOM() LIMIT 1
-      `).get(difficulty) as DBQuestion | undefined;
+        let query = `SELECT * FROM questions WHERE difficulty = ? `;
+        const params: any[] = [difficulty];
+
+        if (category) {
+            query += `AND category = ? `;
+            params.push(category);
         }
+
+        if (usedHashes.length > 0) {
+            const placeholders = usedHashes.map(() => '?').join(',');
+            query += `AND fact_hash NOT IN (${placeholders}) `;
+            params.push(...usedHashes);
+        }
+
+        query += `ORDER BY RANDOM() LIMIT 1`;
+
+        const statement = db.prepare(query);
+        const row = statement.get(...params) as DBQuestion | undefined;
 
         if (!row) return null;
         const q = this.deserialize(row);
@@ -123,6 +130,38 @@ export class QuestionManager {
         const db = getDB();
         const rows = db.prepare('SELECT DISTINCT category FROM questions ORDER BY category').all() as { category: string }[];
         return rows.map(r => r.category);
+    }
+
+    generateJeopardyBoard(room: Room): import('@tipsy-trivia/shared').JeopardyCell[][] {
+        const categories = this.getCategories().sort(() => 0.5 - Math.random()).slice(0, 5);
+        if (categories.length < 5) return [];
+
+        const board: import('@tipsy-trivia/shared').JeopardyCell[][] = [];
+
+        // Pick one random cell to be the daily double
+        const ddCol = Math.floor(Math.random() * 5);
+        const ddRow = Math.floor(Math.random() * 5);
+
+        for (let colIdx = 0; colIdx < 5; colIdx++) {
+            const cat = categories[colIdx];
+            const col: import('@tipsy-trivia/shared').JeopardyCell[] = [];
+            const values = [100, 200, 300, 400, 500];
+
+            for (let rowIdx = 0; rowIdx < 5; rowIdx++) {
+                const val = values[rowIdx];
+                const q = this.pickQuestionByCategory(room, cat, val);
+
+                col.push({
+                    category: cat,
+                    value: val,
+                    question_id: q?.id ?? 'dummy',
+                    answered: !q, // mark answered if no question exists to prevent clicking
+                    daily_double: colIdx === ddCol && rowIdx === ddRow,
+                });
+            }
+            board.push(col);
+        }
+        return board;
     }
 
     private valueToDifficulty(value: number): string {

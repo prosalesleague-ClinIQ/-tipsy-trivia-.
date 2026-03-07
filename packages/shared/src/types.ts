@@ -5,7 +5,7 @@
 import type { Difficulty } from './question';
 import type { MovieRoomState, MovieStage } from './movie';
 
-export type GameMode = 'trivia_categories' | 'rapid_fire' | 'jeopardy' | 'legacy_ladder' | 'plot_ladder' | 'cast_ladder';
+export type GameMode = 'trivia_categories' | 'rapid_fire' | 'jeopardy' | 'legacy_ladder' | 'plot_ladder' | 'cast_ladder' | 'fun_fact';
 
 export type GamePhase =
     | 'lobby'
@@ -69,6 +69,7 @@ export interface Room {
     spectator_ids: string[];
     phase: GamePhase;
     mode: GameMode | null;
+    category_filter?: string; // Optional specific category for Rapid Fire / Ladder
     host_config: HostConfig | null;
     current_round: number;
     total_rounds: number;
