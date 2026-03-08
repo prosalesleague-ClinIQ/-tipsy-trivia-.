@@ -24,7 +24,11 @@ async function main() {
     const app = express();
 
     app.use(helmet({ contentSecurityPolicy: false }));
-    app.use(cors({ origin: CORS_ORIGINS, credentials: true }));
+    app.use(cors({
+        origin: CORS_ORIGINS,
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization', 'Bypass-Tunnel-Reminder']
+    }));
     app.use(express.json({ limit: '5mb' }));
 
     // Root route
@@ -95,6 +99,7 @@ async function main() {
             origin: CORS_ORIGINS,
             methods: ['GET', 'POST'],
             credentials: true,
+            allowedHeaders: ['Bypass-Tunnel-Reminder', 'Content-Type']
         },
         pingInterval: 10000,
         pingTimeout: 5000,

@@ -4,7 +4,7 @@
   "private": true,
   "description": "Tipsy Trivia — Jackbox-style party trivia game",
   "scripts": {
-    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
+    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\" \"npx localtunnel --port 3001 --subdomain tipsy-trivia-server\"",
     "build": "pnpm --filter shared build && pnpm --filter server build && pnpm --filter client build",
     "test": "pnpm --filter server test",
     "lint": "concurrently \"pnpm --filter server lint\" \"pnpm --filter client lint\"",

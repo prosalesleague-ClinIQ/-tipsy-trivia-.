@@ -10,7 +10,7 @@ interface SocketContextValue {
     warmupStatus: 'idle' | 'warming' | 'ready' | 'failed';
 }
 
-let SERVER_URL = import.meta.env.VITE_SERVER_URL ?? '';
+let SERVER_URL = (import.meta.env.VITE_SERVER_URL ?? '').trim();
 // If env forces localhost but player is on LAN (192.168.*), force use of Vite proxy
 if (SERVER_URL.includes('localhost') && window.location.hostname !== 'localhost') {
     SERVER_URL = '';
@@ -28,7 +28,13 @@ async function warmupServer(signal: AbortSignal): Promise<boolean> {
     for (let i = 0; i < maxAttempts; i++) {
         if (signal.aborted) return false;
         try {
-            const res = await fetch(healthUrl, { signal, mode: 'cors' });
+            const res = await fetch(healthUrl, {
+                signal,
+                mode: 'cors',
+                headers: {
+                    'Bypass-Tunnel-Reminder': 'true'
+                }
+            });
             if (res.ok) return true;
         } catch {
             // server still waking up — keep trying
@@ -45,12 +51,15 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 
     const connect = useCallback(() => {
         const s: AppSocket = io(SERVER_URL, {
-            transports: ['websocket', 'polling'],
+            transports: ['polling', 'websocket'], // Try polling first to pass headers
             reconnection: true,
             reconnectionAttempts: Infinity,
             reconnectionDelay: 2000,
             reconnectionDelayMax: 10000,
             timeout: 30000,
+            extraHeaders: {
+                'Bypass-Tunnel-Reminder': 'true'
+            }
         });
 
         s.on('connect', () => {
