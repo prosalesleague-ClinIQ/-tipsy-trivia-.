@@ -107,7 +107,7 @@ async function main() {
             target: `http://localhost:${targetPort}`,
             changeOrigin: true,
             ws: true,
-            logLevel: 'silent',
+            logger: console,
         }));
     } else {
         const clientDistPath = path.join(process.cwd(), '../client/dist');
