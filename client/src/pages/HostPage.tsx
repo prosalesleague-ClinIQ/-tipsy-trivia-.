@@ -165,6 +165,7 @@ export default function HostPage() {
     };
 
     // ── Navigation & Pause handlers ────────────────────────────
+    const activeGamePhases = ['question', 'buzzer_wait', 'buzzer_answer', 'answer_reveal', 'movie_stage', 'movie_reveal'];
     const canGoBack = screen === 'comedian' || screen === 'mode_select' || screen === 'movie_setup';
 
     const handleBack = () => {
@@ -174,16 +175,17 @@ export default function HostPage() {
     };
 
     const handleHome = () => {
-        socket?.emit('room:leave');
+        // Auto-pause if game is active so players aren't stranded
+        const phase = state.room?.phase;
+        const gameActive = phase && activeGamePhases.includes(phase) && !state.isPaused;
+        if (gameActive) socket?.emit('game:pause');
         stop();
-        dispatch({ type: 'RESET' });
         navigate('/');
     };
 
     const handlePause = () => { socket?.emit('game:pause'); };
     const handleResume = () => { socket?.emit('game:resume'); };
 
-    const activeGamePhases = ['question', 'buzzer_wait', 'buzzer_answer', 'answer_reveal', 'movie_stage', 'movie_reveal'];
     const showPauseButton = screen === 'game' && activeGamePhases.includes(state.room?.phase ?? '') && !state.isPaused;
 
     // ── Not connected ──────────────────────────────────────────
@@ -235,7 +237,7 @@ export default function HostPage() {
                             <Users className="w-4 h-4" /> How many players?
                         </label>
                         <div className="flex gap-2 flex-wrap">
-                            {[2, 3, 4, 5, 6, 7, 8, 10, 12].map(n => (
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 10, 12].map(n => (
                                 <button key={n}
                                     className={`w-12 h-12 rounded-xl font-display font-bold text-lg transition-all ${playerCount === n
                                             ? 'bg-brand-purple text-white scale-110 shadow-lg shadow-purple-900/50'

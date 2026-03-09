@@ -56,9 +56,9 @@ export default function NavButtons({ showBack, onBack, onHome }: Props) {
                             exit={{ scale: 0.9, opacity: 0 }}
                             className="glass p-8 rounded-2xl max-w-sm text-center"
                         >
-                            <h3 className="font-display font-bold text-2xl text-white mb-3">Leave Game?</h3>
+                            <h3 className="font-display font-bold text-2xl text-white mb-3">Go Home?</h3>
                             <p className="text-white/50 font-body mb-6">
-                                You'll be disconnected from the current game.
+                                Your game will be saved — you can continue where you left off.
                             </p>
                             <div className="flex gap-3">
                                 <button
@@ -68,10 +68,10 @@ export default function NavButtons({ showBack, onBack, onHome }: Props) {
                                     Cancel
                                 </button>
                                 <button
-                                    className="btn-danger flex-1 py-3 rounded-xl"
+                                    className="btn-primary flex-1 py-3 rounded-xl"
                                     onClick={onHome}
                                 >
-                                    Leave
+                                    Go Home
                                 </button>
                             </div>
                         </motion.div>

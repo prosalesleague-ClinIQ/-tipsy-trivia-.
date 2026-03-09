@@ -716,13 +716,9 @@ function PlayPageInner() {
 // Wrapper that adds NavButtons + PauseOverlay on top of PlayPage screens
 export default function PlayPage() {
     const { state } = useGameState();
-    const { socket } = useSocket();
     const navigate = useNavigate();
 
     const handleHome = () => {
-        socket?.emit('room:leave');
-        sessionStorage.removeItem('sessionToken');
-        sessionStorage.removeItem('joinCode');
         navigate('/');
     };
 

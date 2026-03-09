@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Tv, Smartphone, Users, Mic, Zap } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Tv, Smartphone, Users, Mic, Zap, Play, RotateCcw } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useGameState } from '../state/GameStateContext';
+import { useSocket } from '../socket/SocketProvider';
 
 /* Floating emoji config — positions are viewport-relative (vw / vh) */
 const FLOATING_EMOJIS = [
@@ -34,8 +36,28 @@ const HOW_IT_WORKS = [
 
 export default function LandingPage() {
     const navigate = useNavigate();
+    const { state, dispatch } = useGameState();
+    const { socket } = useSocket();
     const [code, setCode] = useState('');
     const [showJoin, setShowJoin] = useState(false);
+
+    // Active game detection
+    const hasActiveGame = !!state.room;
+    const isHost = state.isHost;
+    const roomCode = state.room?.code;
+    const playerCount = state.room ? Object.keys(state.room.players).length : 0;
+    const phase = state.room?.phase ?? '';
+
+    const handleContinue = () => {
+        navigate(isHost ? '/host' : '/play');
+    };
+
+    const handleNewGame = () => {
+        socket?.emit('room:leave');
+        sessionStorage.removeItem('sessionToken');
+        sessionStorage.removeItem('joinCode');
+        dispatch({ type: 'RESET' });
+    };
 
     /* Join handler */
     const handleJoin = () => {
@@ -79,6 +101,58 @@ export default function LandingPage() {
                     The party trivia game where facts get weird and everyone gets roasted.
                 </p>
             </motion.div>
+
+            {/* ── Active game banner ── */}
+            <AnimatePresence>
+                {hasActiveGame && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.4, type: 'spring' }}
+                        className="w-full max-w-xl mb-8"
+                    >
+                        <div className="glass p-6 border-2 border-brand-gold/50 relative overflow-hidden">
+                            {/* Pulsing glow */}
+                            <div className="absolute inset-0 bg-brand-gold/5 animate-pulse pointer-events-none" />
+
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="text-2xl">🎮</span>
+                                    <h3 className="font-display font-bold text-xl text-brand-gold">Game In Progress</h3>
+                                </div>
+                                <div className="flex flex-wrap gap-3 text-sm text-white/50 mb-5 font-body">
+                                    <span>Room: <span className="text-white font-bold">{roomCode}</span></span>
+                                    <span>·</span>
+                                    <span>{playerCount} players</span>
+                                    <span>·</span>
+                                    <span className="capitalize">{isHost ? 'Hosting' : 'Playing'}</span>
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <motion.button
+                                        whileHover={{ scale: 1.03 }}
+                                        whileTap={{ scale: 0.97 }}
+                                        className="flex items-center justify-center gap-2 py-3 rounded-xl font-display font-bold text-lg text-black bg-brand-gold hover:brightness-110 transition-all"
+                                        onClick={handleContinue}
+                                    >
+                                        <Play className="w-5 h-5" />
+                                        Continue
+                                    </motion.button>
+                                    <motion.button
+                                        whileHover={{ scale: 1.03 }}
+                                        whileTap={{ scale: 0.97 }}
+                                        className="flex items-center justify-center gap-2 py-3 rounded-xl font-display font-bold text-lg text-white/70 glass border border-white/10 hover:border-white/30 transition-all"
+                                        onClick={handleNewGame}
+                                    >
+                                        <RotateCcw className="w-5 h-5" />
+                                        New Game
+                                    </motion.button>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* ── Two big CTA buttons ── */}
             <motion.div
