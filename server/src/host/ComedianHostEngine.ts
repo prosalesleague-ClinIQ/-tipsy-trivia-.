@@ -311,22 +311,49 @@ export class ComedianHostEngine {
 
     getReaction(config: HostConfig, room: Room, question: Question): string {
         const correct_pool = config.roast_level === 'mild' ? REACTION_CORRECT_MILD : config.roast_level === 'medium' ? REACTION_CORRECT_MEDIUM : REACTION_CORRECT_SPICY;
+        const wrong_pool = config.roast_level === 'mild' ? REACTION_WRONG_MILD : config.roast_level === 'medium' ? REACTION_WRONG_MEDIUM : REACTION_WRONG_SPICY;
+        const close_pool = config.roast_level === 'mild' ? REACTION_CLOSE_MILD : config.roast_level === 'medium' ? REACTION_CLOSE_MEDIUM : REACTION_CLOSE_SPICY;
 
         const activePlayers = Object.values(room.players).filter(p => p.status === 'active');
+        const answeredPlayers = activePlayers.filter(p => p.answer_index !== undefined && p.answer_index !== null);
         const correctPlayers = activePlayers.filter(p => p.answer_index === question.correct_index);
+        const wrongPlayers = answeredPlayers.filter(p => p.answer_index !== question.correct_index);
 
+        // Nobody answered at all
+        if (answeredPlayers.length === 0) {
+            return this.pick([
+                "Nobody even answered! Did everyone fall asleep?",
+                "Hello? Is anyone playing? Not a single answer came in.",
+                "The silence is deafening. Not one answer submitted.",
+                "I'm standing here, questions ready, and nobody even tried. Incredible.",
+            ]);
+        }
+
+        // Nobody got it right
         if (correctPlayers.length === 0) {
-            return config.roast_level === 'spicy'
-                ? "Nobody got it! That is a profound display of collective ignorance."
-                : "Nobody got it! That's impressive in the worst way. The fact has defeated everyone tonight.";
-        }
-        if (correctPlayers.length === activePlayers.length) {
-            return config.roast_level === 'spicy'
-                ? "EVERYONE got it! I demand an investigation into cheating."
-                : "EVERYONE got it! Either this question was too easy or this is the smartest group ever assembled.";
+            // Pick a random wrong player to roast
+            const victim = this.pick(wrongPlayers);
+            const wrongReaction = this.pick(wrong_pool).replace(/{name}/g, victim.name);
+            return wrongReaction;
         }
 
+        // Everyone got it right
+        if (correctPlayers.length === activePlayers.length) {
+            const template = this.pick(correct_pool);
+            const winner = correctPlayers.sort((a, b) => (a.answer_time_ms ?? 9999) - (b.answer_time_ms ?? 9999))[0];
+            return template.replace(/{name}/g, winner.name);
+        }
+
+        // Mixed results — praise the fastest correct player, sometimes roast a wrong one
         const winner = correctPlayers.sort((a, b) => (a.answer_time_ms ?? 9999) - (b.answer_time_ms ?? 9999))[0];
+
+        if (wrongPlayers.length > 0 && Math.random() < 0.4) {
+            // 40% chance: roast a wrong player instead
+            const victim = this.pick(wrongPlayers);
+            const template = this.pick(wrong_pool);
+            return template.replace(/{name}/g, victim.name);
+        }
+
         const template = this.pick(correct_pool);
         return template.replace(/{name}/g, winner.name);
     }

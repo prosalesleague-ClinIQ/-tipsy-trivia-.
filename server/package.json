@@ -19,6 +19,7 @@
         "express": "^4.18.2",
         "express-rate-limit": "^7.1.5",
         "helmet": "^7.1.0",
+        "http-proxy-middleware": "^3.0.5",
         "openai": "^6.27.0",
         "papaparse": "^5.4.1",
         "qrcode": "^1.5.3",

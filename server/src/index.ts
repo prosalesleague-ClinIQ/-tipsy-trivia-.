@@ -11,6 +11,9 @@ import { registerSocketHandlers } from './socket/handlers';
 import { adminRouter } from './api/admin';
 import { initDB } from './db/database';
 import { seedDatabase } from './seed/seed';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import path from 'path';
+import fs from 'fs';
 
 const PORT = parseInt(process.env.PORT ?? '3001', 10);
 const CORS_ORIGINS_ENV = process.env.CORS_ORIGINS ?? '*';
@@ -31,10 +34,7 @@ async function main() {
     }));
     app.use(express.json({ limit: '5mb' }));
 
-    // Root route
-    app.get('/', (_req, res) => {
-        res.json({ name: 'Tipsy Trivia API', status: 'ok', uptime: process.uptime() });
-    });
+
 
     // Health check
     app.get('/health', (_req, res) => {
@@ -91,6 +91,34 @@ async function main() {
 
     // Admin API
     app.use('/admin', adminRouter);
+
+    // Host the React Frontend (Vite proxy in dev, static files in production)
+    const isDev = process.env.NODE_ENV !== 'production';
+    if (isDev) {
+        let targetPort = 5173;
+        for (const port of [5173, 5174, 5175, 5176]) {
+            try {
+                const response = await fetch(`http://localhost:${port}`);
+                if (response.ok) { targetPort = port; break; }
+            } catch { }
+        }
+        console.log(`[Proxy] Routing frontend traffic to Vite dev server on port ${targetPort}`);
+        app.use('/', createProxyMiddleware({
+            target: `http://localhost:${targetPort}`,
+            changeOrigin: true,
+            ws: true,
+            logLevel: 'silent',
+        }));
+    } else {
+        const clientDistPath = path.join(process.cwd(), '../client/dist');
+        if (fs.existsSync(clientDistPath)) {
+            app.use(express.static(clientDistPath));
+            app.get('*', (req, res, next) => {
+                if (req.path.startsWith('/socket.io')) return next();
+                res.sendFile(path.join(clientDistPath, 'index.html'));
+            });
+        }
+    }
 
     const httpServer = http.createServer(app);
 
