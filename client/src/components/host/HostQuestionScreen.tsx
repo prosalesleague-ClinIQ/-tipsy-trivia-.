@@ -23,14 +23,16 @@ export default function HostQuestionScreen() {
 
     useEffect(() => {
         if (!currentQuestion || !serverTime) return;
+        if (state.isPaused) return; // freeze timer while paused
         const total = effectiveTime * 1000;
+        const pauseMs = room?.pause_elapsed_ms ?? 0;
         const interval = setInterval(() => {
-            const elapsed = Date.now() - serverTime;
+            const elapsed = Date.now() - serverTime - pauseMs;
             const remaining = Math.max(0, total - elapsed) / 1000;
             setTimeLeft(Math.ceil(remaining));
         }, 100);
         return () => clearInterval(interval);
-    }, [currentQuestion, serverTime]);
+    }, [currentQuestion, serverTime, state.isPaused, room?.pause_elapsed_ms]);
 
     if (!currentQuestion) return null;
 

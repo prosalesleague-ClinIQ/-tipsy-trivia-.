@@ -89,6 +89,9 @@ export class MovieLadderStateMachine {
     private questionManager = new MovieQuestionManager();
     /** Stage timer per room code */
     private stageTimers = new Map<string, NodeJS.Timeout>();
+    private stageTimerStartedAt = new Map<string, number>();
+    private stageTimerDuration = new Map<string, number>();
+    private stageTimerCallback = new Map<string, () => void>();
     /** Full question list per room (loaded at game start) */
     private roomQuestions = new Map<string, MovieQuestion[]>();
 
@@ -173,6 +176,7 @@ export class MovieLadderStateMachine {
     }
 
     processMovieAnswer(room: Room, playerId: string, answer: string | number, clientTimeMs: number): void {
+        if (room.paused) return;
         const ms = room.movie_state;
         if (!ms) return;
 
@@ -351,26 +355,59 @@ export class MovieLadderStateMachine {
         this.cleanup(room.code);
     }
 
-    private _scheduleStageTimer(room: Room): void {
+    private _scheduleStageTimer(room: Room, overrideDurationMs?: number): void {
         const ms = room.movie_state;
         if (!ms) return;
         this._clearStageTimer(room.code);
 
-        const timer = setTimeout(() => {
+        const durationMs = overrideDurationMs ?? ms.settings.stage_timer_seconds * 1000;
+        const cb = () => {
             const next = nextStage(ms.settings.variant, ms.current_stage);
             if (next) {
                 this.advanceStage(room);
             } else {
                 this.revealCurrentQuestion(room);
             }
-        }, ms.settings.stage_timer_seconds * 1000);
+        };
+        const timer = setTimeout(cb, durationMs);
 
         this.stageTimers.set(room.code, timer);
+        this.stageTimerStartedAt.set(room.code, Date.now());
+        this.stageTimerDuration.set(room.code, durationMs);
+        this.stageTimerCallback.set(room.code, cb);
     }
 
     private _clearStageTimer(roomCode: string): void {
         const t = this.stageTimers.get(roomCode);
         if (t) { clearTimeout(t); this.stageTimers.delete(roomCode); }
+        this.stageTimerStartedAt.delete(roomCode);
+        this.stageTimerDuration.delete(roomCode);
+        this.stageTimerCallback.delete(roomCode);
+    }
+
+    pauseTimers(roomCode: string): void {
+        const startedAt = this.stageTimerStartedAt.get(roomCode);
+        const duration = this.stageTimerDuration.get(roomCode);
+        if (startedAt === undefined || duration === undefined) return;
+
+        const elapsed = Date.now() - startedAt;
+        const remaining = Math.max(0, duration - elapsed);
+
+        const t = this.stageTimers.get(roomCode);
+        if (t) { clearTimeout(t); this.stageTimers.delete(roomCode); }
+
+        this.stageTimerDuration.set(roomCode, remaining);
+        this.stageTimerStartedAt.delete(roomCode);
+    }
+
+    resumeTimers(room: Room): void {
+        const remaining = this.stageTimerDuration.get(room.code);
+        const cb = this.stageTimerCallback.get(room.code);
+        if (remaining === undefined || !cb) return;
+
+        const timer = setTimeout(cb, remaining);
+        this.stageTimers.set(room.code, timer);
+        this.stageTimerStartedAt.set(room.code, Date.now());
     }
 
     private _currentQuestion(room: Room): MovieQuestion | null {

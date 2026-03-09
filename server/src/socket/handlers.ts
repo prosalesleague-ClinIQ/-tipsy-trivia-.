@@ -200,6 +200,81 @@ export function registerSocketHandlers(
             }
         });
 
+        // ─── Game: Pause (host only) ────────────────────────────
+        socket.on('game:pause', () => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room || room.host_socket_id !== socket.id) return;
+            if (room.paused) return;
+
+            const pausablePhases = ['question', 'buzzer_wait', 'buzzer_answer', 'answer_reveal', 'movie_stage', 'movie_reveal'];
+            if (!pausablePhases.includes(room.phase)) return;
+
+            room.paused = true;
+            room.paused_at = Date.now();
+
+            stateMachine.pauseTimers(room.code);
+            movieMachine.pauseTimers(room.code);
+
+            io.to(room.code).emit('room:updated', { room });
+            io.to(room.code).emit('game:paused');
+            console.log(`Game paused in room ${room.code}`);
+        });
+
+        // ─── Game: Resume (host only) ───────────────────────────
+        socket.on('game:resume', () => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room || room.host_socket_id !== socket.id) return;
+            if (!room.paused || room.paused_at === null) return;
+
+            const pausedDuration = Date.now() - room.paused_at;
+            room.pause_elapsed_ms += pausedDuration;
+            room.paused = false;
+            room.paused_at = null;
+
+            stateMachine.resumeTimers(room.code);
+            movieMachine.resumeTimers(room);
+
+            io.to(room.code).emit('room:updated', { room });
+            io.to(room.code).emit('game:resumed');
+            console.log(`Game resumed in room ${room.code}`);
+        });
+
+        // ─── Room: Leave (explicit) ─────────────────────────────
+        socket.on('room:leave', () => {
+            const room = roomManager.getRoomBySocket(socket.id);
+            if (!room) return;
+
+            if (room.host_socket_id === socket.id) {
+                // Host leaving ends the game for everyone
+                const scores = Object.values(room.players)
+                    .sort((a, b) => b.score - a.score)
+                    .map((p, i) => ({
+                        player_id: p.id,
+                        player_name: p.name,
+                        score: p.score,
+                        delta: 0,
+                        rank: i + 1,
+                    }));
+                const winner = scores[0];
+                io.to(room.code).emit('game:end', {
+                    scores,
+                    winner_id: winner?.player_id ?? '',
+                    winner_name: winner?.player_name ?? '',
+                    host_wrap: 'The host has left the game!',
+                    host_winner_roast: '',
+                });
+                if (room.movie_state) movieMachine.cleanup(room.code);
+                roomManager.deleteRoom(room.code);
+            } else {
+                roomManager.removePlayer(socket.id);
+                io.to(room.code).emit('player:left', { player_id: socket.id });
+                io.to(room.code).emit('room:updated', { room });
+            }
+
+            socket.leave(room.code);
+            console.log(`Socket ${socket.id} left room ${room.code}`);
+        });
+
         // ─── Disconnect ───────────────────────────────────────────
         socket.on('disconnect', () => {
             console.log(`Socket disconnected: ${socket.id}`);

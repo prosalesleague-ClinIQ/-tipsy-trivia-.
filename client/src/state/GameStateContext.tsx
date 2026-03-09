@@ -27,6 +27,7 @@ export interface GameState {
     movieStageUpdate: MovieStageAdvancePayload | null;
     movieAnswerResult: MovieAnswerResultPayload | null;
     movieReveal: MovieRevealPayload | null;
+    isPaused: boolean;
 }
 
 type Action =
@@ -43,6 +44,8 @@ type Action =
     | { type: 'MOVIE_STAGE_ADVANCE'; payload: MovieStageAdvancePayload }
     | { type: 'MOVIE_ANSWER_RESULT'; payload: MovieAnswerResultPayload }
     | { type: 'MOVIE_REVEAL'; payload: MovieRevealPayload }
+    | { type: 'GAME_PAUSED' }
+    | { type: 'GAME_RESUMED' }
     | { type: 'RESET' };
 
 const initialState: GameState = {
@@ -63,6 +66,7 @@ const initialState: GameState = {
     movieStageUpdate: null,
     movieAnswerResult: null,
     movieReveal: null,
+    isPaused: false,
 };
 
 function reducer(state: GameState, action: Action): GameState {
@@ -76,7 +80,7 @@ function reducer(state: GameState, action: Action): GameState {
                 isHost: action.payload.isHost,
             };
         case 'ROOM_UPDATED':
-            return { ...state, room: action.payload.room };
+            return { ...state, room: action.payload.room, isPaused: action.payload.room.paused };
         case 'QUESTION_SHOW':
             return {
                 ...state,
@@ -113,6 +117,10 @@ function reducer(state: GameState, action: Action): GameState {
             return { ...state, movieAnswerResult: action.payload };
         case 'MOVIE_REVEAL':
             return { ...state, movieReveal: action.payload, scores: action.payload.scores };
+        case 'GAME_PAUSED':
+            return { ...state, isPaused: true };
+        case 'GAME_RESUMED':
+            return { ...state, isPaused: false };
         case 'RESET':
             return { ...initialState };
         default:
@@ -147,6 +155,8 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
         socket.on('movie:stage_advance', (data) => dispatch({ type: 'MOVIE_STAGE_ADVANCE', payload: data }));
         socket.on('movie:answer_result', (data) => dispatch({ type: 'MOVIE_ANSWER_RESULT', payload: data }));
         socket.on('movie:reveal', (data) => dispatch({ type: 'MOVIE_REVEAL', payload: data }));
+        socket.on('game:paused', () => dispatch({ type: 'GAME_PAUSED' }));
+        socket.on('game:resumed', () => dispatch({ type: 'GAME_RESUMED' }));
 
         return () => {
             socket.off('room:updated');
@@ -160,6 +170,8 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
             socket.off('movie:stage_advance');
             socket.off('movie:answer_result');
             socket.off('movie:reveal');
+            socket.off('game:paused');
+            socket.off('game:resumed');
         };
     }, [socket]);
 

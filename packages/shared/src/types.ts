@@ -83,6 +83,9 @@ export interface Room {
     created_at: number;
     settings: RoomSettings;
     movie_state: MovieRoomState | null; // null when not in movie mode
+    paused: boolean;
+    paused_at: number | null;          // unix ms when pause started
+    pause_elapsed_ms: number;          // accumulated ms spent paused
 }
 
 export type ContentRating = 'family' | 'adult' | 'spicy';

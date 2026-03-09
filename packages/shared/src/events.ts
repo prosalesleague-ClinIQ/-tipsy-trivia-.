@@ -194,6 +194,9 @@ export interface ServerToClientEvents {
     'movie:stage_advance': (data: MovieStageAdvancePayload) => void;
     'movie:answer_result': (data: MovieAnswerResultPayload) => void;
     'movie:reveal': (data: MovieRevealPayload) => void;
+    // Pause / navigation events
+    'game:paused': () => void;
+    'game:resumed': () => void;
 }
 
 export interface ClientToServerEvents {
@@ -220,4 +223,8 @@ export interface ClientToServerEvents {
     'movie:answer': (data: { question_id: string; answer: string | number; client_time_ms: number }) => void;
     'movie:hint_advance': () => void;  // Host only: force advance to next stage
     'movie:start': (data: { settings: MovieModeSettings }) => void;
+    // Pause / navigation events
+    'game:pause': () => void;
+    'game:resume': () => void;
+    'room:leave': () => void;
 }

@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
 import { useSpeech } from '../state/useSpeech';
 import { motion } from 'framer-motion';
-import { Users, Zap, Flame, Brain, Loader2 } from 'lucide-react';
+import { Users, Zap, Flame, Brain, Loader2, Pause } from 'lucide-react';
+import NavButtons from '../components/shared/NavButtons';
+import PauseOverlay from '../components/shared/PauseOverlay';
 import type { HostConfig, GameMode, Difficulty, ContentRating, MovieModeSettings } from '@tipsy-trivia/shared';
 import HostLobbyScreen from '../components/host/HostLobbyScreen';
 import HostComedianSetup from '../components/host/HostComedianSetup';
@@ -32,6 +35,7 @@ const CONTENT_OPTIONS: { value: ContentRating; label: string; desc: string; colo
 ];
 
 export default function HostPage() {
+    const navigate = useNavigate();
     const { socket, connected, warmupStatus } = useSocket();
     const { state, dispatch } = useGameState();
     const [roomCode, setRoomCode] = useState<string | null>(null);
@@ -160,6 +164,28 @@ export default function HostPage() {
         setScreen('mode_select');
     };
 
+    // ── Navigation & Pause handlers ────────────────────────────
+    const canGoBack = screen === 'comedian' || screen === 'mode_select' || screen === 'movie_setup';
+
+    const handleBack = () => {
+        if (screen === 'movie_setup') { setScreen('mode_select'); return; }
+        if (screen === 'mode_select') { setScreen('comedian'); return; }
+        if (screen === 'comedian') { setScreen('lobby'); return; }
+    };
+
+    const handleHome = () => {
+        socket?.emit('room:leave');
+        stop();
+        dispatch({ type: 'RESET' });
+        navigate('/');
+    };
+
+    const handlePause = () => { socket?.emit('game:pause'); };
+    const handleResume = () => { socket?.emit('game:resume'); };
+
+    const activeGamePhases = ['question', 'buzzer_wait', 'buzzer_answer', 'answer_reveal', 'movie_stage', 'movie_reveal'];
+    const showPauseButton = screen === 'game' && activeGamePhases.includes(state.room?.phase ?? '') && !state.isPaused;
+
     // ── Not connected ──────────────────────────────────────────
     if (!connected) {
         return (
@@ -280,20 +306,40 @@ export default function HostPage() {
     }
 
     if (screen === 'lobby') {
-        return <HostLobbyScreen roomCode={roomCode!} room={state.room} onNext={() => setScreen('comedian')} />;
+        return (
+            <>
+                <NavButtons showBack={false} onHome={handleHome} />
+                <HostLobbyScreen roomCode={roomCode!} room={state.room} onNext={() => setScreen('comedian')} />
+            </>
+        );
     }
     if (screen === 'comedian') {
-        return <HostComedianSetup onDone={setHostConfig} />;
+        return (
+            <>
+                <NavButtons showBack={true} onBack={handleBack} onHome={handleHome} />
+                <HostComedianSetup onDone={setHostConfig} />
+            </>
+        );
     }
     if (screen === 'mode_select') {
-        return <HostModeSelect onSelect={handleModeSelect} />;
+        return (
+            <>
+                <NavButtons showBack={true} onBack={handleBack} onHome={handleHome} />
+                <HostModeSelect onSelect={handleModeSelect} />
+            </>
+        );
     }
 
     if (screen === 'movie_setup') {
-        return <HostMovieSetup
-            onStart={startMovieGame}
-            onBack={() => setScreen('mode_select')}
-        />;
+        return (
+            <>
+                <NavButtons showBack={true} onBack={handleBack} onHome={handleHome} />
+                <HostMovieSetup
+                    onStart={startMovieGame}
+                    onBack={() => setScreen('mode_select')}
+                />
+            </>
+        );
     }
 
     const phase = state.room?.phase;
@@ -321,8 +367,26 @@ export default function HostPage() {
         <>
             {isLadder && <Ladder3D currentStep={currentStep} maxSteps={15} />}
             <div className={isLadder ? "relative z-10 w-full h-full" : "animated-bg"}>
+                <NavButtons showBack={false} onHome={handleHome} />
+
+                {showPauseButton && (
+                    <motion.button
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="fixed top-4 right-4 z-40 glass px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-white/15 transition-colors cursor-pointer"
+                        onClick={handlePause}
+                    >
+                        <Pause className="w-5 h-5 text-brand-gold" />
+                        <span className="font-display font-bold text-sm text-brand-gold">Pause</span>
+                    </motion.button>
+                )}
+
                 {renderGameScreen()}
             </div>
+
+            <PauseOverlay visible={state.isPaused} isHost={true} onResume={handleResume} />
         </>
     );
 }

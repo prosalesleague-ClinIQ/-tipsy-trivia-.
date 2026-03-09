@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useSocket } from '../socket/SocketProvider';
 import { useGameState } from '../state/GameStateContext';
 import { Loader2, Tv } from 'lucide-react';
 import DPadController from '../components/player/DPadController';
+import NavButtons from '../components/shared/NavButtons';
+import PauseOverlay from '../components/shared/PauseOverlay';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
@@ -17,7 +20,7 @@ const CTRL_COLORS = [
 
 type Screen = 'join' | 'waiting' | 'jeopardy_board' | 'question' | 'buzzer' | 'reveal' | 'scoreboard' | 'end' | 'movie_answer' | 'movie_solved' | 'movie_reveal';
 
-export default function PlayPage() {
+function PlayPageInner() {
     const { socket, connected, warmupStatus } = useSocket();
     const { state, dispatch } = useGameState();
     const [screen, setScreen] = useState<Screen>('join');
@@ -708,4 +711,29 @@ export default function PlayPage() {
     }
 
     return null;
+}
+
+// Wrapper that adds NavButtons + PauseOverlay on top of PlayPage screens
+export default function PlayPage() {
+    const { state } = useGameState();
+    const { socket } = useSocket();
+    const navigate = useNavigate();
+
+    const handleHome = () => {
+        socket?.emit('room:leave');
+        sessionStorage.removeItem('sessionToken');
+        sessionStorage.removeItem('joinCode');
+        navigate('/');
+    };
+
+    // Show nav once the player has joined a room (past the join screen)
+    const inGame = !!state.room;
+
+    return (
+        <>
+            {inGame && <NavButtons showBack={false} onHome={handleHome} />}
+            <PauseOverlay visible={state.isPaused} isHost={false} />
+            <PlayPageInner />
+        </>
+    );
 }

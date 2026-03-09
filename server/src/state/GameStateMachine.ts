@@ -19,6 +19,9 @@ export class GameStateMachine {
     private questionManager: QuestionManager;
     private hostEngine: ComedianHostEngine;
     private timers = new Map<string, NodeJS.Timeout>();
+    private timerStartedAt = new Map<string, number>();
+    private timerDuration = new Map<string, number>();
+    private timerCallback = new Map<string, () => void>();
     private questionNums = new Map<string, number>();
 
     constructor(io: Server<ClientToServerEvents, ServerToClientEvents>) {
@@ -106,13 +109,13 @@ export class GameStateMachine {
 
         // Start countdown timer — enforce minimum 20 s so players have time to read + answer
         const timerMs = Math.max(question.time_limit_seconds, 20) * 1000;
-        const timer = setTimeout(() => {
-            this.revealAnswer(room, question);
-        }, timerMs);
-        this.setTimer(room.code, timer);
+        const cb = () => { this.revealAnswer(room, question); };
+        const timer = setTimeout(cb, timerMs);
+        this.setTimer(room.code, timer, timerMs, cb);
     }
 
     async processAnswer(room: Room, playerId: string, answerIndex: number, clientTimeMs: number): Promise<void> {
+        if (room.paused) return;
         const player = room.players[playerId];
         const question = this.questionManager.getQuestion(room.current_question_id!);
         if (!player || !question || player.answered) return;
@@ -173,7 +176,7 @@ export class GameStateMachine {
             host_reaction: reaction,
         });
 
-        setTimeout(() => {
+        const revealCb = () => {
             if (room.mode === 'jeopardy') {
                 const allAnswered = room.jeopardy_board?.every(col => col.every(c => c.answered));
                 if (allAnswered) {
@@ -184,10 +187,13 @@ export class GameStateMachine {
             } else {
                 this.showNextQuestion(room);
             }
-        }, 6000);
+        };
+        const revealTimer = setTimeout(revealCb, 6000);
+        this.setTimer(room.code, revealTimer, 6000, revealCb);
     }
 
     async processBuzzer(room: Room, playerId: string, clientTimeMs: number): Promise<void> {
+        if (room.paused) return;
         if (!room.settings.buzzer_enabled) return;
         if (room.buzzer_locked) return;
         if (room.phase !== 'question') return;
@@ -209,7 +215,7 @@ export class GameStateMachine {
         });
 
         // 5 second answer window
-        const timer = setTimeout(async () => {
+        const buzzerCb = async () => {
             const question = this.questionManager.getQuestion(room.current_question_id!);
             if (question) {
                 // Missed buzzer answer — treat as wrong
@@ -219,8 +225,9 @@ export class GameStateMachine {
                 this.io.to(room.code).emit('buzzer:fail', { player_id: playerId });
                 await this.revealAnswer(room, question);
             }
-        }, 5000);
-        this.setTimer(room.code, timer);
+        };
+        const timer = setTimeout(buzzerCb, 5000);
+        this.setTimer(room.code, timer, 5000, buzzerCb);
     }
 
     async endRound(room: Room): Promise<void> {
@@ -277,9 +284,16 @@ export class GameStateMachine {
             }));
     }
 
-    private setTimer(roomCode: string, timer: NodeJS.Timeout): void {
+    private setTimer(roomCode: string, timer: NodeJS.Timeout, durationMs?: number, callback?: () => void): void {
         this.clearTimer(roomCode);
         this.timers.set(roomCode, timer);
+        if (durationMs !== undefined) {
+            this.timerStartedAt.set(roomCode, Date.now());
+            this.timerDuration.set(roomCode, durationMs);
+        }
+        if (callback) {
+            this.timerCallback.set(roomCode, callback);
+        }
     }
 
     private clearTimer(roomCode: string): void {
@@ -288,6 +302,37 @@ export class GameStateMachine {
             clearTimeout(t);
             this.timers.delete(roomCode);
         }
+        this.timerStartedAt.delete(roomCode);
+        this.timerDuration.delete(roomCode);
+        this.timerCallback.delete(roomCode);
+    }
+
+    pauseTimers(roomCode: string): void {
+        const startedAt = this.timerStartedAt.get(roomCode);
+        const duration = this.timerDuration.get(roomCode);
+        const cb = this.timerCallback.get(roomCode);
+        if (startedAt === undefined || duration === undefined) return;
+
+        const elapsed = Date.now() - startedAt;
+        const remaining = Math.max(0, duration - elapsed);
+
+        // Clear the active timeout but keep the metadata for resume
+        const t = this.timers.get(roomCode);
+        if (t) { clearTimeout(t); this.timers.delete(roomCode); }
+
+        // Store remaining as the new duration for resume
+        this.timerDuration.set(roomCode, remaining);
+        this.timerStartedAt.delete(roomCode);
+    }
+
+    resumeTimers(roomCode: string): void {
+        const remaining = this.timerDuration.get(roomCode);
+        const cb = this.timerCallback.get(roomCode);
+        if (remaining === undefined || !cb) return;
+
+        const timer = setTimeout(cb, remaining);
+        this.timers.set(roomCode, timer);
+        this.timerStartedAt.set(roomCode, Date.now());
     }
 
     getCategories(): string[] {
@@ -354,10 +399,9 @@ export class GameStateMachine {
         });
 
         const timerMs = Math.max(question.time_limit_seconds, 20) * 1000;
-        const timer = setTimeout(() => {
-            this.revealAnswer(room, question);
-        }, timerMs);
-        this.setTimer(room.code, timer);
+        const jCb = () => { this.revealAnswer(room, question); };
+        const timer = setTimeout(jCb, timerMs);
+        this.setTimer(room.code, timer, timerMs, jCb);
     }
 }
 

@@ -64,6 +64,9 @@ export class RoomManager {
             created_at: Date.now(),
             settings: this.defaultSettings(),
             movie_state: null,
+            paused: false,
+            paused_at: null,
+            pause_elapsed_ms: 0,
         };
         this.rooms.set(code, room);
         return room;
